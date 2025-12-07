@@ -52,8 +52,6 @@ const theme = createTheme({
 })
 
 const API_BASE = 'http://localhost:8000'
-const BLACKLIST_KEY = 'spareroom_blacklist'
-const SHORTLIST_KEY = 'spareroom_shortlist'
 
 // Convert weekly rent to monthly (52 weeks / 12 months)
 const weeklyToMonthly = (weeklyPrice) => Math.round(weeklyPrice * 52 / 12)
@@ -76,15 +74,10 @@ function App() {
   const [rules, setRules] = useState([])
   const [chatLoading, setChatLoading] = useState(false)
   const [listingsLoading, setListingsLoading] = useState(false)
+  const [scoringProgress, setScoringProgress] = useState({ scored: 0, total: 0 })
   const [activeTab, setActiveTab] = useState(0)
-  const [blacklist, setBlacklist] = useState(() => {
-    const saved = localStorage.getItem(BLACKLIST_KEY)
-    return saved ? JSON.parse(saved) : []
-  })
-  const [shortlist, setShortlist] = useState(() => {
-    const saved = localStorage.getItem(SHORTLIST_KEY)
-    return saved ? JSON.parse(saved) : []
-  })
+  const [blacklist, setBlacklist] = useState([])
+  const [shortlist, setShortlist] = useState([])
 
   // AbortController refs to cancel in-flight requests
   const chatAbortRef = useRef(null)
@@ -94,16 +87,6 @@ function App() {
   useEffect(() => {
     fetch(`${API_BASE}/api/reset`, { method: 'POST' }).catch(() => {})
   }, [])
-
-  // Persist blacklist to localStorage
-  useEffect(() => {
-    localStorage.setItem(BLACKLIST_KEY, JSON.stringify(blacklist))
-  }, [blacklist])
-
-  // Persist shortlist to localStorage
-  useEffect(() => {
-    localStorage.setItem(SHORTLIST_KEY, JSON.stringify(shortlist))
-  }, [shortlist])
 
   const sendMessage = async (text) => {
     // Cancel any in-flight requests
@@ -131,24 +114,61 @@ function App() {
       setRules(chatData.hardRules || [])
       setChatLoading(false)
 
-      // Then, get reranked listings with scores (separate loading state)
+      // Then, get reranked listings with scores via streaming
       setListingsLoading(true)
+      setListings([])
+      setScoringProgress({ scored: 0, total: 0 })
+
       const conversation = [...newMessages, { role: 'assistant', content: chatData.assistantMessage }]
-      const matchRes = await fetch(`${API_BASE}/api/find-matches`, {
+      const matchRes = await fetch(`${API_BASE}/api/find-matches-stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ conversation }),
         signal: matchAbortRef.current.signal
       })
-      const matchData = await matchRes.json()
 
-      // Process listings with scores and normalize rent
-      const rankedListings = (matchData.matches || []).map(m => ({
-        ...normalizeRent(m.listing),
-        score: m.score,
-        reasoning: m.reasoning
-      }))
-      setListings(rankedListings)
+      // Read SSE stream
+      const reader = matchRes.body.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ''
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        buffer += decoder.decode(value, { stream: true })
+        const lines = buffer.split('\n')
+        buffer = lines.pop() || ''
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6))
+
+              if (data.type === 'init') {
+                setScoringProgress({ scored: 0, total: data.total })
+              } else if (data.type === 'score') {
+                const match = data.match
+                const listing = {
+                  ...normalizeRent(match.listing),
+                  score: match.score,
+                  reasoning: match.reasoning
+                }
+                setListings(prev => {
+                  const updated = [...prev, listing]
+                  // Sort by score descending
+                  return updated.sort((a, b) => (b.score || 0) - (a.score || 0))
+                })
+                setScoringProgress(prev => ({ ...prev, scored: prev.scored + 1 }))
+              } else if (data.type === 'done') {
+                setListingsLoading(false)
+              }
+            } catch (e) {
+              console.error('Failed to parse SSE data:', e)
+            }
+          }
+        }
+      }
     } catch (err) {
       // Ignore abort errors, show message for other errors
       if (err.name !== 'AbortError') {
@@ -282,6 +302,7 @@ function App() {
                   onShortlist={handleShortlist}
                   onUndo={handleUndoBlacklist}
                   mode="matches"
+                  scoringProgress={scoringProgress}
                 />
               )}
 
