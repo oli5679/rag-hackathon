@@ -1,7 +1,9 @@
+import asyncio
+import json
 from datetime import date
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
@@ -30,12 +32,14 @@ Today's date: {today}
 
 Your goal is to understand what the user is looking for by asking clarifying questions. Key topics to cover:
 1. Monthly budget (max rent per month) - ESSENTIAL. Always ask for their "monthly budget" explicitly.
-2. Commute - ask naturally in ONE question like:
-   "Where do you commute to for work or study, how will you get there, and what's the max travel time you'd be happy with?"
-   This captures: destination, transport mode, and acceptable time
+2. Commute - ask in a simple, direct way like:
+   "Where will you need to commute to? And how long are you willing to spend getting there?"
+   Keep it short and conversational - don't try to ask about transport mode in the same question
 3. Move-in date / timeline
-4. Property preferences (house share vs flat, furnished, bills included)
-5. Any deal-breakers (pets, couples, parking, minimum term)
+4. How long they're looking to stay (minimum tenancy) - ask something like:
+   "How long are you looking to stay? Some places require 6 or 12 month minimums."
+5. Property preferences (house share vs flat, furnished, bills included)
+6. Any deal-breakers (pets, couples, parking)
 
 Current known preferences: {rules}
 
@@ -125,11 +129,13 @@ def rules_to_ideal(rules: list) -> dict:
             ideal["pets_ok"] = "Yes"
         elif field == "bills_included":
             ideal["bills_included"] = "Yes"
+        elif field == "min_tenancy":
+            ideal["min_tenancy"] = value  # User's minimum commitment in months
 
     return ideal
 
 
-def get_listings_from_redis(rules: list) -> list[dict]:
+async def get_listings_from_redis(rules: list) -> list[dict]:
     """Get listings from Redis with vector search and filtering."""
     # Build search query from rules
     ideal = rules_to_ideal(rules)
@@ -143,7 +149,7 @@ def get_listings_from_redis(rules: list) -> list[dict]:
         query_parts.append("pet friendly")
 
     query_text = " ".join(query_parts)
-    query_embedding = openai_client.embed(query_text)
+    query_embedding = await openai_client.embed(query_text)
 
     # Vector search
     listings = redis_client.search(query_embedding, top_k=50)
@@ -154,12 +160,12 @@ def get_listings_from_redis(rules: list) -> list[dict]:
     return filtered[:3]
 
 
-def extract_rules(message: str, existing_rules: list) -> list:
+async def extract_rules(message: str, existing_rules: list) -> list:
     """Extract hard rules using LLM for better natural language understanding."""
-    return openai_client.extract_rules(message, existing_rules)
+    return await openai_client.extract_rules(message, existing_rules)
 
 
-def generate_response(message: str, rules: list) -> str:
+async def generate_response(message: str, rules: list) -> str:
     rules_text = ", ".join([f"{r['field']}: {r['value']}" for r in rules]) or "None yet"
     today = date.today().strftime("%A, %d %B %Y")
     system = SYSTEM_PROMPT.format(rules=rules_text, today=today)
@@ -167,77 +173,76 @@ def generate_response(message: str, rules: list) -> str:
     conversation_history.append({"role": "user", "content": message})
 
     messages = [{"role": "system", "content": system}] + conversation_history[-10:]
-    reply = openai_client.chat(messages)
+    reply = await openai_client.chat(messages)
     conversation_history.append({"role": "assistant", "content": reply})
     return reply
 
 
 @app.post("/api/chat")
-def chat(request: ChatRequest):
+async def chat(request: ChatRequest):
     global current_rules
-    current_rules = extract_rules(request.message, current_rules)
+    current_rules = await extract_rules(request.message, current_rules)
 
     return {
-        "assistantMessage": generate_response(request.message, current_rules),
+        "assistantMessage": await generate_response(request.message, current_rules),
         "hardRules": current_rules,
-        "topListings": get_listings_from_redis(current_rules)
+        "topListings": await get_listings_from_redis(current_rules)
     }
 
 
 @app.get("/api/rules")
-def get_rules():
+async def get_rules():
     return {"hardRules": current_rules}
 
 
 @app.put("/api/rules")
-def update_rules(request: RulesRequest):
+async def update_rules(request: RulesRequest):
     global current_rules
     current_rules = request.hardRules
-    return {"hardRules": current_rules, "topListings": get_listings_from_redis(current_rules)}
+    return {"hardRules": current_rules, "topListings": await get_listings_from_redis(current_rules)}
 
 
 @app.post("/api/find-matches")
-def find_matches(request: ConversationRequest):
+async def find_matches(request: ConversationRequest):
     """Full RAG pipeline: conversation → ideal → search → filter → rerank."""
     conversation = [{"role": m.role, "content": m.content} for m in request.conversation]
 
-    # 1. Generate ideal listing and summary (can run in parallel)
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        ideal_future = executor.submit(openai_client.generate_ideal_listing, conversation)
-        summary_future = executor.submit(openai_client.summarize_conversation, conversation)
-        ideal = ideal_future.result()
-        summary = summary_future.result()
+    # 1. Generate ideal listing and summary in parallel
+    ideal, summary = await asyncio.gather(
+        openai_client.generate_ideal_listing(conversation),
+        openai_client.summarize_conversation(conversation)
+    )
 
     # 2. Vector search
-    query_embedding = openai_client.embed(summary)
+    query_embedding = await openai_client.embed(summary)
     candidates = redis_client.search(query_embedding, top_k=50)
 
     # 3. Filter based on ideal listing
     filtered = filter_by_ideal(candidates, ideal)[:30]
 
-    # 4. Rerank top candidates with GPT-4 + images (parallel)
-    def score_one(listing):
-        score = openai_client.score_listing(
-            conversation_summary=summary,
-            ideal_listing=ideal,
-            listing_summary=listing["summary"],
-            image_urls=listing.get("image_urls", [])
-        )
-        return {
-            "listing": listing,
-            "score": score["overall_score"],
-            "reasoning": score
-        }
+    # 4. Rerank top candidates with GPT-4 + images in parallel
+    async def score_one(listing):
+        try:
+            score = await openai_client.score_listing(
+                conversation_summary=summary,
+                ideal_listing=ideal,
+                listing_summary=listing["summary"],
+                image_urls=listing.get("image_urls", [])
+            )
+            return {
+                "listing": listing,
+                "score": score["overall_score"],
+                "reasoning": score
+            }
+        except Exception as e:
+            print(f"Scoring error: {e}")
+            return None
 
-    scored = []
-    with ThreadPoolExecutor(max_workers=5) as executor:
-        futures = {executor.submit(score_one, listing): listing for listing in filtered[:15]}
-        for future in as_completed(futures):
-            try:
-                scored.append(future.result())
-            except Exception as e:
-                print(f"Scoring error: {e}")
+    # Score all listings in parallel using asyncio.gather
+    results = await asyncio.gather(*[score_one(listing) for listing in filtered[:15]])
 
+    # Filter out None results (failed scoring) and sort by score
+    scored = [r for r in results if r is not None]
     scored.sort(key=lambda x: x["score"], reverse=True)
 
     return {
@@ -247,8 +252,72 @@ def find_matches(request: ConversationRequest):
     }
 
 
+@app.post("/api/find-matches-stream")
+async def find_matches_stream(request: ConversationRequest):
+    """Streaming RAG pipeline: returns results as they are scored."""
+    conversation = [{"role": m.role, "content": m.content} for m in request.conversation]
+
+    async def generate():
+        # 1. Generate ideal listing and summary in parallel
+        ideal, summary = await asyncio.gather(
+            openai_client.generate_ideal_listing(conversation),
+            openai_client.summarize_conversation(conversation)
+        )
+
+        # 2. Vector search
+        query_embedding = await openai_client.embed(summary)
+        candidates = redis_client.search(query_embedding, top_k=50)
+
+        # 3. Filter based on ideal listing
+        filtered = filter_by_ideal(candidates, ideal)[:30]
+        to_score = filtered[:15]
+
+        # Send initial data with candidates (unscored)
+        yield f"data: {json.dumps({'type': 'init', 'total': len(to_score), 'idealListing': ideal, 'summary': summary})}\n\n"
+
+        # 4. Score listings in parallel, yielding results as they complete
+        async def score_one(listing, index):
+            try:
+                score = await openai_client.score_listing(
+                    conversation_summary=summary,
+                    ideal_listing=ideal,
+                    listing_summary=listing["summary"],
+                    image_urls=listing.get("image_urls", [])
+                )
+                return {
+                    "index": index,
+                    "listing": listing,
+                    "score": score["overall_score"],
+                    "reasoning": score
+                }
+            except Exception as e:
+                print(f"Scoring error: {e}")
+                return None
+
+        # Create tasks for all listings
+        tasks = [asyncio.create_task(score_one(listing, i)) for i, listing in enumerate(to_score)]
+
+        # Yield results as they complete
+        for coro in asyncio.as_completed(tasks):
+            result = await coro
+            if result:
+                yield f"data: {json.dumps({'type': 'score', 'match': result})}\n\n"
+
+        # Send done signal
+        yield f"data: {json.dumps({'type': 'done'})}\n\n"
+
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+        }
+    )
+
+
 @app.post("/api/reset")
-def reset_state():
+async def reset_state():
     """Reset all in-memory state (for page refresh)."""
     global current_rules, conversation_history
     current_rules = []
@@ -257,5 +326,5 @@ def reset_state():
 
 
 @app.get("/health")
-def health():
+async def health():
     return {"status": "healthy"}
