@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline, Box, AppBar, Toolbar, Typography } from '@mui/material'
 import ChatPanel from './components/ChatPanel'
@@ -80,6 +80,10 @@ function App() {
     return saved ? JSON.parse(saved) : []
   })
 
+  // AbortController refs to cancel in-flight requests
+  const chatAbortRef = useRef(null)
+  const matchAbortRef = useRef(null)
+
   // Reset backend state on page load
   useEffect(() => {
     fetch(`${API_BASE}/api/reset`, { method: 'POST' }).catch(() => {})
@@ -91,6 +95,14 @@ function App() {
   }, [blacklist])
 
   const sendMessage = async (text) => {
+    // Cancel any in-flight requests
+    if (chatAbortRef.current) chatAbortRef.current.abort()
+    if (matchAbortRef.current) matchAbortRef.current.abort()
+
+    // Create new AbortControllers
+    chatAbortRef.current = new AbortController()
+    matchAbortRef.current = new AbortController()
+
     const newMessages = [...messages, { role: 'user', content: text }]
     setMessages(newMessages)
     setChatLoading(true)
@@ -100,7 +112,8 @@ function App() {
       const chatRes = await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text })
+        body: JSON.stringify({ message: text }),
+        signal: chatAbortRef.current.signal
       })
       const chatData = await chatRes.json()
       setMessages(prev => [...prev, { role: 'assistant', content: chatData.assistantMessage }])
@@ -113,7 +126,8 @@ function App() {
       const matchRes = await fetch(`${API_BASE}/api/find-matches`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ conversation })
+        body: JSON.stringify({ conversation }),
+        signal: matchAbortRef.current.signal
       })
       const matchData = await matchRes.json()
 
@@ -124,8 +138,11 @@ function App() {
         reasoning: m.reasoning
       }))
       setListings(rankedListings)
-    } catch {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, something went wrong.' }])
+    } catch (err) {
+      // Ignore abort errors, show message for other errors
+      if (err.name !== 'AbortError') {
+        setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, something went wrong.' }])
+      }
     } finally {
       setChatLoading(false)
       setListingsLoading(false)
@@ -133,6 +150,10 @@ function App() {
   }
 
   const deleteRule = async (field) => {
+    // Cancel any in-flight match request
+    if (matchAbortRef.current) matchAbortRef.current.abort()
+    matchAbortRef.current = new AbortController()
+
     const newRules = rules.filter(r => r.field !== field)
     try {
       const res = await fetch(`${API_BASE}/api/rules`, {
@@ -148,7 +169,8 @@ function App() {
         const matchRes = await fetch(`${API_BASE}/api/find-matches`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ conversation: messages })
+          body: JSON.stringify({ conversation: messages }),
+          signal: matchAbortRef.current.signal
         })
         const matchData = await matchRes.json()
         const rankedListings = (matchData.matches || []).map(m => ({
@@ -160,7 +182,9 @@ function App() {
         setListingsLoading(false)
       }
     } catch (err) {
-      console.error('Failed to update rules:', err)
+      if (err.name !== 'AbortError') {
+        console.error('Failed to update rules:', err)
+      }
       setListingsLoading(false)
     }
   }

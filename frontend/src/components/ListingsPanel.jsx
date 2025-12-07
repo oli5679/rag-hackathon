@@ -1,10 +1,73 @@
-import { useState } from 'react'
-import { Box, Paper, Typography, Card, CardMedia, CardContent, CircularProgress, IconButton, Link, Chip, Button, Pagination } from '@mui/material'
+import { useState, useEffect } from 'react'
+import { Box, Paper, Typography, Card, CardMedia, CardContent, CircularProgress, IconButton, Link, Chip, Button, Pagination, LinearProgress } from '@mui/material'
 import ThumbDownIcon from '@mui/icons-material/ThumbDown'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import UndoIcon from '@mui/icons-material/Undo'
 
 const ITEMS_PER_PAGE = 5
+
+const LOADING_MESSAGES = [
+  'Searching SpareRoom listings...',
+  'Finding rooms that match your criteria...',
+  'Analyzing listing photos...',
+  'Checking locations and commute times...',
+  'Scoring rooms based on your preferences...',
+  'Ranking the best matches...',
+]
+
+function LoadingIndicator() {
+  const [messageIndex, setMessageIndex] = useState(0)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    // Cycle through messages every 3 seconds
+    const messageInterval = setInterval(() => {
+      setMessageIndex(prev => (prev + 1) % LOADING_MESSAGES.length)
+    }, 3000)
+
+    // Update progress bar smoothly
+    const progressInterval = setInterval(() => {
+      setProgress(prev => {
+        // Slow down as we approach 90%
+        if (prev >= 90) return prev
+        if (prev >= 70) return prev + 0.5
+        if (prev >= 50) return prev + 1
+        return prev + 2
+      })
+    }, 200)
+
+    return () => {
+      clearInterval(messageInterval)
+      clearInterval(progressInterval)
+    }
+  }, [])
+
+  return (
+    <Box sx={{ textAlign: 'center', py: 4 }}>
+      <CircularProgress size={32} sx={{ mb: 2 }} />
+      <Typography color="text.primary" variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+        {LOADING_MESSAGES[messageIndex]}
+      </Typography>
+      <Box sx={{ width: '80%', mx: 'auto', mt: 2 }}>
+        <LinearProgress
+          variant="determinate"
+          value={progress}
+          sx={{
+            height: 6,
+            borderRadius: 3,
+            bgcolor: 'grey.200',
+            '& .MuiLinearProgress-bar': {
+              borderRadius: 3,
+            }
+          }}
+        />
+      </Box>
+      <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+        This may take a moment...
+      </Typography>
+    </Box>
+  )
+}
 
 function ListingsPanel({ listings, loading, onReject, blacklist, onUndo }) {
   const [page, setPage] = useState(1)
@@ -43,7 +106,7 @@ function ListingsPanel({ listings, loading, onReject, blacklist, onUndo }) {
           <Typography variant="h6" sx={{ color: 'text.primary' }}>
             Top Matches
           </Typography>
-          {filteredListings.length > 0 && (
+          {filteredListings.length > 0 && !loading && (
             <Chip
               label={filteredListings.length}
               size="small"
@@ -51,7 +114,6 @@ function ListingsPanel({ listings, loading, onReject, blacklist, onUndo }) {
               variant="outlined"
             />
           )}
-          {loading && <CircularProgress size={20} />}
         </Box>
         {blacklist.length > 0 && (
           <IconButton size="small" onClick={onUndo} title="Undo last rejection">
@@ -60,20 +122,22 @@ function ListingsPanel({ listings, loading, onReject, blacklist, onUndo }) {
         )}
       </Box>
 
-      {listings.length > 0 && (
+      {listings.length > 0 && !loading && (
         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
           Based on your preferences
         </Typography>
       )}
 
-      {filteredListings.length === 0 ? (
+      {loading ? (
+        <LoadingIndicator />
+      ) : filteredListings.length === 0 ? (
         <Box sx={{ textAlign: 'center', py: 4 }}>
           <Typography color="text.secondary" variant="body2" sx={{ mb: 1 }}>
-            {loading ? 'Finding matches...' : listings.length > 0
+            {listings.length > 0
               ? 'No more listings to show'
               : 'Send a message to see matches'}
           </Typography>
-          {!loading && listings.length > 0 && (
+          {listings.length > 0 && (
             <Typography color="text.secondary" variant="body2" sx={{ fontStyle: 'italic' }}>
               Share more details in the chat to search again
             </Typography>

@@ -1,4 +1,5 @@
 from datetime import date
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -200,9 +201,12 @@ def find_matches(request: ConversationRequest):
     """Full RAG pipeline: conversation → ideal → search → filter → rerank."""
     conversation = [{"role": m.role, "content": m.content} for m in request.conversation]
 
-    # 1. Generate ideal listing and summary
-    ideal = openai_client.generate_ideal_listing(conversation)
-    summary = openai_client.summarize_conversation(conversation)
+    # 1. Generate ideal listing and summary (can run in parallel)
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        ideal_future = executor.submit(openai_client.generate_ideal_listing, conversation)
+        summary_future = executor.submit(openai_client.summarize_conversation, conversation)
+        ideal = ideal_future.result()
+        summary = summary_future.result()
 
     # 2. Vector search
     query_embedding = openai_client.embed(summary)
@@ -211,20 +215,28 @@ def find_matches(request: ConversationRequest):
     # 3. Filter based on ideal listing
     filtered = filter_by_ideal(candidates, ideal)[:30]
 
-    # 4. Rerank top candidates with GPT-4 + images
-    scored = []
-    for listing in filtered[:15]:
+    # 4. Rerank top candidates with GPT-4 + images (parallel)
+    def score_one(listing):
         score = openai_client.score_listing(
             conversation_summary=summary,
             ideal_listing=ideal,
             listing_summary=listing["summary"],
             image_urls=listing.get("image_urls", [])
         )
-        scored.append({
+        return {
             "listing": listing,
             "score": score["overall_score"],
             "reasoning": score
-        })
+        }
+
+    scored = []
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {executor.submit(score_one, listing): listing for listing in filtered[:15]}
+        for future in as_completed(futures):
+            try:
+                scored.append(future.result())
+            except Exception as e:
+                print(f"Scoring error: {e}")
 
     scored.sort(key=lambda x: x["score"], reverse=True)
 
