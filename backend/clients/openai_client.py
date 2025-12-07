@@ -67,9 +67,12 @@ Return JSON with this schema (use null for unspecified fields):
     "postcode": "string postcode area or null",
     "property_type": "House share" or "Flat share" or "Studio" or null,
     "max_rent": number - maximum monthly rent or null,
-    "min_rent": number - minimum monthly rent or null
+    "min_rent": number - minimum monthly rent or null,
+    "target_location": "string - place user needs to commute to (e.g. 'Bank Station', 'Canary Wharf') or null",
+    "max_commute": "string - acceptable commute time (e.g. '30 minutes', '45 min by tube') or null"
 }
-Extract preferences from the conversation. Only set fields that are mentioned or clearly implied."""
+Extract preferences from the conversation. Only set fields that are mentioned or clearly implied.
+For target_location, look for workplace, office, university, or places they mentioned needing to get to."""
 
         conv_text = "\n".join([f"{m['role']}: {m['content']}" for m in conversation])
 
@@ -85,19 +88,25 @@ Extract preferences from the conversation. Only set fields that are mentioned or
 
     def extract_rules(self, message: str, existing_rules: list[dict]) -> list[dict]:
         """Use LLM to extract hard requirements from a user message."""
-        system = """You extract search filters from user messages about room hunting.
+        system = """You extract search filters from user messages about room hunting in London.
 
 RULES:
 - Only extract CLEAR preferences, not vague mentions or questions
 - Be reasonably strict: "under £700" or "max £700" → extract budget. "around £700" or "maybe £700" → don't extract
 - "I need pets allowed" or "I have a dog" → extract pets_allowed. "do you allow pets?" → don't extract
-- "in Camden" or "must be in zone 2" → extract location. "what's Camden like?" → don't extract
 - If user states a preference confidently, extract it. If they're asking or unsure, don't.
+
+LOCATION - Split into TWO parts:
+- target_location: WHERE they need to commute to (workplace, station, uni, friend's place)
+  Examples: "I work at Bank" → "Bank Station", "my office is in Canary Wharf" → "Canary Wharf"
+- max_commute: HOW FAR is acceptable (time or description)
+  Examples: "30 min commute" → "30 minutes", "not too far" → "45 minutes", "walkable" → "20 minutes walk"
 
 Return a JSON array of rules. Each rule has: field, value, and optionally unit.
 Supported fields:
 - max_budget (integer, unit: "GBP")
-- location (string - area name)
+- target_location (string - place user commutes TO, e.g. "Liverpool Street Station", "Canary Wharf")
+- max_commute (string - acceptable travel time, e.g. "30 minutes", "45 min by tube")
 - pets_allowed (boolean)
 - bills_included (boolean)
 - couples_ok (boolean)
@@ -136,21 +145,49 @@ Return the COMPLETE updated list (keep existing rules unless user contradicts th
         listing_summary: str,
         image_urls: list[str] = None
     ) -> dict:
-        system = """You are evaluating a room listing for a user searching for accommodation.
+        # Extract commute info for emphasis
+        target_location = ideal_listing.get("target_location")
+        max_commute = ideal_listing.get("max_commute")
+
+        commute_section = ""
+        if target_location:
+            commute_section = f"""
+IMPORTANT - COMMUTE REQUIREMENTS:
+The user needs to commute to: {target_location}
+Ideal max commute: {max_commute or 'not specified, assume ~40 minutes'}
+
+When scoring location_match, HEAVILY weight the commute:
+- Use your knowledge of London geography and transport links
+- Consider: Is this listing on a direct tube/bus line to their destination?
+- Estimate the likely commute time and compare to their requirement
+- A listing far from their workplace should score LOW on location even if it's a nice area
+"""
+
+        system = f"""You are evaluating a room listing for a user searching for accommodation in London.
 
 Analyze how well this listing matches the user's preferences and ideal listing criteria.
+{commute_section}
+IMPORTANT - IMAGE ANALYSIS:
+Look carefully at the listing photos and evaluate:
+- Room quality: Is it spacious, well-lit, clean, modern?
+- Furniture & decor: Quality of bed, desk, storage, overall style
+- Common areas: Kitchen, bathroom, living room condition
+- Red flags: Clutter, poor maintenance, cramped spaces, dark rooms
+- Overall appeal: Would this be a nice place to live?
+
+WITHIN BUDGET, PRIORITIZE THE NICEST LOOKING ROOMS. A listing that's under budget but looks great should score higher than one at the budget limit that looks average.
 
 Return JSON with this schema:
-{
-    "location_match": {"reasoning": "string", "score": number (1-100)},
-    "price_match": {"reasoning": "string", "score": number (1-100)},
-    "amenities_match": {"reasoning": "string", "score": number (1-100)},
-    "visual_quality": {"reasoning": "string", "score": number (1-100)},
-    "overall_reasoning": "string - 2-3 sentence summary",
+{{
+    "location_match": {{"reasoning": "string - MUST mention estimated commute time to target location if specified", "score": number (1-100)}},
+    "price_match": {{"reasoning": "string - consider value for money, not just if it's under budget", "score": number (1-100)}},
+    "amenities_match": {{"reasoning": "string", "score": number (1-100)}},
+    "visual_quality": {{"reasoning": "string - MUST describe what you see in the images: room size, light, cleanliness, furniture quality, overall vibe", "score": number (1-100)}},
+    "overall_reasoning": "string - 2-3 sentence summary emphasizing visual appeal",
     "overall_score": number (1-100)
-}
+}}
 
-Be critical and realistic. 50 is average, 70+ is good, 90+ is excellent."""
+Be critical and realistic. 50 is average, 70+ is good, 90+ is excellent. A beautiful room should significantly boost the overall score."""
 
         ideal_text = "\n".join([f"- {k}: {v}" for k, v in ideal_listing.items() if v is not None])
 

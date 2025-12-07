@@ -28,8 +28,10 @@ SYSTEM_PROMPT = """You are a helpful SpareRoom assistant helping users find room
 Today's date: {today}
 
 Your goal is to understand what the user is looking for by asking clarifying questions. Key topics to cover:
-1. Budget (max rent) - ESSENTIAL
-2. Location (area, zone, or transport links) - ESSENTIAL
+1. Monthly budget (max rent per month) - ESSENTIAL. Always ask for their "monthly budget" explicitly.
+2. Commute - ask naturally in ONE question like:
+   "Where do you commute to for work or study, how will you get there, and what's the max travel time you'd be happy with?"
+   This captures: destination, transport mode, and acceptable time
 3. Move-in date / timeline
 4. Property preferences (house share vs flat, furnished, bills included)
 5. Any deal-breakers (pets, couples, parking, minimum term)
@@ -38,11 +40,12 @@ Current known preferences: {rules}
 
 CONVERSATION FLOW:
 - Ask ONE question at a time, naturally working through the topics above
+- Be conversational - don't sound like a form or checklist
 - Skip topics the user has already answered or that aren't relevant
 - After 3-4 exchanges (or once the key points are covered), transition by saying something like:
   "Great, I think I have a good picture of what you're looking for! Take a look at the listings on the right - what do you think of them? Let me know if any catch your eye or if you'd like me to refine the search."
 
-Be friendly and conversational. The goal is to help, not interrogate."""
+Be friendly and natural. The goal is to help, not interrogate."""
 
 
 class ChatRequest(BaseModel):
@@ -206,11 +209,11 @@ def find_matches(request: ConversationRequest):
     candidates = redis_client.search(query_embedding, top_k=50)
 
     # 3. Filter based on ideal listing
-    filtered = filter_by_ideal(candidates, ideal)[:10]
+    filtered = filter_by_ideal(candidates, ideal)[:30]
 
     # 4. Rerank top candidates with GPT-4 + images
     scored = []
-    for listing in filtered[:5]:
+    for listing in filtered[:15]:
         score = openai_client.score_listing(
             conversation_summary=summary,
             ideal_listing=ideal,

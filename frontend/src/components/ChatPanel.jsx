@@ -39,12 +39,14 @@ function ChatPanel({ messages, onSend, loading }) {
           <Box sx={{
             textAlign: 'center',
             mt: 8,
-            p: 4,
+            p: 3,
             borderRadius: 2,
-            bgcolor: 'background.default'
+            bgcolor: 'background.default',
+            border: '1px solid',
+            borderColor: 'divider'
           }}>
-            <Typography color="text.secondary" variant="body1">
-              👋 Start by telling me what kind of room you're looking for!
+            <Typography variant="body1" color="text.primary" sx={{ fontWeight: 500 }}>
+              👋 Tell us anything we should know about what you're looking for in your flat, and we'll search SpareRoom for the closest matches
             </Typography>
           </Box>
         )}
