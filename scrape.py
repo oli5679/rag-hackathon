@@ -5,7 +5,7 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
-SEARCH_ID = '1400776620'
+SEARCH_ID = '1400724683'
 
 # Shared cookies and headers
 cookies = {
@@ -161,7 +161,7 @@ def main():
         print(f"  Found {len(ids)} IDs (total so far: {len(all_flatshare_ids)})")
         
         if offset < 990:  # Don't sleep after the last request
-            time.sleep(2)
+            time.sleep(5)
     
     # Remove duplicates while preserving order
     seen = set()
