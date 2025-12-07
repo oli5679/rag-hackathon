@@ -1,4 +1,3 @@
-import re
 from datetime import date
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -28,18 +27,22 @@ SYSTEM_PROMPT = """You are a helpful SpareRoom assistant helping users find room
 
 Today's date: {today}
 
-Your goal is to understand what the user is looking for by asking clarifying questions. Focus on gathering their preferences for:
-- Budget (max/min rent)
-- Location (area, postcode, transport links)
-- Availability (move-in date)
-- Property type (house share, flat share, studio)
-- Room features (furnished, bills included, ensuite)
-- Housemate preferences (professionals, students, gender)
-- Lifestyle (pets, couples, parking, minimum term)
+Your goal is to understand what the user is looking for by asking clarifying questions. Key topics to cover:
+1. Budget (max rent) - ESSENTIAL
+2. Location (area, zone, or transport links) - ESSENTIAL
+3. Move-in date / timeline
+4. Property preferences (house share vs flat, furnished, bills included)
+5. Any deal-breakers (pets, couples, parking, minimum term)
 
 Current known preferences: {rules}
 
-Be friendly and conversational. Ask ONE follow-up question at a time to clarify their requirements. Don't recommend specific listings yet - focus on understanding their needs."""
+CONVERSATION FLOW:
+- Ask ONE question at a time, naturally working through the topics above
+- Skip topics the user has already answered or that aren't relevant
+- After 3-4 exchanges (or once the key points are covered), transition by saying something like:
+  "Great, I think I have a good picture of what you're looking for! Take a look at the listings on the right - what do you think of them? Let me know if any catch your eye or if you'd like me to refine the search."
+
+Be friendly and conversational. The goal is to help, not interrogate."""
 
 
 class ChatRequest(BaseModel):
@@ -148,45 +151,8 @@ def get_listings_from_redis(rules: list) -> list[dict]:
 
 
 def extract_rules(message: str, existing_rules: list) -> list:
-    """Extract hard rules only when user expresses a clear requirement.
-
-    Only add rules when user uses strong language like 'must', 'need', 'max', 'under', 'require'.
-    Casual mentions should stay in conversation, not become hard filters.
-    """
-    msg = message.lower()
-    rules = list(existing_rules)
-
-    # Only extract budget if it's clearly a max/limit (e.g., "max £700", "under £700", "budget is £700")
-    budget_patterns = [
-        r'(?:max|maximum|under|below|up to|budget[^£]*|no more than)\s*£(\d+)',
-        r'£(\d+)\s*(?:max|maximum|or less|or under)',
-    ]
-    for pattern in budget_patterns:
-        if match := re.search(pattern, msg):
-            rules = [r for r in rules if r.get("field") != "max_budget"]
-            rules.append({"field": "max_budget", "value": int(match.group(1)), "unit": "GBP"})
-            break
-
-    # Only extract location if user says "must be in", "need to be in", "only in", etc.
-    locations = ["chelsea", "camden", "shoreditch", "brixton", "hampstead", "kensington", "zone 1", "central", "canary wharf", "greenwich", "stratford"]
-    location_patterns = [r'(?:must be|need to be|only|has to be|require)[^.]*\b(' + '|'.join(locations) + r')\b']
-    for pattern in location_patterns:
-        if match := re.search(pattern, msg):
-            rules = [r for r in rules if r.get("field") != "location"]
-            rules.append({"field": "location", "value": match.group(1).title()})
-            break
-
-    # Only extract pet requirement if user says "must allow", "need to allow", "require"
-    if re.search(r'(?:must|need|require|has to)[^.]*pet', msg):
-        rules = [r for r in rules if r.get("field") != "pets_allowed"]
-        rules.append({"field": "pets_allowed", "value": True})
-
-    # Only extract bills if user explicitly requires it
-    if re.search(r'(?:must|need|require)[^.]*bill[s]?\s+included', msg):
-        rules = [r for r in rules if r.get("field") != "bills_included"]
-        rules.append({"field": "bills_included", "value": True})
-
-    return rules
+    """Extract hard rules using LLM for better natural language understanding."""
+    return openai_client.extract_rules(message, existing_rules)
 
 
 def generate_response(message: str, rules: list) -> str:
