@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline, Box, AppBar, Toolbar, Typography } from '@mui/material'
 import ChatPanel from './components/ChatPanel'
@@ -52,31 +52,83 @@ const theme = createTheme({
 })
 
 const API_BASE = 'http://localhost:8000'
+const BLACKLIST_KEY = 'spareroom_blacklist'
+
+// Convert weekly rent to monthly (52 weeks / 12 months)
+const weeklyToMonthly = (weeklyPrice) => Math.round(weeklyPrice * 52 / 12)
+
+// Parse rent and normalize to monthly
+const normalizeRent = (listing) => {
+  const summary = (listing.summary || '').toLowerCase()
+  const isWeekly = summary.includes('pw') || summary.includes('per week') || summary.includes('/week')
+  const price = listing.price || 0
+  return {
+    ...listing,
+    price: isWeekly ? weeklyToMonthly(price) : price,
+    priceLabel: isWeekly ? `£${price}pw (£${weeklyToMonthly(price)}/mo)` : `£${price}/month`
+  }
+}
 
 function App() {
   const [messages, setMessages] = useState([])
   const [listings, setListings] = useState([])
   const [rules, setRules] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [chatLoading, setChatLoading] = useState(false)
+  const [listingsLoading, setListingsLoading] = useState(false)
+  const [blacklist, setBlacklist] = useState(() => {
+    const saved = localStorage.getItem(BLACKLIST_KEY)
+    return saved ? JSON.parse(saved) : []
+  })
+
+  // Reset backend state on page load
+  useEffect(() => {
+    fetch(`${API_BASE}/api/reset`, { method: 'POST' }).catch(() => {})
+  }, [])
+
+  // Persist blacklist to localStorage
+  useEffect(() => {
+    localStorage.setItem(BLACKLIST_KEY, JSON.stringify(blacklist))
+  }, [blacklist])
 
   const sendMessage = async (text) => {
-    setMessages(prev => [...prev, { role: 'user', content: text }])
-    setLoading(true)
+    const newMessages = [...messages, { role: 'user', content: text }]
+    setMessages(newMessages)
+    setChatLoading(true)
 
     try {
-      const res = await fetch(`${API_BASE}/api/chat`, {
+      // First, get chat response
+      const chatRes = await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text })
       })
-      const data = await res.json()
-      setMessages(prev => [...prev, { role: 'assistant', content: data.assistantMessage }])
-      setListings(data.topListings || [])
-      setRules(data.hardRules || [])
+      const chatData = await chatRes.json()
+      setMessages(prev => [...prev, { role: 'assistant', content: chatData.assistantMessage }])
+      setRules(chatData.hardRules || [])
+      setChatLoading(false)
+
+      // Then, get reranked listings with scores (separate loading state)
+      setListingsLoading(true)
+      const conversation = [...newMessages, { role: 'assistant', content: chatData.assistantMessage }]
+      const matchRes = await fetch(`${API_BASE}/api/find-matches`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ conversation })
+      })
+      const matchData = await matchRes.json()
+
+      // Process listings with scores and normalize rent
+      const rankedListings = (matchData.matches || []).map(m => ({
+        ...normalizeRent(m.listing),
+        score: m.score,
+        reasoning: m.reasoning
+      }))
+      setListings(rankedListings)
     } catch {
       setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, something went wrong.' }])
     } finally {
-      setLoading(false)
+      setChatLoading(false)
+      setListingsLoading(false)
     }
   }
 
@@ -90,10 +142,39 @@ function App() {
       })
       const data = await res.json()
       setRules(data.hardRules || [])
-      setListings(data.topListings || [])
+      // Re-fetch with reranking
+      if (messages.length > 0) {
+        setListingsLoading(true)
+        const matchRes = await fetch(`${API_BASE}/api/find-matches`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ conversation: messages })
+        })
+        const matchData = await matchRes.json()
+        const rankedListings = (matchData.matches || []).map(m => ({
+          ...normalizeRent(m.listing),
+          score: m.score,
+          reasoning: m.reasoning
+        }))
+        setListings(rankedListings)
+        setListingsLoading(false)
+      }
     } catch (err) {
       console.error('Failed to update rules:', err)
+      setListingsLoading(false)
     }
+  }
+
+  const handleReject = (listingId) => {
+    setBlacklist(prev => [...prev, listingId])
+  }
+
+  const handleAccept = () => {
+    // Move to next listing (handled by ListingsPanel)
+  }
+
+  const handleUndo = () => {
+    setBlacklist(prev => prev.slice(0, -1))
   }
 
   return (
@@ -124,11 +205,20 @@ function App() {
           bgcolor: 'background.default'
         }}>
           <Box sx={{ width: '60%', height: '100%' }}>
-            <ChatPanel messages={messages} onSend={sendMessage} loading={loading} />
+            <ChatPanel messages={messages} onSend={sendMessage} loading={chatLoading} />
           </Box>
           <Box sx={{ width: '40%', height: '100%', overflow: 'auto' }}>
-            <RulesPanel rules={rules} onDelete={deleteRule} loading={loading} />
-            <ListingsPanel listings={listings} loading={loading} />
+            <RulesPanel rules={rules} onDelete={deleteRule} loading={chatLoading} />
+            <Box sx={{ mt: 2 }}>
+              <ListingsPanel
+                listings={listings}
+                loading={listingsLoading}
+                blacklist={blacklist}
+                onReject={handleReject}
+                onAccept={handleAccept}
+                onUndo={handleUndo}
+              />
+            </Box>
           </Box>
         </Box>
       </Box>

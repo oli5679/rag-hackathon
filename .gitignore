@@ -60,3 +60,6 @@ logs/
 htmlcov/
 .coverage
 coverage.xml
+
+# Internal planning docs
+specs/

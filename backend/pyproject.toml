@@ -9,6 +9,7 @@ dependencies = [
     "numpy>=2.3.5",
     "openai>=2.9.0",
     "python-dotenv>=1.2.1",
-    "redis[hiredis]>=7.1.0",
+    "redis[hiredis]>=4.5.0",
+    "redisvl>=0.4.0",
     "uvicorn>=0.38.0",
 ]
