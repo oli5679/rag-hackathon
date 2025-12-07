@@ -83,6 +83,52 @@ Extract preferences from the conversation. Only set fields that are mentioned or
         )
         return json.loads(response.choices[0].message.content)
 
+    def extract_rules(self, message: str, existing_rules: list[dict]) -> list[dict]:
+        """Use LLM to extract hard requirements from a user message."""
+        system = """You extract search filters from user messages about room hunting.
+
+RULES:
+- Only extract CLEAR preferences, not vague mentions or questions
+- Be reasonably strict: "under £700" or "max £700" → extract budget. "around £700" or "maybe £700" → don't extract
+- "I need pets allowed" or "I have a dog" → extract pets_allowed. "do you allow pets?" → don't extract
+- "in Camden" or "must be in zone 2" → extract location. "what's Camden like?" → don't extract
+- If user states a preference confidently, extract it. If they're asking or unsure, don't.
+
+Return a JSON array of rules. Each rule has: field, value, and optionally unit.
+Supported fields:
+- max_budget (integer, unit: "GBP")
+- location (string - area name)
+- pets_allowed (boolean)
+- bills_included (boolean)
+- couples_ok (boolean)
+- parking (boolean)
+- furnished (boolean)
+
+Return the COMPLETE updated list (keep existing rules unless user contradicts them)."""
+
+        rules_json = json.dumps(existing_rules) if existing_rules else "[]"
+
+        response = self.client.chat.completions.create(
+            model=CHAT_MODEL,
+            messages=[
+                {"role": "system", "content": system},
+                {"role": "user", "content": f"Current rules: {rules_json}\n\nNew message: {message}"}
+            ],
+            response_format={"type": "json_object"},
+            max_tokens=300
+        )
+
+        try:
+            result = json.loads(response.choices[0].message.content)
+            # Handle both {"rules": [...]} and direct [...] formats
+            if isinstance(result, dict) and "rules" in result:
+                return result["rules"]
+            if isinstance(result, list):
+                return result
+            return existing_rules
+        except (json.JSONDecodeError, KeyError):
+            return existing_rules
+
     def score_listing(
         self,
         conversation_summary: str,
