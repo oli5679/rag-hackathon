@@ -169,10 +169,6 @@ function App() {
     setBlacklist(prev => [...prev, listingId])
   }
 
-  const handleAccept = () => {
-    // Move to next listing (handled by ListingsPanel)
-  }
-
   const handleUndo = () => {
     setBlacklist(prev => prev.slice(0, -1))
   }
@@ -215,7 +211,6 @@ function App() {
                 loading={listingsLoading}
                 blacklist={blacklist}
                 onReject={handleReject}
-                onAccept={handleAccept}
                 onUndo={handleUndo}
               />
             </Box>
