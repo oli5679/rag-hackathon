@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Box, Paper, Typography, Card, CardMedia, CardContent, CircularProgress, IconButton, Link, Chip, Button, Pagination, LinearProgress } from '@mui/material'
 import ThumbDownIcon from '@mui/icons-material/ThumbDown'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import DeleteIcon from '@mui/icons-material/Delete'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import UndoIcon from '@mui/icons-material/Undo'
 
@@ -15,9 +17,12 @@ const LOADING_MESSAGES = [
   'Ranking the best matches...',
 ]
 
-function LoadingIndicator() {
+function LoadingIndicator({ scoringProgress }) {
   const [messageIndex, setMessageIndex] = useState(0)
-  const [progress, setProgress] = useState(0)
+
+  const { scored, total } = scoringProgress
+  const isScoring = total > 0
+  const progress = isScoring ? (scored / total) * 100 : 0
 
   useEffect(() => {
     // Cycle through messages every 3 seconds
@@ -25,20 +30,8 @@ function LoadingIndicator() {
       setMessageIndex(prev => (prev + 1) % LOADING_MESSAGES.length)
     }, 3000)
 
-    // Update progress bar smoothly
-    const progressInterval = setInterval(() => {
-      setProgress(prev => {
-        // Slow down as we approach 90%
-        if (prev >= 90) return prev
-        if (prev >= 70) return prev + 0.5
-        if (prev >= 50) return prev + 1
-        return prev + 2
-      })
-    }, 200)
-
     return () => {
       clearInterval(messageInterval)
-      clearInterval(progressInterval)
     }
   }, [])
 
@@ -46,11 +39,11 @@ function LoadingIndicator() {
     <Box sx={{ textAlign: 'center', py: 4 }}>
       <CircularProgress size={32} sx={{ mb: 2 }} />
       <Typography color="text.primary" variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
-        {LOADING_MESSAGES[messageIndex]}
+        {isScoring ? `Scoring listings... (${scored}/${total})` : LOADING_MESSAGES[messageIndex]}
       </Typography>
       <Box sx={{ width: '80%', mx: 'auto', mt: 2 }}>
         <LinearProgress
-          variant="determinate"
+          variant={isScoring ? "determinate" : "indeterminate"}
           value={progress}
           sx={{
             height: 6,
@@ -63,19 +56,21 @@ function LoadingIndicator() {
         />
       </Box>
       <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-        This may take a moment...
+        {isScoring ? 'Results appear as they are scored' : 'This may take a moment...'}
       </Typography>
     </Box>
   )
 }
 
-function ListingsPanel({ listings, loading, onReject, blacklist, onUndo }) {
+function ListingsPanel({ listings, loading, blacklist, shortlist, onReject, onShortlist, onUndo, mode = 'matches', scoringProgress = { scored: 0, total: 0 } }) {
   const [page, setPage] = useState(1)
 
-  // Filter out blacklisted listings and sort by score (highest first)
-  const filteredListings = listings
-    .filter(l => !blacklist.includes(l.id))
-    .sort((a, b) => (b.score || 0) - (a.score || 0))
+  const isShortlistMode = mode === 'shortlist'
+
+  // Filter out blacklisted listings (only in matches mode) and sort by score (highest first)
+  const filteredListings = isShortlistMode
+    ? listings
+    : listings.filter(l => !blacklist.includes(l.id)).sort((a, b) => (b.score || 0) - (a.score || 0))
 
   // Pagination
   const totalPages = Math.ceil(filteredListings.length / ITEMS_PER_PAGE)
@@ -101,43 +96,54 @@ function ListingsPanel({ listings, loading, onReject, blacklist, onUndo }) {
         borderRadius: 2,
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <Typography variant="h6" sx={{ color: 'text.primary' }}>
-            Top Matches
-          </Typography>
-          {filteredListings.length > 0 && !loading && (
-            <Chip
-              label={filteredListings.length}
-              size="small"
-              color="primary"
-              variant="outlined"
-            />
-          )}
-        </Box>
-        {blacklist.length > 0 && (
-          <IconButton size="small" onClick={onUndo} title="Undo last rejection">
-            <UndoIcon fontSize="small" />
-          </IconButton>
-        )}
-      </Box>
+      {!isShortlistMode && (
+        <>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <Typography variant="h6" sx={{ color: 'text.primary' }}>
+                Top Matches
+              </Typography>
+              {filteredListings.length > 0 && !loading && (
+                <Chip
+                  label={filteredListings.length}
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                />
+              )}
+            </Box>
+            {blacklist.length > 0 && (
+              <IconButton size="small" onClick={onUndo} title="Undo last rejection">
+                <UndoIcon fontSize="small" />
+              </IconButton>
+            )}
+          </Box>
 
-      {listings.length > 0 && !loading && (
-        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-          Based on your preferences
-        </Typography>
+          {listings.length > 0 && !loading && (
+            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+              Based on your preferences
+            </Typography>
+          )}
+        </>
       )}
 
-      {loading ? (
-        <LoadingIndicator />
+      {/* Show loading indicator if loading and no results yet */}
+      {loading && filteredListings.length === 0 ? (
+        <LoadingIndicator scoringProgress={scoringProgress} />
       ) : filteredListings.length === 0 ? (
         <Box sx={{ textAlign: 'center', py: 4 }}>
           <Typography color="text.secondary" variant="body2" sx={{ mb: 1 }}>
-            {listings.length > 0
-              ? 'No more listings to show'
-              : 'Send a message to see matches'}
+            {isShortlistMode
+              ? 'No saved listings yet'
+              : listings.length > 0
+                ? 'No more listings to show'
+                : 'Send a message to see matches'}
           </Typography>
-          {listings.length > 0 && (
+          {isShortlistMode ? (
+            <Typography color="text.secondary" variant="body2" sx={{ fontStyle: 'italic' }}>
+              Click the thumbs up on listings you like to save them here
+            </Typography>
+          ) : listings.length > 0 && (
             <Typography color="text.secondary" variant="body2" sx={{ fontStyle: 'italic' }}>
               Share more details in the chat to search again
             </Typography>
@@ -145,6 +151,28 @@ function ListingsPanel({ listings, loading, onReject, blacklist, onUndo }) {
         </Box>
       ) : (
         <>
+          {/* Show progress bar when still loading but have some results */}
+          {loading && scoringProgress.total > 0 && (
+            <Box sx={{ mb: 2 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                <Typography variant="caption" color="text.secondary">
+                  Scoring listings... ({scoringProgress.scored}/{scoringProgress.total})
+                </Typography>
+                <CircularProgress size={16} />
+              </Box>
+              <LinearProgress
+                variant="determinate"
+                value={(scoringProgress.scored / scoringProgress.total) * 100}
+                sx={{
+                  height: 4,
+                  borderRadius: 2,
+                  bgcolor: 'grey.200',
+                  '& .MuiLinearProgress-bar': { borderRadius: 2 }
+                }}
+              />
+            </Box>
+          )}
+
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {paginatedListings.map((listing, index) => {
               const globalIndex = startIndex + index
@@ -256,18 +284,51 @@ function ListingsPanel({ listings, loading, onReject, blacklist, onUndo }) {
                           View on SpareRoom
                         </Button>
 
-                        <IconButton
-                          onClick={() => onReject(listing.id)}
-                          size="small"
-                          sx={{
-                            bgcolor: '#fee2e2',
-                            color: '#dc2626',
-                            '&:hover': { bgcolor: '#fecaca' },
-                          }}
-                          title="Not interested"
-                        >
-                          <ThumbDownIcon sx={{ fontSize: '1rem' }} />
-                        </IconButton>
+                        <Box sx={{ display: 'flex', gap: 1 }}>
+                          {isShortlistMode ? (
+                            <IconButton
+                              onClick={() => onReject(listing.id)}
+                              size="small"
+                              sx={{
+                                bgcolor: '#fee2e2',
+                                color: '#dc2626',
+                                '&:hover': { bgcolor: '#fecaca' },
+                              }}
+                              title="Remove from shortlist"
+                            >
+                              <DeleteIcon sx={{ fontSize: '1rem' }} />
+                            </IconButton>
+                          ) : (
+                            <>
+                              <IconButton
+                                onClick={() => onShortlist(listing)}
+                                size="small"
+                                disabled={shortlist.some(item => item.id === listing.id)}
+                                sx={{
+                                  bgcolor: shortlist.some(item => item.id === listing.id) ? '#d1fae5' : '#dcfce7',
+                                  color: '#16a34a',
+                                  '&:hover': { bgcolor: '#bbf7d0' },
+                                  '&.Mui-disabled': { bgcolor: '#d1fae5', color: '#16a34a' },
+                                }}
+                                title={shortlist.some(item => item.id === listing.id) ? 'Already saved' : 'Save to shortlist'}
+                              >
+                                <ThumbUpIcon sx={{ fontSize: '1rem' }} />
+                              </IconButton>
+                              <IconButton
+                                onClick={() => onReject(listing.id)}
+                                size="small"
+                                sx={{
+                                  bgcolor: '#fee2e2',
+                                  color: '#dc2626',
+                                  '&:hover': { bgcolor: '#fecaca' },
+                                }}
+                                title="Not interested"
+                              >
+                                <ThumbDownIcon sx={{ fontSize: '1rem' }} />
+                              </IconButton>
+                            </>
+                          )}
+                        </Box>
                       </Box>
                     </CardContent>
                   </Box>
@@ -291,7 +352,7 @@ function ListingsPanel({ listings, loading, onReject, blacklist, onUndo }) {
         </>
       )}
 
-      {blacklist.length > 0 && (
+      {!isShortlistMode && blacklist.length > 0 && (
         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2, textAlign: 'center' }}>
           {blacklist.length} listing{blacklist.length !== 1 ? 's' : ''} hidden
         </Typography>

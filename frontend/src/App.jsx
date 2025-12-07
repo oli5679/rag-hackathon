@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { CssBaseline, Box, AppBar, Toolbar, Typography } from '@mui/material'
+import { CssBaseline, Box, AppBar, Toolbar, Typography, Tabs, Tab, Badge } from '@mui/material'
 import ChatPanel from './components/ChatPanel'
 import ListingsPanel from './components/ListingsPanel'
 import RulesPanel from './components/RulesPanel'
@@ -52,7 +52,6 @@ const theme = createTheme({
 })
 
 const API_BASE = 'http://localhost:8000'
-const BLACKLIST_KEY = 'spareroom_blacklist'
 
 // Convert weekly rent to monthly (52 weeks / 12 months)
 const weeklyToMonthly = (weeklyPrice) => Math.round(weeklyPrice * 52 / 12)
@@ -75,10 +74,10 @@ function App() {
   const [rules, setRules] = useState([])
   const [chatLoading, setChatLoading] = useState(false)
   const [listingsLoading, setListingsLoading] = useState(false)
-  const [blacklist, setBlacklist] = useState(() => {
-    const saved = localStorage.getItem(BLACKLIST_KEY)
-    return saved ? JSON.parse(saved) : []
-  })
+  const [scoringProgress, setScoringProgress] = useState({ scored: 0, total: 0 })
+  const [activeTab, setActiveTab] = useState(0)
+  const [blacklist, setBlacklist] = useState([])
+  const [shortlist, setShortlist] = useState([])
 
   // AbortController refs to cancel in-flight requests
   const chatAbortRef = useRef(null)
@@ -88,11 +87,6 @@ function App() {
   useEffect(() => {
     fetch(`${API_BASE}/api/reset`, { method: 'POST' }).catch(() => {})
   }, [])
-
-  // Persist blacklist to localStorage
-  useEffect(() => {
-    localStorage.setItem(BLACKLIST_KEY, JSON.stringify(blacklist))
-  }, [blacklist])
 
   const sendMessage = async (text) => {
     // Cancel any in-flight requests
@@ -120,24 +114,61 @@ function App() {
       setRules(chatData.hardRules || [])
       setChatLoading(false)
 
-      // Then, get reranked listings with scores (separate loading state)
+      // Then, get reranked listings with scores via streaming
       setListingsLoading(true)
+      setListings([])
+      setScoringProgress({ scored: 0, total: 0 })
+
       const conversation = [...newMessages, { role: 'assistant', content: chatData.assistantMessage }]
-      const matchRes = await fetch(`${API_BASE}/api/find-matches`, {
+      const matchRes = await fetch(`${API_BASE}/api/find-matches-stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ conversation }),
         signal: matchAbortRef.current.signal
       })
-      const matchData = await matchRes.json()
 
-      // Process listings with scores and normalize rent
-      const rankedListings = (matchData.matches || []).map(m => ({
-        ...normalizeRent(m.listing),
-        score: m.score,
-        reasoning: m.reasoning
-      }))
-      setListings(rankedListings)
+      // Read SSE stream
+      const reader = matchRes.body.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ''
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        buffer += decoder.decode(value, { stream: true })
+        const lines = buffer.split('\n')
+        buffer = lines.pop() || ''
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6))
+
+              if (data.type === 'init') {
+                setScoringProgress({ scored: 0, total: data.total })
+              } else if (data.type === 'score') {
+                const match = data.match
+                const listing = {
+                  ...normalizeRent(match.listing),
+                  score: match.score,
+                  reasoning: match.reasoning
+                }
+                setListings(prev => {
+                  const updated = [...prev, listing]
+                  // Sort by score descending
+                  return updated.sort((a, b) => (b.score || 0) - (a.score || 0))
+                })
+                setScoringProgress(prev => ({ ...prev, scored: prev.scored + 1 }))
+              } else if (data.type === 'done') {
+                setListingsLoading(false)
+              }
+            } catch (e) {
+              console.error('Failed to parse SSE data:', e)
+            }
+          }
+        }
+      }
     } catch (err) {
       // Ignore abort errors, show message for other errors
       if (err.name !== 'AbortError') {
@@ -191,9 +222,25 @@ function App() {
 
   const handleReject = (listingId) => {
     setBlacklist(prev => [...prev, listingId])
+    // Remove from shortlist if present
+    setShortlist(prev => prev.filter(item => item.id !== listingId))
   }
 
-  const handleUndo = () => {
+  const handleShortlist = (listing) => {
+    setShortlist(prev => {
+      // Check if already in shortlist
+      if (prev.some(item => item.id === listing.id)) {
+        return prev
+      }
+      return [...prev, listing]
+    })
+  }
+
+  const handleRemoveFromShortlist = (listingId) => {
+    setShortlist(prev => prev.filter(item => item.id !== listingId))
+  }
+
+  const handleUndoBlacklist = () => {
     setBlacklist(prev => prev.slice(0, -1))
   }
 
@@ -230,13 +277,47 @@ function App() {
           <Box sx={{ width: '40%', height: '100%', overflow: 'auto' }}>
             <RulesPanel rules={rules} onDelete={deleteRule} loading={chatLoading} />
             <Box sx={{ mt: 2 }}>
-              <ListingsPanel
-                listings={listings}
-                loading={listingsLoading}
-                blacklist={blacklist}
-                onReject={handleReject}
-                onUndo={handleUndo}
-              />
+              <Tabs
+                value={activeTab}
+                onChange={(e, v) => setActiveTab(v)}
+                sx={{ mb: 2 }}
+              >
+                <Tab label="Top Matches" />
+                <Tab
+                  label={
+                    <Badge badgeContent={shortlist.length} color="primary" max={99}>
+                      <span style={{ paddingRight: shortlist.length > 0 ? 12 : 0 }}>Shortlist</span>
+                    </Badge>
+                  }
+                />
+              </Tabs>
+
+              {activeTab === 0 && (
+                <ListingsPanel
+                  listings={listings}
+                  loading={listingsLoading}
+                  blacklist={blacklist}
+                  shortlist={shortlist}
+                  onReject={handleReject}
+                  onShortlist={handleShortlist}
+                  onUndo={handleUndoBlacklist}
+                  mode="matches"
+                  scoringProgress={scoringProgress}
+                />
+              )}
+
+              {activeTab === 1 && (
+                <ListingsPanel
+                  listings={shortlist}
+                  loading={false}
+                  blacklist={[]}
+                  shortlist={shortlist}
+                  onReject={handleRemoveFromShortlist}
+                  onShortlist={() => {}}
+                  onUndo={() => {}}
+                  mode="shortlist"
+                />
+              )}
             </Box>
           </Box>
         </Box>
