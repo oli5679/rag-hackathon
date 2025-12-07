@@ -5,6 +5,8 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
+SEARCH_ID = '1400724683'
+
 # Shared cookies and headers
 cookies = {
     'cc': 'ES',
@@ -54,7 +56,7 @@ def get_flatshare_ids(offset):
     """Fetch flatshare IDs from a search results page."""
     params = {
         'offset': str(offset),
-        'search_id': '1400724683',
+        'search_id': SEARCH_ID,
         'sort_by': 'by_day',
         'mode': 'list',
     }
@@ -200,7 +202,7 @@ def main():
     # Sort keys for consistent column order, but keep flatshare_id first
     sorted_keys = ['flatshare_id'] + sorted(k for k in all_keys if k != 'flatshare_id')
     
-    with open('listings.csv', 'w', newline='', encoding='utf-8') as f:
+    with open(f'listings-{SEARCH_ID}.csv', 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=sorted_keys, extrasaction='ignore')
         writer.writeheader()
         for listing in all_listings:
