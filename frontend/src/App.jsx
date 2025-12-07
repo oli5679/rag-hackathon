@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { CssBaseline, Box, AppBar, Toolbar, Typography } from '@mui/material'
+import { CssBaseline, Box, AppBar, Toolbar, Typography, Tabs, Tab, Badge } from '@mui/material'
 import ChatPanel from './components/ChatPanel'
 import ListingsPanel from './components/ListingsPanel'
 import RulesPanel from './components/RulesPanel'
@@ -53,6 +53,7 @@ const theme = createTheme({
 
 const API_BASE = 'http://localhost:8000'
 const BLACKLIST_KEY = 'spareroom_blacklist'
+const SHORTLIST_KEY = 'spareroom_shortlist'
 
 // Convert weekly rent to monthly (52 weeks / 12 months)
 const weeklyToMonthly = (weeklyPrice) => Math.round(weeklyPrice * 52 / 12)
@@ -75,8 +76,13 @@ function App() {
   const [rules, setRules] = useState([])
   const [chatLoading, setChatLoading] = useState(false)
   const [listingsLoading, setListingsLoading] = useState(false)
+  const [activeTab, setActiveTab] = useState(0)
   const [blacklist, setBlacklist] = useState(() => {
     const saved = localStorage.getItem(BLACKLIST_KEY)
+    return saved ? JSON.parse(saved) : []
+  })
+  const [shortlist, setShortlist] = useState(() => {
+    const saved = localStorage.getItem(SHORTLIST_KEY)
     return saved ? JSON.parse(saved) : []
   })
 
@@ -93,6 +99,11 @@ function App() {
   useEffect(() => {
     localStorage.setItem(BLACKLIST_KEY, JSON.stringify(blacklist))
   }, [blacklist])
+
+  // Persist shortlist to localStorage
+  useEffect(() => {
+    localStorage.setItem(SHORTLIST_KEY, JSON.stringify(shortlist))
+  }, [shortlist])
 
   const sendMessage = async (text) => {
     // Cancel any in-flight requests
@@ -191,9 +202,25 @@ function App() {
 
   const handleReject = (listingId) => {
     setBlacklist(prev => [...prev, listingId])
+    // Remove from shortlist if present
+    setShortlist(prev => prev.filter(item => item.id !== listingId))
   }
 
-  const handleUndo = () => {
+  const handleShortlist = (listing) => {
+    setShortlist(prev => {
+      // Check if already in shortlist
+      if (prev.some(item => item.id === listing.id)) {
+        return prev
+      }
+      return [...prev, listing]
+    })
+  }
+
+  const handleRemoveFromShortlist = (listingId) => {
+    setShortlist(prev => prev.filter(item => item.id !== listingId))
+  }
+
+  const handleUndoBlacklist = () => {
     setBlacklist(prev => prev.slice(0, -1))
   }
 
@@ -230,13 +257,46 @@ function App() {
           <Box sx={{ width: '40%', height: '100%', overflow: 'auto' }}>
             <RulesPanel rules={rules} onDelete={deleteRule} loading={chatLoading} />
             <Box sx={{ mt: 2 }}>
-              <ListingsPanel
-                listings={listings}
-                loading={listingsLoading}
-                blacklist={blacklist}
-                onReject={handleReject}
-                onUndo={handleUndo}
-              />
+              <Tabs
+                value={activeTab}
+                onChange={(e, v) => setActiveTab(v)}
+                sx={{ mb: 2 }}
+              >
+                <Tab label="Top Matches" />
+                <Tab
+                  label={
+                    <Badge badgeContent={shortlist.length} color="primary" max={99}>
+                      <span style={{ paddingRight: shortlist.length > 0 ? 12 : 0 }}>Shortlist</span>
+                    </Badge>
+                  }
+                />
+              </Tabs>
+
+              {activeTab === 0 && (
+                <ListingsPanel
+                  listings={listings}
+                  loading={listingsLoading}
+                  blacklist={blacklist}
+                  shortlist={shortlist}
+                  onReject={handleReject}
+                  onShortlist={handleShortlist}
+                  onUndo={handleUndoBlacklist}
+                  mode="matches"
+                />
+              )}
+
+              {activeTab === 1 && (
+                <ListingsPanel
+                  listings={shortlist}
+                  loading={false}
+                  blacklist={[]}
+                  shortlist={shortlist}
+                  onReject={handleRemoveFromShortlist}
+                  onShortlist={() => {}}
+                  onUndo={() => {}}
+                  mode="shortlist"
+                />
+              )}
             </Box>
           </Box>
         </Box>
