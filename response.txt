@@ -1,0 +1,4819 @@
+<!DOCTYPE html>
+<!--[if lte IE 7 ]>
+<html class="desktop uk ie ie7 logged_in no-js" lang="en-GB">
+<![endif]-->
+<!--[if IE 8 ]>
+<html class="desktop uk ie ie8 logged_in no-js" lang="en-GB">
+<![endif]-->
+<!--[if IE 9 ]>
+<html class="desktop uk ie ie9 logged_in no-js" lang="en-GB">
+<![endif]-->
+<!--[if (gt IE 9)|!(IE)]> -->
+<html class="desktop uk logged_in no-js" lang="en-GB">
+<!-- <![endif]-->
+<head>
+    <script type="text/javascript">
+      window.isSearchResults = true;
+      //
+      //
+      //
+      window.hasResults = true;
+      //
+      //
+      //
+      window.isOfferedSearch = true;
+      //
+      //
+      //
+    </script>
+    <style>.hidden-overlay { display: none }</style><meta charset="iso-8859-1"><meta name="language" content="en-GB"><meta name="author" content="SpareRoom"><meta name="robots" content="all,index,follow"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1, viewport-fit=cover"><meta name="description" content="Page 21 of Rooms for rent in London flat and house shares - 15960 currently available. 1000s more rooms to let in London and across the UK at SpareRoom.co.uk - the UK&#39;s #1 flatshare site"><meta name="keywords" content="London,London rooms for rent,flatshare London,house share London,rooms to let in London,rooms to let London,room to let London,room to rent London,rooms to rent London,rooms to rent in London,London rooms to let,room to let,rooms to let,room for rent,rooms for rent,room to rent,rooms to rent,flat share,houseshare,room share"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">  
+    <link rel="preconnect" href="https://cookie-cdn.cookiepro.com">
+  
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://photos2.spareroom.co.uk">
+  <link rel="preconnect" href="https://assets.spareroom.co.uk">
+  
+
+
+  <script>
+    var _rollbarConfig = {
+      accessToken: '7f5c6331ec8a4bcdb17c0275d8f67283',
+      captureUncaught: true,
+      captureUnhandledRejections: true,
+      hostSafeList: ['spareroom.co.uk', 'spareroom.com'],
+      ignoreDuplicateErrors: true,
+      verbose: true,
+      ignoredMessages: ["Can't find variable: SR", "SR is not defined"],
+      payload: {
+        environment: 'production-uk',
+        client: {
+          javascript: {
+            source_map_enabled: true,
+            code_version: '1.0'
+          }
+        },
+        
+          sessionId: '642173873',
+          person: {
+            id: '24743933',
+          },
+        
+      },
+      checkIgnore: function (isUncaught, args, payload) {
+        var ignoredList = ["1419223","17171089"];
+        var pid = payload && payload.person && payload.person.id;
+        if (pid == null) return false;
+        return ignoredList.indexOf(String(pid)) !== -1;
+      }
+    };
+    // Rollbar Snippet
+      !function(r){var e={};function o(n){if(e[n])return e[n].exports;var t=e[n]={i:n,l:!1,exports:{}};return r[n].call(t.exports,t,t.exports,o),t.l=!0,t.exports}o.m=r,o.c=e,o.d=function(r,e,n){o.o(r,e)||Object.defineProperty(r,e,{enumerable:!0,get:n})},o.r=function(r){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(r,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(r,"__esModule",{value:!0})},o.t=function(r,e){if(1&e&&(r=o(r)),8&e)return r;if(4&e&&"object"==typeof r&&r&&r.__esModule)return r;var n=Object.create(null);if(o.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:r}),2&e&&"string"!=typeof r)for(var t in r)o.d(n,t,function(e){return r[e]}.bind(null,t));return n},o.n=function(r){var e=r&&r.__esModule?function(){return r.default}:function(){return r};return o.d(e,"a",e),e},o.o=function(r,e){return Object.prototype.hasOwnProperty.call(r,e)},o.p="",o(o.s=0)}([function(r,e,o){"use strict";var n=o(1),t=o(5);_rollbarConfig=_rollbarConfig||{},_rollbarConfig.rollbarJsUrl=_rollbarConfig.rollbarJsUrl||"https://cdn.rollbar.com/rollbarjs/refs/tags/v2.26.4/rollbar.min.js",_rollbarConfig.async=void 0===_rollbarConfig.async||_rollbarConfig.async;var a=n.setupShim(window,_rollbarConfig),l=t(_rollbarConfig);window.rollbar=n.Rollbar,a.loadFull(window,document,!_rollbarConfig.async,_rollbarConfig,l)},function(r,e,o){"use strict";var n=o(2),t=o(3);function a(r){return function(){try{return r.apply(this,arguments)}catch(r){try{console.error("[Rollbar]: Internal error",r)}catch(r){}}}}var l=0;function i(r,e){this.options=r,this._rollbarOldOnError=null;var o=l++;this.shimId=function(){return o},"undefined"!=typeof window&&window._rollbarShims&&(window._rollbarShims[o]={handler:e,messages:[]})}var s=o(4),d=function(r,e){return new i(r,e)},c=function(r){return new s(d,r)};function u(r){return a((function(){var e=this,o=Array.prototype.slice.call(arguments,0),n={shim:e,method:r,args:o,ts:new Date};window._rollbarShims[this.shimId()].messages.push(n)}))}i.prototype.loadFull=function(r,e,o,n,t){var l=!1,i=e.createElement("script"),s=e.getElementsByTagName("script")[0],d=s.parentNode;i.crossOrigin="",i.src=n.rollbarJsUrl,o||(i.async=!0),i.onload=i.onreadystatechange=a((function(){if(!(l||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState)){i.onload=i.onreadystatechange=null;try{d.removeChild(i)}catch(r){}l=!0,function(){var e;if(void 0===r._rollbarDidLoad){e=new Error("rollbar.js did not load");for(var o,n,a,l,i=0;o=r._rollbarShims[i++];)for(o=o.messages||[];n=o.shift();)for(a=n.args||[],i=0;i<a.length;++i)if("function"==typeof(l=a[i])){l(e);break}}"function"==typeof t&&t(e)}()}})),d.insertBefore(i,s)},i.prototype.wrap=function(r,e,o){try{var n;if(n="function"==typeof e?e:function(){return e||{}},"function"!=typeof r)return r;if(r._isWrap)return r;if(!r._rollbar_wrapped&&(r._rollbar_wrapped=function(){o&&"function"==typeof o&&o.apply(this,arguments);try{return r.apply(this,arguments)}catch(o){var e=o;throw e&&("string"==typeof e&&(e=new String(e)),e._rollbarContext=n()||{},e._rollbarContext._wrappedSource=r.toString(),window._rollbarWrappedError=e),e}},r._rollbar_wrapped._isWrap=!0,r.hasOwnProperty))for(var t in r)r.hasOwnProperty(t)&&(r._rollbar_wrapped[t]=r[t]);return r._rollbar_wrapped}catch(e){return r}};for(var p="log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleAnonymousErrors,handleUnhandledRejection,captureEvent,captureDomContentLoaded,captureLoad".split(","),f=0;f<p.length;++f)i.prototype[p[f]]=u(p[f]);r.exports={setupShim:function(r,e){if(r){var o=e.globalAlias||"Rollbar";if("object"==typeof r[o])return r[o];r._rollbarShims={},r._rollbarWrappedError=null;var l=new c(e);return a((function(){e.captureUncaught&&(l._rollbarOldOnError=r.onerror,n.captureUncaughtExceptions(r,l,!0),e.wrapGlobalEventHandlers&&t(r,l,!0)),e.captureUnhandledRejections&&n.captureUnhandledRejections(r,l,!0);var a=e.autoInstrument;return!1 !==e.enabled&&(void 0===a||!0===a||function(r){return!("object"!=typeof r||void 0!==r.page&&!r.page)}(a))&&r.addEventListener&&(r.addEventListener("load",l.captureLoad.bind(l)),r.addEventListener("DOMContentLoaded",l.captureDomContentLoaded.bind(l))),r[o]=l,l}))()}},Rollbar:c}},function(r,e,o){"use strict";function n(r,e,o,n){r._rollbarWrappedError&&(n[4]||(n[4]=r._rollbarWrappedError),n[5]||(n[5]=r._rollbarWrappedError._rollbarContext),r._rollbarWrappedError=null);var t=e.handleUncaughtException.apply(e,n);o&&o.apply(r,n),"anonymous"===t&&(e.anonymousErrorsPending+=1)}r.exports={captureUncaughtExceptions:function(r,e,o){if(r){var t;if("function"==typeof e._rollbarOldOnError)t=e._rollbarOldOnError;else if(r.onerror){for(t=r.onerror;t._rollbarOldOnError;)t=t._rollbarOldOnError;e._rollbarOldOnError=t}e.handleAnonymousErrors();var a=function(){var o=Array.prototype.slice.call(arguments,0);n(r,e,t,o)};o&&(a._rollbarOldOnError=t),r.onerror=a}},captureUnhandledRejections:function(r,e,o){if(r){"function"==typeof r._rollbarURH&&r._rollbarURH.belongsToShim&&r.removeEventListener("unhandledrejection",r._rollbarURH);var n=function(r){var o,n,t;try{o=r.reason}catch(r){o=void 0}try{n=r.promise}catch(r){n="[unhandledrejection] error getting `promise` from event"}try{t=r.detail,!o&&t&&(o=t.reason,n=t.promise)}catch(r){}o||(o="[unhandledrejection] error getting `reason` from event"),e&&e.handleUnhandledRejection&&e.handleUnhandledRejection(o,n)};n.belongsToShim=o,r._rollbarURH=n,r.addEventListener("unhandledrejection",n)}}}},function(r,e,o){"use strict";function n(r,e,o){if(e.hasOwnProperty&&e.hasOwnProperty("addEventListener")){for(var n=e.addEventListener;n._rollbarOldAdd&&n.belongsToShim;)n=n._rollbarOldAdd;var t=function(e,o,t){n.call(this,e,r.wrap(o),t)};t._rollbarOldAdd=n,t.belongsToShim=o,e.addEventListener=t;for(var a=e.removeEventListener;a._rollbarOldRemove&&a.belongsToShim;)a=a._rollbarOldRemove;var l=function(r,e,o){a.call(this,r,e&&e._rollbar_wrapped||e,o)};l._rollbarOldRemove=a,l.belongsToShim=o,e.removeEventListener=l}}r.exports=function(r,e,o){if(r){var t,a,l="EventTarget,Window,Node,ApplicationCache,AudioTrackList,ChannelMergerNode,CryptoOperation,EventSource,FileReader,HTMLUnknownElement,IDBDatabase,IDBRequest,IDBTransaction,KeyOperation,MediaController,MessagePort,ModalWindow,Notification,SVGElementInstance,Screen,TextTrack,TextTrackCue,TextTrackList,WebSocket,WebSocketWorker,Worker,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload".split(",");for(t=0;t<l.length;++t)r[a=l[t]]&&r[a].prototype&&n(e,r[a].prototype,o)}}},function(r,e,o){"use strict";function n(r,e){this.impl=r(e,this),this.options=e,function(r){for(var e=function(r){return function(){var e=Array.prototype.slice.call(arguments,0);if(this.impl[r])return this.impl[r].apply(this.impl,e)}},o="log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleAnonymousErrors,handleUnhandledRejection,_createItem,wrap,loadFull,shimId,captureEvent,captureDomContentLoaded,captureLoad".split(","),n=0;n<o.length;n++)r[o[n]]=e(o[n])}(n.prototype)}n.prototype._swapAndProcessMessages=function(r,e){var o,n,t;for(this.impl=r(this.options);o=e.shift();)n=o.method,t=o.args,this[n]&&"function"==typeof this[n]&&("captureDomContentLoaded"===n||"captureLoad"===n?this[n].apply(this,[t[0],o.ts]):this[n].apply(this,t));return this},r.exports=n},function(r,e,o){"use strict";r.exports=function(r){return function(e){if(!e&&!window._rollbarInitialized){for(var o,n,t=(r=r||{}).globalAlias||"Rollbar",a=window.rollbar,l=function(r){return new a(r)},i=0;o=window._rollbarShims[i++];)n||(n=o.handler),o.handler._swapAndProcessMessages(l,o.messages);window[t]=n,window._rollbarInitialized=!0}}}}]);
+    // End Rollbar Snippet
+  </script>
+
+<script>
+  'use strict'
+
+  var _sr = {};
+  _sr.session = {
+    
+      type: "normal",
+    
+    loggedin: true,
+    user_known: true,
+    session_id: '642173873',
+    session_key: '11560775442353946463',
+    language: navigator.language.split('-')[0]
+  };
+
+
+
+
+
+_sr.commerce = {
+  purchased: {},
+  products: {
+      personal: [{
+        id: '1148',
+        name: '4 week saver',
+        duration: '4 weeks',
+        price: '28',
+        saving: '50%',
+        original_price: '29.99',
+        selling_points: {
+          bold: [
+            'Success guaranteed (or get another 4 weeks free)',
+            'Only £1 per day',
+            'Pause your upgrade (once per 4 week saver)',
+            'Extra listings can be purchased (see below)'
+          ],
+          early_bird: [
+            'Success guaranteed (or get another 4 weeks free)',
+            'Only £1 per day',
+            'Pause your upgrade (once per 4 week saver)'
+          ],
+        },
+      },{
+          id: '1147',
+          name: '2 weeks',
+          duration: '2 weeks',
+          price: '25',
+          saving: '3',
+          selling_points: {
+            bold: [
+              '74% of people fill their room within 2 weeks'
+            ],
+            early_bird: [
+              '58% of people find a place within 2 weeks'
+            ],
+          },
+      }, {
+        id: '1146',
+        name: '1 week',
+        duration: '1 week',
+        price: '14',
+        selling_points: {
+          bold: [
+            '40% of people fill their room within 1 week'
+          ],
+          early_bird: [
+            '37% of people find somewhere within 1 week'
+          ],
+        },
+      }, {
+        id: '1149',
+        name: '6 months',
+        duration: '6 months',
+        price: '149',
+        selling_points: {
+          bold: [
+          'Extra listings can be purchased (see below)'
+          ],
+          early_bird: [
+            'Great value'
+          ]
+        },
+      }, {
+        id: '1150',
+        name: '1 year',
+        duration: '1 year',
+        price: '199',
+        selling_points: {
+          bold: [
+          'Extra listings can be purchased (see below)'
+          ],
+          early_bird: [
+            '41p per day',
+            'Best value'
+          ]
+        },
+      }],
+      pro: [],
+  },
+  payment_providers: [
+  
+    {
+      name: 'paypal',
+      url : 'https://www.paypal.com/cgi-bin/webscr',
+      use_sandbox : '0'
+    },
+  
+  
+    {
+      name: 'paypal_rest',
+      url : 'https://www.paypal.com/cgi-bin/webscr',
+      use_sandbox : '0'
+    },
+  
+  
+    {
+      name: 'stripe',
+      url: 'https://orders.spareroom.co.uk/stripe/charge',
+      publishable_key: 'pk_live_ULPe0T07QEa1nYw9b9i6QFCs'
+    },
+  
+  
+    {
+      name: 'worldpay',
+      url : 'https://secure.worldpay.com/wcc/purchase',
+      use_sandbox : '0'
+    },
+  
+  ],
+miscellaneous: {
+  context: '',
+  instId: '137527',
+},
+discounts: {
+},
+checkout_cart: {
+  cart_id: '',
+    product_description: 'Upgrade (inc Bold Advertising)',
+  items: [],
+},
+context: {
+  context: 'global',
+  discounts_available: false,
+  platform: 'desktop',
+  product_type: 'bold',
+  departments: [
+        'Pro Monthly',
+        'Pro Annual',
+        'Multi Ads Annual',
+        'Personal',
+  ]
+},};  _sr.page = {
+    loginReturnPath:  '\x2Fflatshare\x2F\x3Foffset\x3D200\x26search\x5Fid\x3D1400724683\x26sort\x5Fby\x3Dby\x5Fday\x26mode\x3Dlist',
+      name: "/searchresults/offered/page21/?where=London&search_category=offered-by-area&sort_by=by_day",
+      name_alt: "/searchresults/offered/page21/?where=London&search_category=offered-by-area&sort_by=by_day".replace(/_notlogged_in|_logged_in/, '')
+, flatshare_type: "offered",offset: parseInt('200', 10),search_mode: "list",search_term: "London",search_title: "Rooms for Rent in London",shortlist: false,user_search: false,  };
+    function getSegments(){
+
+      var segments = [
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+      ];
+      var filtered =  segments.filter(
+        function(item){
+          return item != undefined
+      });
+      return filtered.join();
+    }
+   _sr.customer = {
+    
+      
+        type : "haveashare,lookingforashare,makeashare",
+        date_joined : '2025-12-07',
+      
+      id: '24743933',
+      uuid: 'XcMCjbe3Mw7xfFpeFtnJCQ',
+      email: 'haljak\x2Erobin\x40gmail\x2Ecom',
+      first_name: 'Robin',
+      last_name:  'Haljak',
+      gender: 'M',
+      dob: '2000-07-23',
+      profile_photo_id: '',
+      bold : false,
+      pro: '',
+      fad_user: false,
+      adverts_offered : 0,
+      adverts_wanted : 0,
+      new_message_count: 0,
+      enquiries_sent: 0,
+      email_verified : 'N' == 'N' ? 'no' : 'yes',
+      initial_type: 'offerer',
+      city_id: '',
+      posttown_id: '0',
+      segments: getSegments(),
+      timezone: 'Europe/London',
+      id_verified: 'N',
+      
+    
+  };
+
+  _sr.affiliate = {
+    id: '',
+    category: '',
+  };
+
+  _sr.messaging = {
+    label_colours: [
+      {
+        font: '#000000',
+        hex: '#14C8F6',
+        rgb: 'rgb(20,200,246)',
+        description: 'Light Blue'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#999999',
+        rgb: 'rgb(153,153,153)',
+        description: 'Grey'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#000000',
+        rgb: 'rgb(0,0,0)',
+        description: 'Black'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#EA321B',
+        rgb: 'rgb(234,50,27)',
+        description: 'Red'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#005480',
+        rgb: 'rgb(0,84,128)',
+        description: 'Navy Blue'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#4BA72F',
+        rgb: 'rgb(75,167,47)',
+        description: 'Forest Green'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#97198B',
+        rgb: 'rgb(151,25,139)',
+        description: 'Purple'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#FF9600',
+        rgb: 'rgb(255,150,0)',
+        description: 'Orange'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#6398B4',
+        rgb: 'rgb(99,152,180)',
+        description: 'Sea Blue'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#00D845',
+        rgb: 'rgb(0,216,69)',
+        description: 'Lime Green'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#FF00BF',
+        rgb: 'rgb(255,0,191)',
+        description: 'Hot Pink'
+      },
+      {
+        font: '#000000',
+        hex: '#F4C95A',
+        rgb: 'rgb(244,201,90)',
+        description: 'Yellow'
+      },
+    ]
+  };
+  _sr.localisations = {
+    profile: {
+      ads_from_user: "Ads from",
+      ads_from_this_user: "ads from this user",
+      age: "Age",
+      available: "Available",
+      available_now: "Available now",
+      female: "female",
+      from: "from",
+      to: "to",
+      gender: "Gender",
+      have_a_share: "I have a flat or house to share or rent",
+      last_active: "Last active",
+      loading: "loading",
+      looking_for_a_share: "I am looking for a flat or house share",
+      make_a_share: "I'd like to find people to form a new share",
+      male: "male",
+      member_since: "Member since",
+      move_date: "Move date",
+      occupation: "Occupation",
+      other: "other",
+      no_profile_found: "Sorry, no profile could be found for this user.",
+      see_all: "See all",
+      term: "Term",
+      unable_to_display_ads: "Unable to display this user’s ads",
+      unknown: "Unknown",
+      unknown_error: "Sorry, an unknown error occurred.",
+      upgraded: "Upgraded",
+      verified: "Verified",
+      verified_by: "Verified by",
+      id_check: "ID check",
+      id_and_background_check: "ID & background check",
+      pcm: "pcm",
+      pw: "pw",
+      show_my_age: "Show my age",
+      recommended: "recommended"
+    },
+    modal: {
+      close: "Close",
+      dialog_window: "dialog window",
+    },
+    social: {
+      share: "share"
+    },
+    my_ads: {
+      thank_you_for_feedback: "Thank you for your feedback",
+      ad_deactivated: "Your ad has been deactivated."
+    },
+    search_results: {
+      flatmates: "flatmates",
+      flatshares: "flatshares",
+      flatmate: "flatmate",
+    },
+    alerts: {
+      unsaved_changes: "You have unsaved changes. Are you sure you wish to leave?",
+    },
+    upgrade: {
+      four_week_title: "4 week saver",
+      four_week_desc: "28 Day extra listing",
+      three_month_title: "3 months",
+      three_month_desc: "3 months extra listing",
+      six_month_title: "6 months",
+      six_month_desc: "6 Month extra listing",
+      one_year_title: "1 year",
+      one_year_desc: "1 Year extra listing",
+      see_example: "See example",
+      bold_advertising: "Bold Advertising",
+      how_your_ad_will_look: "How your upgraded ad will look in the search results - enhanced for better visibility",
+      how_your_ad_currently_appears: "How your ad currently appears in the search results",
+      post_a_bold_ad: "Post a Bold Ad",
+      upgrade_now: "Upgrade now",
+      upgrade_and_send_message: "Upgrade and send message",
+      choose_your_upgrade: "Choose your upgrade",
+      enter_card_details: "Enter card details",
+      pay_securely: "Pay securely",
+      or: "or",
+      pay: "Pay",
+      making_payment: "Making payment",
+      make_payment: "Make payment",
+      sorry_something_went_wrong: "Sorry. Something went wrong.",
+      extra_listings: "Extra listings",
+      none_selected: "None selected",
+      or_see_our: "Or go Pro with",
+      multi_listing_bundles: "Multi Listing Bundles",
+      with_advert_boosts: "inc free boosts",
+      each: "each",
+      small_print_1_year: "£34/£39 each with the 1 year upgrade",
+      small_print_6_months: "£24/£29 each with the 6 month upgrade",
+      small_print_3_months: "£24/£29 each with the 3 month upgrade",
+      small_print_4_weeks: "£14/£19 each with the 4 week saver",
+      small_print_na: "Only available on 4 week, 6 month or 1 year upgrades",
+      not_a_subscription: "This is not a subscription",
+      off: "off",
+      renew_today: "Renew today for a",
+      discount: "discount",
+      upgrade_failure: "Upgrade failure",
+      payment_not_authorised: "Your payment was not authorised. Please check your card details or use a different card.",
+      upgrade_error: "Upgrade error",
+      upgrade_error_msg: "Sorry, we had a problem processing your payment. Please contact Customer Services on",
+      upgrade_applied: "Upgrade applied",
+      upgrade_applied_msg: "Thank you. Your payment was successful and your upgrade has been applied. Manage your ads below or post a new one.",
+      most_popular: "Most popular",
+      promo_code_accepted: "Promo code accepted",
+      promo_code: "Promo code",
+      early_renewal: "Early renewal",
+      early_renewal_applied: "Early renewal applied",
+      enter_promo_code: "Enter promo code",
+      coupon_notfound_expired: "Sorry, coupon code either was not found or has expired.",
+      code_notvalid_expired: "Code not valid or has expired",
+      redeem_code: "Redeem code",
+      i_have_a_promo_code: "I have a promo code",
+      close: "Close",
+      your_ad_renewed: "Your ad has been renewed",
+      need_more_than_one_live_ad: "Need more than 1 live ad?",
+      view_our_multi_ad_packages: "View our Multi Ad packages",
+      there_has_been_an_error: "Sorry, there has been an error",
+      enquiry: "enquiry",
+      enquiries: "enquiries",
+      save: "save"
+    },
+    
+  };
+
+
+  _sr.site = {
+    asset_server: 'https:///v2',
+    
+    autocomplete_min_chars: 3,
+    id: 1,
+    country: 'GB',
+    currency: 'GBP',
+    currency_symbol: "£",
+    currency_symbol_pence: "p",
+    domain: 'spareroom.co.uk',
+    domain_id: '1',
+    domain_name: 'www.spareroom.co.uk',
+    offered_detail_url: '/flatshare/flatshare_detail.pl',
+    photos_domain: 'photos2.spareroom.co.uk',
+    photos_path: '/images/flatshare/listings',
+    sub_dir: 'flatshare',
+    static_files_server: 'https://assets.spareroom.co.uk',
+    base_url: 'https://www.spareroom.co.uk',
+    mobile: '',
+    my_account_directory: '/content/myaccount/myaccount-index/',
+    phone_number: '0161 768 1162',
+    phone_number_international: '+441617681162',
+    recaptcha_v2_site_key: '6LeSuHoUAAAAACke6m17h4SpcETSFZ4EOUVhufDl',
+    recaptcha_v3_site_key: '6LcZa20UAAAAACDnWTi-GfAeYp7feqNmb4GFL5AI',
+    cs_email: 'customerservices@spareroom.co.uk',
+    loginReturnPath:  '\x2Fflatshare\x2F\x3Foffset\x3D200\x26search\x5Fid\x3D1400724683\x26sort\x5Fby\x3Dby\x5Fday\x26mode\x3Dlist',
+    registered_users:  '14',
+  };
+
+  _sr.config = {
+    facebook: {
+      app_locale: 'en_GB',
+      app_id: '5097577709',
+    },
+    worldpay : {
+      api_url : 'https://secure.worldpay.com/wcc/purchase',
+      use_sandbox : '0'
+    },
+    paypal : {
+      api_url : 'https://www.paypal.com/cgi-bin/webscr',
+      use_sandbox : '0'
+    },
+    
+      stripe: {
+        publishable_key: 'pk_live_ULPe0T07QEa1nYw9b9i6QFCs'
+      },
+    
+    features: {
+      apple_maps_desktop_detail: true,
+      apple_maps_mobile_detail: true,
+      apple_maps_desktop_search: true,
+      apple_maps_mobile_search: true,
+      use_apple_maps_viewings_desktop: true,
+      use_apple_maps_viewings_mobile: true,
+      featured_ads_auto_top_up: true,
+      winter_sale: false,
+      notes_thread_view: true,
+      arrange_viewings: true,
+      blocking_reg_prompt: true,
+      one_minute_reg_prompt: true,
+      extra_listings: true,
+      promo_banner: true,
+      case_study_banner: false,
+      facebook_login_active: true,
+      apple_google_pay: true,
+      home_baked_cookie_consent: false,      subscription_consent: false,
+      subscription_consent: false,
+      free_verifications_with_upgrade: true,
+      spotlight_ads: true,
+    },
+  };
+
+  _sr.action = {};
+  _sr.ecommerce = {};
+  _sr.experiments = {"reg_form_show_password_desktop":"Uv90p_BhTxOShP2pvf4k-g","video_upload_chunk_size":"2048kb","homepage_upgrade_panel_mobile":"2rF3Ln1ETK201QJlZRTGGw","apple_google_payment":"_5NQFVynTASVJZKVQkK-fg","post_ad_hidden_nav_mobile":"0642PEjNQPerkiXcFdJN5A","address_lookup_desktop":"x887H7SFQTSFJQv-o0cp5A","offered_ad_promo_mobile_logged_in":"dCxr8dwHRRSPDjP74b6eXA","spotlight_mobile":"M_JA7DrvSgu8s4W6KqGW9w","desktop_srp_cards_more_info":"ctvHya9iTTqs57ydHRKyKQ","reg_form_hide_password_desktop":"JIdE8UJ-QPi5xbCMLtvF9Q","blocking_reg_popup_close_button_5_views_mobile":"5cr-axReQAKmy0CFt18XtA","address_lookup_mobile":"kvhI6X-yQC2mx3SZbfqPnQ","account_upgrade_panel_status_desktop":"8vVSsxS4SKGTeYwXcFeDsA","success_guarantee":"54dI_KDxS4GlsmMZu4YXmQ","post_ad_hidden_nav_desktop":"9K8JylP_TWiSpL9U71kgXw","shared_interests_mobile":"fDJe_XnHSQCZtUFf49TCpg","reg_popup_ad_details_page_copy_change_desktop":"m1gY42nVTzyuO6K8oNH6Sw","post_ad_top_button_replacement_mobile":"fihcMN2sRbapKFHgVJs5ng","reg_form_hide_password_mobile":"T4IUjvWyTqibovhVbeSe5Q","mobile_upgrade_chat":"OXiqPFC-RMOHbrNX4p8A6Q","homepage_upgrade_panel_desktop":"NlkGRQm-TAmqZKLN-eQeMg","mob_post_ad_free_bold_step_bullet_pts_V4":"0Adl-FxrQnC0ZV1rHjGXPQ","desktop_srp_cards":"sVuR3k4_QUOZGCuCpWtz_A","wanted_promo_panel_3_variations_desktop":"VHZ08BF2TFGqEubqGLkcpQ","account_upgrade_panel_status_mobile":"zaSfiC6nRruPEcGYAFH1cQ","wanted_promo_panel_3_variations_mobile":"TlYrZJvFTM-jBSmSXIDecA","shared_interests_desktop":"YyS0uYtGRv-Es0sQ9FRBIw","removal_of_reg_popup_for_paid_users_mob":"oaQ-Wl44RjqmxfANuxabJg","offered_ad_promo_desktop_logged_in":"IXp83-ThRDSbvPa9n7Mjgw","spotlight_desktop":"YUSUVCekS8KZGb4HIAyR7Q","reg_form_show_password_mobile":"TuNiHUuxQdCQoNans-q84Q","photo_upload_chunk_size":220000,"apple_google_payment_desktop":"U-aDgXnXTUeX116_cniR1w","removal_of_reg_popup_for_paid_users_mob_v2":"HdGakdk3TAegQCI9MjbBkQ","seeker_upgrades_with_success_guarantee_mobile":"ZiaYnInCTe6Da_wXOqgAuw"};
+  _sr.ab_tests = {"browser_ident":"_i4-bc0asLZcQBqpMsU3BQ","active_experiments":{"advert_detail_accordion":{"id":"42","variant":3}}};
+</script>
+<script>
+  _sr.page.search = {
+    id: '1400724683',
+    total_results: parseInt('15960', 10),
+    search_term: 'London',
+    keyword: '',
+    offset: parseInt('200', 10),
+    city_id: '',
+    city_name: '',
+    filters: {
+      available_from: "",
+      available_search: "",
+      bills_inc: "",
+      couples: "",
+      days_of_wk_available: "",
+      disabled_access: "",
+      ensuite: "",
+      fees_apply: "",
+      free_to_contact: "",
+      gayshare: "",
+      genderfilter: "",
+      keyword: "",
+      landlord: "",
+      living_room: "",
+      max_age_req: "",
+      max_suitable_age: "",
+      max_beds: "",
+      max_other_areas: "",
+      max_rent: "",
+      max_term: "",
+      min_age_req: "",
+      min_suitable_age: "",
+      min_beds: "",
+      min_rent: "",
+      min_term: "",
+      no_of_rooms: "",
+      no_deposit: "",
+      parking: "",
+      per: "",
+      pets_req: "",
+      photoadsonly: "",
+      posted_by: "",
+      room_types: "",
+      furnished: "",
+      rooms_for: "",
+      share_type: "",
+      short_lets_considered: "",
+      
+      
+        showme_1beds: "Y",
+        showme_buddyup_properties: "Y",
+        showme_rooms: "Y",
+      
+      smoking: "",
+      vegetarians: "",
+    },
+    localisations: {
+      posted_by_flatmates: "Just ads from flatmates"
+    }
+  }
+</script>
+
+  
+
+
+  <!-- CookiePro Cookies Consent Notice start for spareroom.co.uk -->
+  <script src="https://cookie-cdn.cookiepro.com/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="d66f7c7e-e1a8-4994-93c0-8fdfe120f2e8" async fetchpriority="high"></script>
+  <script type="text/javascript">
+    var cookie_consent_is_initialised = false;
+    function initialise_cookie_consent() {
+      var cookieSettingsButton = document.querySelector('#ot-sdk-btn');
+      var cookiePolicyWrapper = document.querySelector('.policy-doc__experiment-wrapper');
+      if(cookieSettingsButton){
+        cookieSettingsButton.removeAttribute('style');
+      }
+      if(cookiePolicyWrapper){
+        cookiePolicyWrapper.style.display = "none";
+      }
+      return cookie_consent_is_initialised = true;
+    }
+    function save_consent_to_local_storage(activeGroups) {
+      if (typeof(Storage) !== "undefined") {
+        var targetting_consent = activeGroups.includes('C0004') ? 'granted' : 'denied';
+        var help_sr_imporve_consent = activeGroups.includes('C0002') ? 'granted' : 'denied';
+        var additional_functionality_consent = activeGroups.includes('C0003') ? 'granted' : 'denied';
+        localStorage.setItem('user_consent_settings', JSON.stringify({
+          'ad_storage': targetting_consent,
+          'ad_user_data': targetting_consent,
+          'ad_personalization': targetting_consent,
+          'analytics_storage': help_sr_imporve_consent,
+          'functionality_storage': additional_functionality_consent,
+          'personalization_storage': additional_functionality_consent,
+          'security_storage': help_sr_imporve_consent,
+        }));
+      }
+    }
+
+    function OptanonWrapper() {
+      if(!cookie_consent_is_initialised) {
+        initialise_cookie_consent();
+      }
+      save_consent_to_local_storage(OnetrustActiveGroups.split(',').filter(Boolean));
+    }
+  </script>
+  <!-- CookiePro Cookies Consent Notice end for spareroom.co.uk -->
+
+
+  <script>
+    window.dataLayer = window._sr ? [window._sr] : [];
+    function gtag(){dataLayer.push(arguments);}
+
+      var defaultConsent = {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'denied',
+      };
+
+      try {
+        if (typeof(Storage) === "undefined" || localStorage.getItem('user_consent_settings') === null) {
+          gtag('consent', 'default', defaultConsent);
+        } else {
+          gtag('consent', 'default', JSON.parse(localStorage.getItem('user_consent_settings')));
+        }
+      } catch (e) {
+        gtag('consent', 'default', defaultConsent);
+      }
+  </script>
+  <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WFTS7MZ');</script>
+  <!-- End Google Tag Manager -->
+<link rel="stylesheet" href="https://assets.spareroom.co.uk/assets/b8129bed65b76c5b766141f84147954d.css">
+<link rel="stylesheet" href="/v2/build/vite/spareroom/css/style_stack-combined-BGGgg1rl-CZQnA5L0-CgA3twt2-Pbxzapja-CQIA2v68-GftvsMc1.css">
+
+<link rel="stylesheet" href="/v2/build/vite/spareroom/css/stack-combined-BtxOm7PG-BQqY3Zs9-Dj1BL2cO-NaGgFm7p.css">
+<!--[if (gte IE 6)&(lte IE 8)]><script src="https://cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script><![endif]--><script src="https://assets.spareroom.co.uk/assets/e0c43c978ea516935f9ded8af409ac54.js"></script><link rel="shortcut icon" href="https://assets.spareroom.co.uk/favicon.png?v=1"><link rel="apple-touch-icon" href="https://assets.spareroom.co.uk/apple-touch-icon-precomposed.png?v=1"><link rel="android-touch-icon" href="https://assets.spareroom.co.uk/android-touch-icon.png?v=1">
+<link rel="stylesheet" href="/v2/build/vite/spareroom/css/fontawesome-gHK8Xs-H.css">
+
+<script type="module" src="/v2/build/vite/spareroom/js/global/fontawesome-iUKUCpTf.js"></script>
+
+  <title>
+
+Rooms for rent London flatshare London house share rooms to let | Page 21
+  </title>
+  <link rel="stylesheet" href="https://assets.spareroom.co.uk/assets/33bb2d51de52d1ec3c22ff4a30f1b819.css">
+    
+      
+        <link href="https://www.spareroom.co.uk/flatshare/rss-offered---32,33,72,78,92,103,114,116-----London.xml" rel="alternate" type="application/rss+xml" title="SpareRoom latest London flatshare ads">
+      
+    
+
+
+  
+  <link rel="canonical" href="https://www.spareroom.co.uk/flatshare/">
+    
+      <link rel="alternate" media="only screen and (max-width: 640px)" href="https://m.spareroom.co.uk/flatshare/">
+    
+  
+  
+
+
+  
+  <noscript>
+    <style>
+      .playButton {
+        display: none;
+      }
+      .hasYTPromo .video-container {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+  </noscript>
+
+
+<link rel="stylesheet" href="/v2/build/vite/spareroom/css/scp_options-combined-R0QAN8Oa-DB2SPbhA.css"><link rel="stylesheet" href="/v2/build/vite/spareroom/css/video_upload-DXgtlbWW.css"><link rel="stylesheet" href="/v2/build/vite/spareroom/css/adlist-combined-CQIA2v68-DB2SPbhA-D4dgk0bz-B70aiCyd-D1ML38p_-B_0Vek9p-DBqHIywZ-amDSQejX-mVm17Zfg-Dxhb61QQ-EtOBn-L6by2p-8oZC_pNM-DLGtTIOE-DvycCnRP-By3Enm0K-DUKeeUQH-uLvEl4WH-R0QAN8Oa-DXgtlbWW-Dj1BL2cO.css">
+
+<link rel="stylesheet" href="/v2/build/vite/spareroom/css/narrow_by_filters-BnHbTkXL.css">
+</head>  <body class='PAGElistings'>
+    
+      
+        
+        
+        
+        
+  <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFTS7MZ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+<header class="wrap base-header" data-overlay-name="search-box">
+
+  
+    
+      
+        
+      
+    
+  
+
+
+<div id="flash-messaging"></div><div class="base-header__wrap"><a href="#spareroom" class="base-header__skip-link">Skip to content</a><a id="top" href="#top" class="trans-all-1s hidden" hidden>top</a><div class="brand-header" id="header"><div class="brand-header__content"><div class="brand-header__logo-wrapper"><a href="https://www.spareroom.co.uk" id="homeLogo" class="brand-header__logo-link" data-ga-event-category="Home Links" data-ga-event-action="clicked" data-ga-event-label="header-SR-logo"><img src="/v2/img/logos/SpareRoom_header_logo.svg?v=1" class="svg brand-header__logo" alt="SpareRoom Logo" width="248" height="51.66" fetchpriority="high"></a></div><div class="brand-header__middle-modals"><div class="locale-choice" data-overlay-close-exempt="true">
+  <button aria-expanded="false" aria-controls="countryChoiceNav" aria-label="You are on the UK site. Change country." class="locale-choice__click" data-overlay-target="country-code" data-overlay-type="dropDown"><img src="/v2/img/icons/flags/en-GB.svg?v=1" class="svg locale-choice__flag" alt="en-GB" width="21" height="15"><span class="locale-choice__code">UK</span><i class="far fa-chevron-down locale-choice__caret-down"></i></button><aside id="countryChoiceNav" class="locale-choice__modal hidden-overlay" data-overlay-name="country-code">
+    <form class="locale-choice__form" method="post" action="/" id="country_id_form">
+        <fieldset><legend class="locale-choice__legend">In which country are you looking?</legend><!--
+        --><label class="locale-choice__label"><input type="radio" name="country_id" value="1" data-website="https://www.spareroom.co.uk/" class="locale-choice__radio" checked>UK</label><!--
+        --><label class="locale-choice__label"><input type="radio" name="country_id" value="2" data-website="https://www.spareroom.com/roommates" class="locale-choice__radio" >US</label></fieldset><!--
+        --><button type="submit" class="button button--wide">Save</button>
+    </form>
+  </aside>
+</div></div><div class="brand-header__user-utils">
+  <p class="brand-header__welcome">Hi Robin</p>
+  <div class="brand-header__user-utils-wrapper">
+    <div class="brand-header__messages">
+      <a id="messageNav" aria-label="Message inbox. " href="/flatshare/mythreads.pl">
+        <i class="far fa-envelope"></i>
+        <div class="new-email"></div>
+      </a>
+    </div>
+    <a href="#" title="Show full navigation menu" id="menuNav" class="brand-header__mobile-menu-dropdown" data-overlay-target="nav-menu" data-overlay-type="slideIn" data-overlay-settings='{"mask":"on"}'>
+<div class="profile-photo__wrap  brand-header__profile-photo-wrap" id="" data-tracking-profile-is="">
+    <div class="profile-photo__img-wrap">
+      <img class="profile-photo brand-header__profile-photo"  alt="Photograph of Robin" src="https://assets.spareroom.co.uk/img/spareroom/v4/icons/profilepic_unisex.gif" onerror="this.src='https://assets.spareroom.co.uk/img/spareroom/v4/icons/profilepic_unisex.gif'; this.onerror=null; " width="30" height="30">
+    </div>
+    <strong class="profile-photo__name" itemprop="name">Robin</strong>
+</div>      <span class="brand-header__mobile-menu-caret"><i class="far fa-chevron-down"></i></span>
+    </a>
+    <div class="brand-header__account">
+      <button aria-label="My account menu" aria-expanded="false" aria-controls="accountNav" class="button brand-header__account-button" data-overlay-target="account-mini-nav" data-overlay-type="dropDown" data-overlay-settings='{"dropDownLink":"/content/myaccount/myaccount-index/"}'>
+<div class="profile-photo__wrap  brand-header__profile-photo-wrap" id="" data-tracking-profile-is="">
+    <div class="profile-photo__img-wrap">
+      <img class="profile-photo brand-header__profile-photo"  alt="Photograph of Robin" src="https://assets.spareroom.co.uk/img/spareroom/v4/icons/profilepic_unisex.gif" onerror="this.src='https://assets.spareroom.co.uk/img/spareroom/v4/icons/profilepic_unisex.gif'; this.onerror=null; " width="30" height="30">
+    </div>
+    <strong class="profile-photo__name" itemprop="name">Robin</strong>
+</div>        <div class="brand-header__account-text">Account</div>
+        <span class="brand-header__account-button-caret"><i class='far fa-chevron-down'></i></span>
+      </button>
+<nav id="accountNav" class="account-mini-nav brand-header__account-mini-nav  hidden-overlay" data-overlay-name="account-mini-nav">
+  <ul class="account-mini-nav__menu">
+    <li><a class="account-mini-nav__menu-item" href="/content/myaccount/myaccount-index/"><!--
+    --><i class="far fa-user account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">My account</span><!--
+    --></a></li>
+    <li><a class="account-mini-nav__menu-item menu-parent-item" href="/flatshare/mythreads.pl"><!--
+      --><i class="far fa-envelope account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Messages</span><div class="new-email"></div><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/mylistings.pl"><!--
+      --><i class="far fa-newspaper account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">My ads</span><!--
+      --></a></li>
+    
+    <li><a class="account-mini-nav__menu-item menu-parent-item" href="/flatshare/viewings.pl"><!--
+      --><i class="far fa-calendar-check account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">My viewings</span><!--
+      --></a></li>
+    
+    
+    
+    
+    
+      <li><a class="account-mini-nav__menu-item" href="/flatshare/?filter=shortlist"><!--
+        --><i class="far fa-heart account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Saved ads</span><!--
+        --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/savesearch.pl"><!--
+      --><i class="far fa-bookmark account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Saved searches</span><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/interested.pl"><!--
+      --><i class="far fa-thumbs-up account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Who's interested?</span><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/mydetails.pl"><!--
+      --><i class="far fa-pen account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Edit my details</span><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/mydetails.pl?view=email_preferences"><!--
+      --><i class="far fa-bell account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Email alerts</span><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/content/myaccount/verify/?M_context=406"><!--
+      --><i class="far fa-shield-check account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Get Verified</span><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/get_bold_advertising.pl?M_context=75"><!--
+    --><i class="far fa-arrow-up account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Upgrade</span><!--
+    --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/contact.pl"><!--
+    --><i class="far fa-life-ring account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Contact support</span><!--
+    --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/logout.pl"><!--
+      --><i class="far fa-power-off account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Log out</span><!--
+      --></a></li>
+  </ul>
+</nav>
+    </div>
+  </div>
+</div>
+</div></div>
+
+
+<nav id="navBar" class="nav-bar">
+  <div class="nav-bar__menus">
+    <ul class="nav-bar__menu nav-bar__menu--left">
+      <li class="nav-bar__menu-item">
+        <a href="/flatshare/search.pl"  id="searchNav" title="Search SpareRoom for a property or tenant" class="nav-bar__link nav-bar__link--search nav-bar__link--selected" >
+          <span class="nav-bar__link-text">Search</span>
+        </a>
+      </li>
+      
+          <li class="nav-bar__menu-item">
+    <a href="/flatshare-house-share/uk/"  id="browseNav" title="Rooms for rent in your area" class="nav-bar__link nav-bar__link--browse">
+      <span class="nav-bar__link-text">Browse</span>
+    </a>
+  </li>
+
+      
+        <li class="nav-bar__menu-item">
+    <a href="/content/placeditadvert/choose-section-new/" id="postAdNav" title="Place your wanted or need property ad for free" class="nav-bar__link nav-bar__link--placeAd">
+      <span class="nav-bar__link-text">Post ad</span>
+    </a>
+  </li>
+
+      <li class="nav-bar__menu-item">
+        <a href="/content/myaccount/myaccount-index/"  id="myAccountNav" title="Your SpareRoom account area" class="nav-bar__link nav-bar__link--myAccount">
+          <span class="nav-bar__link-text">Account</span>
+        </a>
+      </li>
+      <li class="nav-bar__menu-item">
+        <a href="/content/info" title="Help"  id="helpNav" class="nav-bar__link nav-bar__link--help">
+          <span class="nav-bar__link-text">Help</span>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+
+
+
+
+
+<nav class="sub-nav mySearch"><ul class="sub-nav__menu"><li class="sub-nav__menu-item"><a class="selected" id="mySearchNav" title="Search results" href="/flatshare/search.pl?searchtype=advanced&amp;prefill=1400724683">My search</a></li><li class="sub-nav__menu-item"><a class="savedOffered" id="savedOfferedNav" title="Saved flat/house share ads" href="/flatshare/?filter=shortlist&amp;flatshare_type=offered">Saved flatshare ads</a></li><li class="sub-nav__menu-item"><a class="savedWanted" id="savedWantedNav" title="Saved flatmate ads" href="/flatshare/rooms_wanted.pl?filter=shortlist&amp;flatshare_type=wanted">Saved flatmate ads</a></li></ul></nav></div></header>
+<nav id="menuAllTest" class="nav-menu trans-all-05s" role="navigation" data-overlay-name="nav-menu">
+  <div class="nav-menu__nav-wrapper">
+    <a href="/" class="nav-menu__close" data-overlay-close="nav-menu" title="Show full navigation menu"><i class="nav-menu__close-icon far fa-times" aria-hidden="true"></i><span class="nav-menu__close-text">Close</span></a>
+<article class="account-card">
+  <header class="account-card__header">
+    <img class="account-card__image" src="https://assets.spareroom.co.uk/img/spareroom/v4/icons/profilepic_unisex.gif" onerror="this.src='https://assets.spareroom.co.uk/img/spareroom/v4/icons/profilepic_unisex.gif'; this.onerror=null;" alt="User profile">
+    <div class="account-card__details">
+      <h3 class="account-card__name">Robin</h3>
+      <a class="account-card__edit-link" href="/flatshare/mydetails.pl">Edit profile</a>
+    </div>
+  </header>
+  <div class="account-card__body">
+    
+      <p class="account-card__account-status">Your account is a basic account</p>
+      <a class="button account-card__upgrade-button" href="/flatshare/get_bold_advertising.pl?M_context=76">Upgrade</a>
+    
+    
+  </div>
+</article>    <div class="nav-menu__scroll-wrapper">
+<nav  class="account-mini-nav nav-menu__account-mini-nav">
+  <ul class="account-mini-nav__menu">
+    <li><a class="account-mini-nav__menu-item" href="/content/myaccount/myaccount-index/"><!--
+    --><i class="far fa-user account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">My account</span><!--
+    --></a></li>
+    <li><a class="account-mini-nav__menu-item menu-parent-item" href="/flatshare/mythreads.pl"><!--
+      --><i class="far fa-envelope account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Messages</span><div class="new-email"></div><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/mylistings.pl"><!--
+      --><i class="far fa-newspaper account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">My ads</span><!--
+      --></a></li>
+    
+    <li><a class="account-mini-nav__menu-item menu-parent-item" href="/flatshare/viewings.pl"><!--
+      --><i class="far fa-calendar-check account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">My viewings</span><!--
+      --></a></li>
+    
+    
+    
+    
+    
+      <li><a class="account-mini-nav__menu-item" href="/flatshare/?filter=shortlist"><!--
+        --><i class="far fa-heart account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Saved ads</span><!--
+        --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/savesearch.pl"><!--
+      --><i class="far fa-bookmark account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Saved searches</span><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/interested.pl"><!--
+      --><i class="far fa-thumbs-up account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Who's interested?</span><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/mydetails.pl"><!--
+      --><i class="far fa-pen account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Edit my details</span><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/mydetails.pl?view=email_preferences"><!--
+      --><i class="far fa-bell account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Email alerts</span><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/content/myaccount/verify/?M_context=406"><!--
+      --><i class="far fa-shield-check account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Get Verified</span><!--
+      --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/get_bold_advertising.pl?M_context=75"><!--
+    --><i class="far fa-arrow-up account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Upgrade</span><!--
+    --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/contact.pl"><!--
+    --><i class="far fa-life-ring account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Contact support</span><!--
+    --></a></li>
+    <li><a class="account-mini-nav__menu-item" href="/flatshare/logout.pl"><!--
+      --><i class="far fa-power-off account-mini-nav__menu-item-icon" aria-hidden="true"></i><span class="account-mini-nav__menu-item-text">Log out</span><!--
+      --></a></li>
+  </ul>
+</nav>
+      
+        
+      
+    </div>
+  </div>
+</nav>
+        
+        
+      
+      
+    
+    
+    <main id="spareroom" class="wrap wrap--main">
+
+        
+            
+                
+                
+                  
+                  
+						
+							
+						
+                    
+                
+            
+        
+      <div class="grid-4-8-4 " id="mainheader"><div>&nbsp;</div><div><h1>
+            
+                Rooms for Rent in London
+            </h1></div><div>&nbsp;</div></div>      
+      
+      
+      <div class="grid-4-8-4-ordered">
+        <div id="maincontent" class="cols-8 order-2">
+          <div class="above_search_results">
+            
+<div class="searching_options">
+  <p id="results_header" data-total-results="15960" data-total-rooms="19840">
+    
+      
+        Showing <strong> 201-210 </strong> of <strong>1000+</strong> results
+      
+    
+    
+  </p>
+<p class="sort_by">
+  
+    <label for="sort_by">Sort by :
+      <select name="sort_by" id="sort_by">
+        <option value="">Default sort order</option>
+        <option value="days_since_placed">Newest Ads</option>
+        <option value="last_updated">Last updated</option>
+        
+          
+          <option value="price_low_to_high">Price (lowest first)</option>
+          <option value="price_high_to_low">Price (highest first)</option>
+          
+        
+      </select>
+    </label>
+    <script type="text/javascript">
+      var sb = document.getElementById('sort_by');
+      sb.onchange = function() {
+      var o = this.options[this.selectedIndex].value;
+      var max_per_page = '';
+      var sort_by = o ? '&sort_by=' + o: '';
+      max_per_page = max_per_page !== '' ? '&max_per_page='+max_per_page : '';
+      document.location.href = '/flatshare/index.cgi?search_id=1400724683&offset=200' + sort_by + max_per_page;
+      };
+    </script>
+  
+  
+</p></div>
+
+
+  
+    <div class="searching_options_btn">
+      <p class="serching_opt">
+  
+  
+
+
+
+
+  
+    
+      
+        
+        <a class="icon map findAflatHIDE" data-ga-event-category="Google Maps (09 -11-16)" data-ga-event-action="map clicked" data-ga-event-label="search page" href="/flatshare/?search_id=1400724683&sort_by=by_day&mode=list&show_results=as+a+map&offset=200">Show results on a map <i class="fas fa-map-marker-alt"></i></a>
+    
+    
+  
+  
+
+
+  
+    
+      
+      
+        
+          
+            <a href="/flatshare/savesearch_confirm.pl?search_id=1400724683&search_type=offered" class="icon email" rel="nofollow">Save search for alerts <span></span></a>
+          
+        
+      
+    
+    
+    
+    
+      <a href="/flatshare/search.pl?searchtype=advanced&prefill=1400724683&mode=list&editing=" class="icon magnify">Refine search <span></span></a>
+    
+  
+
+
+
+  
+      </p>
+    </div>
+  
+  
+
+
+<!--REMEMBER!!!!
+
+MOBILE SPAREROOM DOESNT USE THIS LIB FOR THE SAVED SEARCH STUFF BELOE
+
+-->
+
+
+	
+
+
+		
+
+		
+
+		
+
+			
+
+
+			
+
+		
+
+
+	
+
+
+
+
+	            
+          </div>
+          
+
+  
+            
+
+            
+
+
+
+
+
+  
+  
+
+
+<div id="colivingTooltipModal" data-locale="en-GB"></div>
+<ul class="listing-results desktop">
+  
+      
+      <li class="listing-result"
+      data-listing-id="16104682"
+      data-listing-url="/flatshare/fad_click.pl?fad_id=16104682&search_id=1400724683&offset=200&city_id=&flatshare_type=offered&next_id=17942083&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="2&#32;x&#32;New&#32;Rooms&#32;&#40;1&#32;ensuite&#41;&#32;in&#32;New&#32;apartment&#32;&#45;&#32;Zone1"
+      data-listing-brand="featured"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="1"
+      data-listing-status="new"
+      data-listing-early-bird=""
+      data-listing-ad-verified="yes"
+      data-listing-ad-profile-photo="/img/spareroom/v4/icons/profilepic_unisex.gif"
+      data-listing-ad-pics="9"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Tower Bridge"
+          data-listing-postcode="E1"
+          data-listing-scp=""
+          data-listing-property-type="flat"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="2"
+          data-listing-advertiser-role="live out landlord"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--featured  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=16104682&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&featured=1&?listing_click=1" title="2 x New Rooms (1 ensuite) in New apartment - Zone1">
+<header class="listing-card__header ">
+
+  <div class="listing-card__status">
+      Featured
+  </div>
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/98/10/98106681.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--portrait" alt="2 x New Rooms (1 ensuite) in New apartment - Zone1 Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">9 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">2 x New Rooms (1 ensuite) in New apartment - Zone1</h2>
+
+  <p class="listing-card__location">Tower Bridge (E1)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+    
+      
+        &pound;1,100 - &pound;1,250
+          pcm
+      
+    
+    
+      <span class="listing-card__bills-included"> - bills <abbr title="included" aria-label="included">inc.</abbr></span>
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+      2 doubles
+    
+    
+  </span>
+  
+  
+
+  
+    <span class="listing-card__availability"> - Available now</span>
+  
+  
+  
+</p>         
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">Directly with the Owner-NO Agency
+Newly updated apartment moments from the City in Zone1
+
+IMMEDIATELY Available.
+PRICES...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info verified">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="/img/spareroom/v4/icons/profilepic_unisex.gif"  width="40" height="40" alt="Photograph of GIO">
+    </div>
+    <div class="advertiser-name">
+      
+        <div class="advertiser-info__name"><span class="advertiser-info__name-text">GIO</span>
+        
+<div class="verified-badge">
+  <i class="fas fa-shield-check verification-badge__symbol" aria-hidden=true></i> verified
+</div>        
+      </div>
+      
+      
+      <div class="advertiser-info__role">live out landlord</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=16104682&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Tower Bridge (E1)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+  
+      
+      <li class="listing-result"
+      data-listing-id="18083215"
+      data-listing-url="/flatshare/flatshare_detail.pl?flatshare_id=18083215&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="4&#32;Bedroom&#32;Flat&#32;Rooms&#32;£750–£850&#32;Pcm&#32;Bills&#32;Included"
+      data-listing-brand="bold"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="0"
+      data-listing-status="new today"
+      data-listing-early-bird=""
+      data-listing-ad-verified=""
+      data-listing-ad-profile-photo="/img/spareroom/v4/icons/profilepic_unisex.gif"
+      data-listing-ad-pics="6"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Archway"
+          data-listing-postcode="N19"
+          data-listing-scp=""
+          data-listing-property-type="flat"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="4"
+          data-listing-advertiser-role="agent"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--bold  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=18083215&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&" title="4 Bedroom Flat Rooms &pound;750–&pound;850 Pcm Bills Included">
+<header class="listing-card__header ">
+    
+
+
+  <div class="listing-card__contact">
+    <div class="listing-card__contact-icon">
+      <i class="far fa-lock-open-alt"></i>
+    </div>
+    <p class="listing-card__contact-text">
+      FREE TO CONTACT
+    </p>
+  </div>
+
+
+
+
+    
+    
+
+
+  
+    
+  <div class="listing-card__status listing-card__status--new-today">
+      New today
+  </div>
+    
+    
+    
+  
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/98/42/98420069.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--landscape" alt="4 Bedroom Flat Rooms &pound;750–&pound;850 Pcm Bills Included Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">6 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">4 Bedroom Flat Rooms &pound;750–&pound;850 Pcm Bills Included</h2>
+
+  <p class="listing-card__location">Archway (N19)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+    
+      
+        &pound;750 - &pound;850
+          pcm
+      
+    
+    
+      <span class="listing-card__bills-included"> - bills <abbr title="included" aria-label="included">inc.</abbr></span>
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+      4 doubles
+    
+    
+  </span>
+  
+  
+
+  
+  
+    <span class="listing-card__availability"> - Available 12th Dec</span>
+  
+  
+</p>         
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">4-Bedroom Flat – Rooms £750–£850 PCM 
+
+We have four rooms available in a well-located 4-bedroom flat. Please note: there...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info ">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="/img/spareroom/v4/icons/profilepic_unisex.gif"  width="40" height="40" alt="Photograph of Ave Estate Ltd">
+    </div>
+    <div class="advertiser-name">
+      
+      
+        <div class="advertiser-info__name">Ave Estate Ltd
+          
+          
+        </div>
+      
+      <div class="advertiser-info__role">agent</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=18083215&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Archway (N19)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+	
+      
+      <li class="listing-result"
+      data-listing-id="18083210"
+      data-listing-url="/flatshare/flatshare_detail.pl?flatshare_id=18083210&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="Canary&#32;Wharf&#47;Poplar&#42;2Rooms&#42;3Beds&#32;Modern&#32;Apartment&#32;"
+      data-listing-brand="bold"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="0"
+      data-listing-status="new today"
+      data-listing-early-bird=""
+      data-listing-ad-verified=""
+      data-listing-ad-profile-photo="https://photos2.spareroom.co.uk/images/flatshare/listings/square/97/83/97839087.jpg"
+      data-listing-ad-pics="9"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Canary Wharf"
+          data-listing-postcode="E14"
+          data-listing-scp=""
+          data-listing-property-type="flat"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="3"
+          data-listing-advertiser-role="agent"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--bold  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=18083210&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&" title="Canary Wharf&#47;Poplar*2Rooms*3Beds Modern Apartment ">
+<header class="listing-card__header ">
+    
+
+
+  <div class="listing-card__contact">
+    <div class="listing-card__contact-icon">
+      <i class="far fa-lock-open-alt"></i>
+    </div>
+    <p class="listing-card__contact-text">
+      FREE TO CONTACT
+    </p>
+  </div>
+
+
+
+
+    
+    
+
+
+  
+    
+  <div class="listing-card__status listing-card__status--new-today">
+      New today
+  </div>
+    
+    
+    
+  
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/98/42/98420051.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--landscape" alt="Canary Wharf&#47;Poplar*2Rooms*3Beds Modern Apartment  Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">9 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">Canary Wharf&#47;Poplar*2Rooms*3Beds Modern Apartment </h2>
+
+  <p class="listing-card__location">Canary Wharf (E14)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+    
+      
+        &pound;750 - &pound;950
+          pcm
+      
+    
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+      Single + double
+    
+    
+  </span>
+  
+  
+
+  
+  
+    <span class="listing-card__availability"> - Available 29th Jan</span>
+  
+  
+</p>         
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">2 rooms available from 29/01/26
+
+Large double (suitable also for couple 80 extra pcm)
+
+Single room ( for single occupancy...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info ">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="https://photos2.spareroom.co.uk/images/flatshare/listings/square/97/83/97839087.jpg"  width="40" height="40" alt="Photograph of BOND & MAIN GROUP LTD">
+    </div>
+    <div class="advertiser-name">
+      
+      
+        <div class="advertiser-info__name">BOND & MAIN GROUP LTD
+          
+          
+        </div>
+      
+      <div class="advertiser-info__role">agent</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=18083210&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Canary Wharf (E14)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+	
+      
+      <li class="listing-result"
+      data-listing-id="4852405"
+      data-listing-url="/flatshare/flatshare_detail.pl?flatshare_id=4852405&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="1&#32;dbl&#32;rm&#32;in&#32;refurb&#39;d&#32;nxt&#32;tube&#44;&#32;ALL&#32;INC&#44;wifi&#44;tv&#32;"
+      data-listing-brand="bold"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="0"
+      data-listing-status="new today"
+      data-listing-early-bird=""
+      data-listing-ad-verified=""
+      data-listing-ad-profile-photo="https://photos2.spareroom.co.uk/images/flatshare/listings/square/30/36/30361093.jpg"
+      data-listing-ad-pics="9"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Stamford Brook"
+          data-listing-postcode="W6"
+          data-listing-scp=""
+          data-listing-property-type="flat"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="4"
+          data-listing-advertiser-role="agent"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--bold  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=4852405&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&" title="1 dbl rm in refurb&#39;d nxt tube, ALL INC,wifi,tv ">
+<header class="listing-card__header ">
+    
+
+
+  <div class="listing-card__contact">
+    <div class="listing-card__contact-icon">
+      <i class="far fa-lock-open-alt"></i>
+    </div>
+    <p class="listing-card__contact-text">
+      FREE TO CONTACT
+    </p>
+  </div>
+
+
+
+
+    
+    
+
+
+  
+    
+  <div class="listing-card__status listing-card__status--new-today">
+      New today
+  </div>
+    
+    
+    
+  
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/13/58/13583455.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--landscape" alt="1 dbl rm in refurb&#39;d nxt tube, ALL INC,wifi,tv  Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">9 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">1 dbl rm in refurb&#39;d nxt tube, ALL INC,wifi,tv </h2>
+
+  <p class="listing-card__location">Stamford Brook (W6)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+    
+      
+        &pound;925
+          pcm
+      
+    
+    
+      <span class="listing-card__bills-included"> - bills <abbr title="included" aria-label="included">inc.</abbr></span>
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+      Double room
+    
+    
+  </span>
+  
+  
+
+  
+  
+    <span class="listing-card__availability"> - Available 16th Dec</span>
+  
+  
+</p>         
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">***0% deposit scheme offered - Reposit***
+
+Situated in the heart of leafy Chiswick this is a fantastic opportunity to live in a...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info ">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="https://photos2.spareroom.co.uk/images/flatshare/listings/square/30/36/30361093.jpg"  width="40" height="40" alt="Photograph of Acre Properties">
+    </div>
+    <div class="advertiser-name">
+      
+      
+        <div class="advertiser-info__name">Acre Properties
+          
+          
+        </div>
+      
+      <div class="advertiser-info__role">agent</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=4852405&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Stamford Brook (W6)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+	
+      
+      <li class="listing-result"
+      data-listing-id="18083205"
+      data-listing-url="/flatshare/flatshare_detail.pl?flatshare_id=18083205&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="Premium&#32;Rooms&#32;in&#32;Renovated&#32;3&#45;Bed&#32;House&#32;–&#32;E10&#32;6HB&#32;&#124;"
+      data-listing-brand="bold"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="1"
+      data-listing-status="new today"
+      data-listing-early-bird=""
+      data-listing-ad-verified=""
+      data-listing-ad-profile-photo="/img/spareroom/v4/icons/profilepic_unisex.gif"
+      data-listing-ad-pics="9"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Leyton"
+          data-listing-postcode="E10"
+          data-listing-scp=""
+          data-listing-property-type="house"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="3"
+          data-listing-advertiser-role="agent"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--bold  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=18083205&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&" title="Premium Rooms in Renovated 3-Bed House – E10 6HB |">
+<header class="listing-card__header ">
+    
+
+
+  <div class="listing-card__contact">
+    <div class="listing-card__contact-icon">
+      <i class="far fa-lock-open-alt"></i>
+    </div>
+    <p class="listing-card__contact-text">
+      FREE TO CONTACT
+    </p>
+  </div>
+
+
+
+
+    
+    
+
+
+  
+    
+  <div class="listing-card__status listing-card__status--new-today">
+      New today
+  </div>
+    
+    
+    
+  
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/98/41/98419991.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--portrait" alt="Premium Rooms in Renovated 3-Bed House – E10 6HB | Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">9 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">Premium Rooms in Renovated 3-Bed House – E10 6HB |</h2>
+
+  <p class="listing-card__location">Leyton (E10)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+    
+      
+        &pound;795 - &pound;1,050
+          pcm
+      
+    
+    
+      <span class="listing-card__bills-included"> - bills <abbr title="included" aria-label="included">inc.</abbr></span>
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+      2 doubles
+    
+    
+  </span>
+  
+  
+
+  
+    <span class="listing-card__availability"> - Available now</span>
+  
+  
+  
+</p>         
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">Two stunning rooms are available in a large, beautifully maintained 3-bed house located in the highly sought-after and well-known...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info ">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="/img/spareroom/v4/icons/profilepic_unisex.gif"  width="40" height="40" alt="Photograph of Next Home Property Ltd">
+    </div>
+    <div class="advertiser-name">
+      
+      
+        <div class="advertiser-info__name">Next Home Property Ltd
+          
+          
+        </div>
+      
+      <div class="advertiser-info__role">agent</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=18083205&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Leyton (E10)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+	
+      
+        
+          
+            
+
+
+
+<li id="srp-promo" class="srp-promo" data-randomised="1" data-promo-id="post_offered_ad">
+	<a class="srp-promo__link" href="/flatshare/find-postcode3.pl">
+
+<div class="message-box message-box--tips">
+  <span class="message-box__icon">
+    <i class="far fa-lightbulb-on"></i>
+  </span>
+    <div class="message-box__content">
+      	<h3 class="srp-promo__heading">Got a room for rent in London?</h3>
+	<p class="srp-promo__text">Reach 1000s of potential flatmates</p>
+	<span class="srp-promo__fake-link">Post a free Ad now</span>
+
+    </div>
+</div>	</a>
+</li>            
+            
+          
+          
+        
+
+        
+      
+      
+    
+      
+      <li class="listing-result"
+      data-listing-id="17696662"
+      data-listing-url="/flatshare/flatshare_detail.pl?flatshare_id=17696662&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="Bethnal&#32;Green&#47;Broadway&#32;Market"
+      data-listing-brand="bold"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="0"
+      data-listing-status="new today"
+      data-listing-early-bird=""
+      data-listing-ad-verified=""
+      data-listing-ad-profile-photo="https://photos2.spareroom.co.uk/images/flatshare/listings/square/97/83/97839087.jpg"
+      data-listing-ad-pics="9"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Bethnal Green"
+          data-listing-postcode="E2"
+          data-listing-scp=""
+          data-listing-property-type="flat"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="5"
+          data-listing-advertiser-role="agent"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--bold  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=17696662&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&" title="Bethnal Green&#47;Broadway Market">
+<header class="listing-card__header ">
+    
+
+
+  <div class="listing-card__contact">
+    <div class="listing-card__contact-icon">
+      <i class="far fa-lock-open-alt"></i>
+    </div>
+    <p class="listing-card__contact-text">
+      FREE TO CONTACT
+    </p>
+  </div>
+
+
+
+
+    
+    
+
+
+  
+    
+  <div class="listing-card__status listing-card__status--new-today">
+      New today
+  </div>
+    
+    
+    
+  
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/95/41/95413013.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--landscape" alt="Bethnal Green&#47;Broadway Market Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">9 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">Bethnal Green&#47;Broadway Market</h2>
+
+  <p class="listing-card__location">Bethnal Green (E2)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+    
+      
+        &pound;866
+          pcm
+      
+    
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+      Double room
+    
+    
+  </span>
+  
+  
+
+  
+  
+    <span class="listing-card__availability"> - Available 5th Jan</span>
+  
+  
+</p>         
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">BILLS INCLUDED: WATER GAS ELECTRICITY WIFI
+
+✔ Professional cleaning every week PROVIDED
+
+Local transport links include...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info ">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="https://photos2.spareroom.co.uk/images/flatshare/listings/square/97/83/97839087.jpg"  width="40" height="40" alt="Photograph of BOND & MAIN GROUP LTD">
+    </div>
+    <div class="advertiser-name">
+      
+      
+        <div class="advertiser-info__name">BOND & MAIN GROUP LTD
+          
+          
+        </div>
+      
+      <div class="advertiser-info__role">agent</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=17696662&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Bethnal Green (E2)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+	
+      
+      <li class="listing-result"
+      data-listing-id="18083200"
+      data-listing-url="/flatshare/flatshare_detail.pl?flatshare_id=18083200&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="✨&#32;Spacious&#32;Double&#32;Room&#32;in&#32;a&#32;Luxury&#32;&#32;Flat&#32;E14&#32;✨"
+      data-listing-brand="bold"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="1"
+      data-listing-status="new today"
+      data-listing-early-bird=""
+      data-listing-ad-verified=""
+      data-listing-ad-profile-photo="https://photos2.spareroom.co.uk/images/flatshare/listings/square/97/89/97892288.jpg"
+      data-listing-ad-pics="14"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Canary Wharf"
+          data-listing-postcode="E14"
+          data-listing-scp=""
+          data-listing-property-type="flat"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="2"
+          data-listing-advertiser-role="agent"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--bold  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=18083200&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&" title="✨ Spacious Double Room in a Luxury  Flat E14 ✨">
+<header class="listing-card__header ">
+    
+
+
+  <div class="listing-card__contact">
+    <div class="listing-card__contact-icon">
+      <i class="far fa-lock-open-alt"></i>
+    </div>
+    <p class="listing-card__contact-text">
+      FREE TO CONTACT
+    </p>
+  </div>
+
+
+
+
+    
+    
+
+
+  
+    
+  <div class="listing-card__status listing-card__status--new-today">
+      New today
+  </div>
+    
+    
+    
+  
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/98/41/98419909.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--portrait" alt="✨ Spacious Double Room in a Luxury  Flat E14 ✨ Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">14 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">✨ Spacious Double Room in a Luxury  Flat E14 ✨</h2>
+
+  <p class="listing-card__location">Canary Wharf (E14)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+    
+      
+        &pound;1,500
+          pcm
+      
+    
+    
+      <span class="listing-card__bills-included"> - bills <abbr title="included" aria-label="included">inc.</abbr></span>
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+      Double room
+    
+    
+  </span>
+  
+  
+
+  
+    <span class="listing-card__availability"> - Available now</span>
+  
+  
+  
+</p>         
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">A beautifully presented and spacious double room is available to rent in a modern luxury 2-bedroom flat located in the highly...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info ">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="https://photos2.spareroom.co.uk/images/flatshare/listings/square/97/89/97892288.jpg"  width="40" height="40" alt="Photograph of More Homes Group">
+    </div>
+    <div class="advertiser-name">
+      
+      
+        <div class="advertiser-info__name">More Homes Group
+          
+          
+        </div>
+      
+      <div class="advertiser-info__role">agent</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=18083200&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Canary Wharf (E14)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+	
+      
+      <li class="listing-result"
+      data-listing-id="18083198"
+      data-listing-url="/flatshare/flatshare_detail.pl?flatshare_id=18083198&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="Spacious&#32;1&#45;Bedroom&#44;&#32;&#32;Flat&#32;&#124;&#32;NW2"
+      data-listing-brand="bold"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="1"
+      data-listing-status="new today"
+      data-listing-early-bird=""
+      data-listing-ad-verified=""
+      data-listing-ad-profile-photo="/img/spareroom/v4/icons/profilepic_unisex.gif"
+      data-listing-ad-pics="13"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Cricklewood"
+          data-listing-postcode="NW2"
+          data-listing-scp="Y"
+          data-listing-property-type="flat"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="1"
+          data-listing-advertiser-role="live out landlord"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--bold  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=18083198&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&" title="Spacious 1-Bedroom,  Flat | NW2">
+<header class="listing-card__header ">
+    
+
+
+  <div class="listing-card__contact">
+    <div class="listing-card__contact-icon">
+      <i class="far fa-lock-open-alt"></i>
+    </div>
+    <p class="listing-card__contact-text">
+      FREE TO CONTACT
+    </p>
+  </div>
+
+
+
+
+    
+    
+
+
+  
+    
+  <div class="listing-card__status listing-card__status--new-today">
+      New today
+  </div>
+    
+    
+    
+  
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/98/41/98419871.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--landscape" alt="Spacious 1-Bedroom,  Flat | NW2 Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">13 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">Spacious 1-Bedroom,  Flat | NW2</h2>
+
+  <p class="listing-card__location">Cricklewood (NW2)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+&pound;1,950          pcm
+    
+    
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+    
+1 bed flat    
+  </span>
+  
+  
+
+  
+    <span class="listing-card__availability"> - Available now</span>
+  
+  
+  
+</p>         
+
+  
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">A beautifully presented one-bedroom flat in the vibrant heart of Cricklewood, offering stylish modern living with a bright...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info ">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="/img/spareroom/v4/icons/profilepic_unisex.gif"  width="40" height="40" alt="Photograph of Daniel">
+    </div>
+    <div class="advertiser-name">
+      
+        <div class="advertiser-info__name"><span class="advertiser-info__name-text">Daniel</span>
+        
+      </div>
+      
+      
+      <div class="advertiser-info__role">live out landlord</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=18083198&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Cricklewood (NW2)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+	
+      
+      <li class="listing-result"
+      data-listing-id="15815370"
+      data-listing-url="/flatshare/flatshare_detail.pl?flatshare_id=15815370&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="Female&#32;Room&#32;Available&#32;Now&#32;£800Pm&#32;inc&#32;Bils"
+      data-listing-brand="bold"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="1"
+      data-listing-status="boosted"
+      data-listing-early-bird=""
+      data-listing-ad-verified="yes"
+      data-listing-ad-profile-photo="https://photos2.spareroom.co.uk/images/flatshare/listings/square/93/84/93849372.jpg"
+      data-listing-ad-pics="14"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Streatham"
+          data-listing-postcode="SW16"
+          data-listing-scp=""
+          data-listing-property-type="flat"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="3"
+          data-listing-advertiser-role="live out landlord"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--bold  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=15815370&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&" title="Female Room Available Now &pound;800Pm inc Bils">
+<header class="listing-card__header ">
+    
+
+
+  <div class="listing-card__contact">
+    <div class="listing-card__contact-icon">
+      <i class="far fa-lock-open-alt"></i>
+    </div>
+    <p class="listing-card__contact-text">
+      FREE TO CONTACT
+    </p>
+  </div>
+
+
+
+
+    
+    
+
+
+  
+    
+    
+    
+  <div class="listing-card__status listing-card__status--boosted">
+      Boosted
+  </div>
+    
+  
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/98/19/98198114.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--landscape" alt="Female Room Available Now &pound;800Pm inc Bils Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">14 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">Female Room Available Now &pound;800Pm inc Bils</h2>
+
+  <p class="listing-card__location">Streatham (SW16)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+    
+      
+        &pound;800
+          pcm
+      
+    
+    
+      <span class="listing-card__bills-included"> - bills <abbr title="included" aria-label="included">inc.</abbr></span>
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+      Double room
+    
+    
+  </span>
+  
+  
+
+  
+    <span class="listing-card__availability"> - Available now</span>
+  
+  
+  
+</p>         
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">FEMALE ONLY DOUBLE ROOM -
+Streatham/Streatham HILL AVAILABLE NOW - £800pm 
+INCLUDING all bills, WiFi and housekeeper
+
+Modern...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info verified">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="https://photos2.spareroom.co.uk/images/flatshare/listings/square/93/84/93849372.jpg"  width="40" height="40" alt="Photograph of Claudia">
+    </div>
+    <div class="advertiser-name">
+      
+        <div class="advertiser-info__name"><span class="advertiser-info__name-text">Claudia</span>
+        
+<div class="verified-badge">
+  <i class="fas fa-shield-check verification-badge__symbol" aria-hidden=true></i> verified
+</div>        
+      </div>
+      
+      
+      <div class="advertiser-info__role">live out landlord</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=15815370&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Streatham (SW16)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+	
+      
+      <li class="listing-result"
+      data-listing-id="18008984"
+      data-listing-url="/flatshare/flatshare_detail.pl?flatshare_id=18008984&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="En&#45;suite&#32;double&#32;room&#32;close&#32;to&#32;Dalston&#32;stations"
+      data-listing-brand="bold"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="1"
+      data-listing-status="boosted"
+      data-listing-early-bird=""
+      data-listing-ad-verified=""
+      data-listing-ad-profile-photo="https://photos2.spareroom.co.uk/images/flatshare/listings/square/79/56/79566631.jpg"
+      data-listing-ad-pics="8"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Dalston"
+          data-listing-postcode="E8"
+          data-listing-scp=""
+          data-listing-property-type="flat"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="2"
+          data-listing-advertiser-role="current flatmate"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--bold  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=18008984&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&" title="En-suite double room close to Dalston stations">
+<header class="listing-card__header ">
+    
+
+
+  <div class="listing-card__contact">
+    <div class="listing-card__contact-icon">
+      <i class="far fa-lock-open-alt"></i>
+    </div>
+    <p class="listing-card__contact-text">
+      FREE TO CONTACT
+    </p>
+  </div>
+
+
+
+
+    
+    
+
+
+  
+    
+    
+    
+  <div class="listing-card__status listing-card__status--boosted">
+      Boosted
+  </div>
+    
+  
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/97/78/97785558.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--portrait" alt="En-suite double room close to Dalston stations Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">8 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">En-suite double room close to Dalston stations</h2>
+
+  <p class="listing-card__location">Dalston (E8)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+    
+      
+        &pound;1,400
+          pcm
+      
+    
+    
+      <span class="listing-card__bills-included"> - bills <abbr title="included" aria-label="included">inc.</abbr></span>
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+      Double room
+    
+    
+  </span>
+  
+  
+
+  
+    <span class="listing-card__availability"> - Available now</span>
+  
+  
+  
+</p>         
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">This apartment is a beautifully furnished, modern and very clean space, shared with one female and one loving, quiet, well house...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info ">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="https://photos2.spareroom.co.uk/images/flatshare/listings/square/79/56/79566631.jpg"  width="40" height="40" alt="Photograph of Hayley">
+    </div>
+    <div class="advertiser-name">
+      
+        <div class="advertiser-info__name"><span class="advertiser-info__name-text">Hayley</span>
+        
+      </div>
+      
+      
+      <div class="advertiser-info__role">current flatmate</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=18008984&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Dalston (E8)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+	
+      
+      <li class="listing-result"
+      data-listing-id="16859244"
+      data-listing-url="/flatshare/flatshare_detail.pl?flatshare_id=16859244&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&"
+      data-listing-title="En&#45;suite&#32;riverside&#32;flat"
+      data-listing-brand="bold"
+      data-listing-type="offered"
+      data-listing-days-old="1"
+      data-listing-available-now="1"
+      data-listing-status="new today"
+      data-listing-early-bird=""
+      data-listing-ad-verified=""
+      data-listing-ad-profile-photo="/img/spareroom/v4/icons/profilepic_unisex.gif"
+      data-listing-ad-pics="6"
+      data-listing-ad-video="no"
+        
+        
+          data-listing-neighbourhood="Canary Wharf"
+          data-listing-postcode="E14"
+          data-listing-scp=""
+          data-listing-property-type="flat"
+          data-listing-property-type-more=""
+          data-listing-rooms-in-property="3"
+          data-listing-advertiser-role="current flatmate"
+        
+        >
+         
+        
+        
+        
+
+<article class="listing-card listing-card--bold  ">
+
+  
+  <a class="listing-card__link" href="/flatshare/flatshare_detail.pl?flatshare_id=16859244&search_id=1400724683&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist&" title="En-suite riverside flat">
+<header class="listing-card__header ">
+    
+
+
+  <div class="listing-card__contact">
+    <div class="listing-card__contact-icon">
+      <i class="far fa-lock-open-alt"></i>
+    </div>
+    <p class="listing-card__contact-text">
+      FREE TO CONTACT
+    </p>
+  </div>
+
+
+
+
+    
+    
+
+
+  
+    
+  <div class="listing-card__status listing-card__status--new-today">
+      New today
+  </div>
+    
+    
+    
+  
+</header>
+
+<div class="listing-card__wrapper">
+  <div class="listing-card__body">
+    <div class="listing-card__image-container">
+
+<div class="listing-card__image-wrapper listing-card__image-wrapper--offered">
+
+    
+      
+    
+<img src="//photos2.spareroom.co.uk/images/flatshare/listings/unmodified/88/80/88806230.jpg?width=400&fit=bounds&auto=webp&optimize=medium" class="listing-card__main-image listing-card__main-image--landscape" alt="En-suite riverside flat Main Photo" width="200" height="166.667">
+</div>
+  <div class="listing-card__photos">
+    <div class="listing-card__photos-icon">
+      <i class="far fa-camera"></i>
+    </div>
+    <p class="listing-card__photos-text">6 <span class="sr-only">photos</span></p>
+    
+  </div>
+
+    </div>
+    <div class="listing-card__details ">
+      <div class="listing-card__description">
+<h2 class="listing-card__title">En-suite riverside flat</h2>
+
+  <p class="listing-card__location">Canary Wharf (E14)</p>
+
+
+
+
+  <p class="listing-card__price">
+    
+    
+      
+        &pound;1,150
+          pcm
+      
+    
+    
+      <span class="listing-card__bills-included"> - bills <abbr title="included" aria-label="included">inc.</abbr></span>
+    
+  </p>
+
+<p class="listing-card__room-type">
+  
+  <span class="listing-card__room offered">
+    
+      Double room
+    
+    
+  </span>
+  
+  
+
+  
+    <span class="listing-card__availability"> - Available now</span>
+  
+  
+  
+</p>         
+         
+      </div>
+  </div>
+  </div>
+    <footer class="listing-card__footer">
+      <p class="listing-card__short_description">My housemate is moving out and need a replacement. Lovely flat with a gym and 24h concierge. Apartment is spacious and has all you...</p>
+      <div class="listing-card__save_and_info">
+
+
+<div class="advertiser-info ">
+  
+    <div class="advertiser-photo-wrapper">
+      <img class="advertiser-photo" src="/img/spareroom/v4/icons/profilepic_unisex.gif"  width="40" height="40" alt="Photograph of Lawrence">
+    </div>
+    <div class="advertiser-name">
+      
+        <div class="advertiser-info__name"><span class="advertiser-info__name-text">Lawrence</span>
+        
+      </div>
+      
+      
+      <div class="advertiser-info__role">current flatmate</div>
+    </div>
+  
+  
+</div>
+
+
+  
+    
+    
+
+
+
+
+
+
+
+<div class="listing-card__save">
+  <button data-href="/flatshare/shortlist.pl?function=add&flatshare_id=16859244&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D200%26search_id%3D1400724683%26sort_by%3Dby_day%26mode%3Dlist" data-go-to-status-page="0" class="button button--action" data-action-name="Save" data-action-name-active="Saved" data-save-status="" title="Save listing Canary Wharf (E14)">
+    <div class="button__content">
+      <span class="button__icon">
+        <i class="far fa-heart"></i>
+      </span>
+      <span class="button__text">Save</span>
+    </div>
+  </button>
+</div>    
+  
+        </div>
+    </footer>
+    <div class="listing-card__commute-meet">
+
+
+    </div>
+</div>
+  </a>
+</article>
+        
+      </li>
+	
+  
+  
+
+  
+    
+  
+
+
+</ul>
+
+  
+
+
+
+
+
+		
+			<div>
+				<ul class="navprev">
+					<li><a id="paginationFirstPageLink" href="?offset=0&search_id=1400724683&sort_by=by_day&mode=list">|&lt; First</a></li>
+					<li><a id="paginationPreviousPageLink" href="?offset=190&search_id=1400724683&sort_by=by_day&mode=list">&lt;&lt; Prev</a></li>
+				</ul>
+				<ul class="navnext">
+					<li><strong><a id="paginationNextPageLink" href="?offset=210&search_id=1400724683&sort_by=by_day&mode=list">Next &gt;&gt;</a></strong></li>
+
+				</ul>
+				<p class="navcurrent">
+
+						Showing <strong> 201-210 </strong> of <strong>1000+</strong> results
+
+				</p>
+			</div>
+		
+
+
+
+	
+		
+			
+				
+
+					
+						
+
+
+							<div class="scribble_prompt save_search save_search__offered">
+								<h4 class="scribble_prompt__heading hidden">Save this search</h4>
+								<p class="text">
+It's free and we'll email you new rooms as they come in								</p>
+								<p class="buttons">
+<a class="button" href="/flatshare/savesearch_confirm.pl?search_id=1400724683&flatshare_type=offered&search_type=offered" rel="nofollow">save</a>
+								</p>
+							</div>
+
+					
+
+					
+
+					
+
+				
+			
+		
+	
+
+        </div>
+        <aside class="cols-4 order-1">
+          
+          
+
+
+
+
+
+
+
+
+  
+  <form action="/flatshare/search_copy_n_edit.pl" method="GET" id="filterForm" name="search-filter" class="search-widget-form" data-search-form>
+      <input type="hidden" name="search_id" value="1400724683">
+      <input type="hidden" name="editing" value="">
+      <input type="hidden" name="mode" value="list">
+      <input type="hidden" name="changeable_params" value="location_type,miles_from_max,max_commute_time,showme_rooms,showme_buddyup_properties,showme_1beds">
+      <input type="hidden" name="replace_all_adv_params" value="1">
+      <input type="hidden" name="sort_by" value="by_day">
+      <input type="hidden" name="location_type" value="area">
+      <input type="hidden" name="is_location_change" value="0">
+  
+  
+  <section id="searchWidget" class="panel panel-header-closed search-widget panel-standard">
+    <header>
+      <h3 id="search-for-title">Search</h3>
+    </header>
+    <div data-widget="search">
+        <input name="nmsq_mode" TYPE="hidden" VALUE="normal">
+      <input type="hidden" name="action" value="search">
+      <input type="hidden" name="max_per_page" value="">
+      <div role="group" aria-labelledby="search-for-title">
+          <div class="form-group__radio form-group__radio--white-bg">
+            <input type="radio" name="flatshare_type" CHECKED  value="offered" id="flatshare_type-offered" checked>
+            <label title="Rooms in existing shares" for="flatshare_type-offered">
+Rooms for Rent            </label>
+          </div>
+          
+          <div class="form-group__radio form-group__radio--white-bg">
+            <input id="flatshare_type-wanted" type="radio" name="flatshare_type" value="wanted" class="radiobuttons">
+            <label title="Potential flatmates and tenants seeking accommodation" for="flatshare_type-wanted">
+              Rooms Wanted
+            </label>
+          </div>
+          <div class="form-group__radio form-group__radio--white-bg">
+            <input id="flatshare_type-buddyup" type="radio" name="flatshare_type" value="buddyup" class="radiobuttons">
+            <label title="Find others seeking accommodation to form a new flatshare" for="flatshare_type-buddyup">
+              Buddy ups
+<span class="tooltip buddyUp" tabindex="-1">&nbsp;<i class="fas fa-info-circle"></i><span class="tooltip_box"><span class="tooltip_text">Find potential buddy ups to share this property with <a href="/content/info-faq/buddyups/" title="Find out more about BuddyUps">Find out more &raquo;</a></span><span class="tooltip_arrow">&nbsp;</span></span><span class="tooltip_background" tabindex="-1"></span></span>              </label>
+          </div>
+        </div>
+        <div class="search-widget__location-fields">
+          <div class="form-group autocomplete__wrapper">
+            <label class="search-widget__location-label" for="search_by_location_field">Search location</label>
+            <input data-search-by-location class="form-group__input form-group__input--wide" type="text" name="search" value="London" id="search_by_location_field" onFocus="if(this.value=='(e.g.Greenwich)'){this.value='';}" class="textbox" pattern=".*" required="" data-store-search-text autocomplete="off">
+
+          </div>
+            
+      
+  <div class="form-group" id="miles_from_max">
+    <label class="search-widget__location-label" for="radius">Search radius</label>
+    <div class="form-group__select form-group__select--full-width form-group__select--white-bg">
+      <select name="miles_from_max" id="radius">
+        <option value="0">This area only</option>
+        <option value="1">1 mile radius</option>
+        <option value="2">2 mile radius</option>
+        <option value="3">3 mile radius</option>
+        <option value="4">4 mile radius</option>
+        <option value="5">5 mile radius</option>
+        <option value="10">10 mile radius</option>
+        <option value="15">15 mile radius</option>
+        <option value="20">20 mile radius</option>
+        <option value="30">30 mile radius</option>
+        <option value="40">40 mile radius</option>
+      </select>
+      <span class="form-group__select-icon"><i class="far fa-chevron-down" aria-hidden="true"></i></span>
+    </div>
+  </div>
+      
+                  
+            
+            
+
+              
+
+        </div>
+
+          
+  <input id="submitButton" type="submit" class="button button--wide" value="Search again">
+            
+            
+  <div class="search-widget__advanced-search-link">
+    <a href="/flatshare/search.pl?searchtype=advanced&prefill=1400724683&mode=list&editing=">Advanced search</a>
+  </div>
+            
+          
+          
+
+      </div>
+        
+          
+            
+            
+              
+                
+                  <a href="/flatshare/savesearch_confirm.pl?search_id=1400724683&search_type=offered" class="save-for-alerts" rel="nofollow"><i class="fas fa-bell" aria-hidden="true"></i>Save this search for alerts</a>
+                
+              
+            
+          
+        
+  </section>
+
+
+    
+      
+    <div class="search-filter-form" id="searchFilters" data-years-available="" data-search-type="offered"></div>
+      
+      
+    
+</form>          
+        </aside>
+        <aside class="cols-4 order-3">
+          
+            
+          
+            
+              <section>
+                <h3>Help topics</h3>
+                <ul>
+                  
+                  
+                    <li><a href="/content/info-faq/how-the-site-works">What does
+
+<img src="//assets.spareroom.co.uk/img/spareroom/v4/icons/early_bird.svg?v=1" class="svg early_bird_icon " alt="Early bird" width="212" height="150">                     mean?</a></li>
+                  
+                    <li><a href="/content/info-faq/why-email-alerts/">Why set up email alerts?</a></li>
+                    <li><a href="/content/info-tenants/safety-tips-for-room-seekers/">Do we vet our advertisers?</a></li>
+                  
+                  
+                  <li><a href="/content/info-faq/help-listings-order/">How are the listings ordered?</a></li>
+                </ul>
+              </section>
+            
+          
+            
+              
+          
+
+
+  
+
+
+  <section class="nearby-areas-section" id="areas_within_posttown_lbi">
+    <h3>Areas in London</h3>
+    <ul class="suggested-searches">
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Abbey%20Wood%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Abbey Wood
+          <span class="postcode">(SE2)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Acton%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Acton
+          <span class="postcode">(W3)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Aldersgate%20%2F%20Finsbury%20%2F%20Holborn%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Aldersgate / Finsbury / Holborn
+          <span class="postcode">(EC1)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Aldgate%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Aldgate
+          <span class="postcode">(EC3)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Angel%20%2F%20Islington%20%2F%20Canonbury%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Angel / Islington / Canonbury
+          <span class="postcode">(N1)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Balham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Balham
+          <span class="postcode">(SW12)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Barnes%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Barnes
+          <span class="postcode">(SW13)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Battersea%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Battersea
+          <span class="postcode">(SW11)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Bayswater%20%2F%20Paddington%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Bayswater / Paddington
+          <span class="postcode">(W2)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Bermondsey%20%2F%20Rotherhithe%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Bermondsey / Rotherhithe
+          <span class="postcode">(SE16)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Bethnal%20Green%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Bethnal Green
+          <span class="postcode">(E2)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Bishopsgate%20%2F%20Cheapside%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Bishopsgate / Cheapside
+          <span class="postcode">(EC2)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Blackheath%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Blackheath
+          <span class="postcode">(SE3)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Bloomsbury%20%2F%20High%20Holborn%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Bloomsbury / High Holborn
+          <span class="postcode">(WC1)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Bow%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Bow
+          <span class="postcode">(E3)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Brixton%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Brixton
+          <span class="postcode">(SW2)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Brockley%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Brockley
+          <span class="postcode">(SE4)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Camberwell%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Camberwell
+          <span class="postcode">(SE5)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Camden%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Camden
+          <span class="postcode">(NW1)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Canary%20Wharf%20%2F%20Docklands%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Canary Wharf / Docklands
+          <span class="postcode">(E14)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Canning%20Town%20%2F%20North%20Woolwich%20%2F%20Docks%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Canning Town / North Woolwich / Docks
+          <span class="postcode">(E16)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Catford%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Catford
+          <span class="postcode">(SE6)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Charlton%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Charlton
+          <span class="postcode">(SE7)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Chelsea%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Chelsea
+          <span class="postcode">(SW3)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Chingford%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Chingford
+          <span class="postcode">(E4)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Chiswick%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Chiswick
+          <span class="postcode">(W4)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Clapham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Clapham
+          <span class="postcode">(SW4)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Clapton%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Clapton
+          <span class="postcode">(E5)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Colindale%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Colindale
+          <span class="postcode">(NW9)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Cricklewood%20%2F%20Dollis%20Hill%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Cricklewood / Dollis Hill
+          <span class="postcode">(NW2)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Crystal%20Palace%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Crystal Palace
+          <span class="postcode">(SE19)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Dalston%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Dalston
+          <span class="postcode">(E8)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Deptford%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Deptford
+          <span class="postcode">(SE8)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Dulwich%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Dulwich
+          <span class="postcode">(SE21, SE22)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Ealing%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Ealing
+          <span class="postcode">(W5)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Earl's%20Court%20%2F%20West%20Brompton%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Earl's Court / West Brompton
+          <span class="postcode">(SW5)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=East%20Finchley%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">East Finchley
+          <span class="postcode">(N2)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=East%20Ham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">East Ham
+          <span class="postcode">(E6)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Eltham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Eltham
+          <span class="postcode">(SE9)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Finchley%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Finchley
+          <span class="postcode">(N3)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Finsbury%20Park%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Finsbury Park
+          <span class="postcode">(N4)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Forest%20Gate%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Forest Gate
+          <span class="postcode">(E7)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Forest%20Hill%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Forest Hill
+          <span class="postcode">(SE23)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Fulham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Fulham
+          <span class="postcode">(SW6)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Golders%20Green%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Golders Green
+          <span class="postcode">(NW11)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Greenwich%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Greenwich
+          <span class="postcode">(SE10)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Hammersmith%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Hammersmith
+          <span class="postcode">(W6)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Hampstead%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Hampstead
+          <span class="postcode">(NW3)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Hanwell%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Hanwell
+          <span class="postcode">(W7)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Hendon%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Hendon
+          <span class="postcode">(NW4)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Herne%20Hill%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Herne Hill
+          <span class="postcode">(SE24)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Highbury%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Highbury
+          <span class="postcode">(N5)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Highgate%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Highgate
+          <span class="postcode">(N6)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Holland%20Park%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Holland Park
+          <span class="postcode">(W8)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Holloway%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Holloway
+          <span class="postcode">(N7)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Homerton%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Homerton
+          <span class="postcode">(E9)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Hornsey%20%2F%20Crouch%20End%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Hornsey / Crouch End
+          <span class="postcode">(N8)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Kennington%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Kennington
+          <span class="postcode">(SE11)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Kentish%20Town%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Kentish Town
+          <span class="postcode">(NW5)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Kilburn%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Kilburn
+          <span class="postcode">(NW6)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Lee%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Lee
+          <span class="postcode">(SE12)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Lewisham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Lewisham
+          <span class="postcode">(SE13)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Leyton%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Leyton
+          <span class="postcode">(E10)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Leytonstone%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Leytonstone
+          <span class="postcode">(E11)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=London%20Bridge%20%2F%20Borough%20%2F%20Waterloo%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">London Bridge / Borough / Waterloo
+          <span class="postcode">(SE1)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Lower%20Edmonton%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Lower Edmonton
+          <span class="postcode">(N9)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Maida%20Vale%20%2F%20Paddington%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Maida Vale / Paddington
+          <span class="postcode">(W9)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Manor%20Park%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Manor Park
+          <span class="postcode">(E12)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Mill%20Hill%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Mill Hill
+          <span class="postcode">(NW7)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Mortlake%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Mortlake
+          <span class="postcode">(SW14)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Muswell%20Hill%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Muswell Hill
+          <span class="postcode">(N10)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=New%20Cross%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">New Cross
+          <span class="postcode">(SE14)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=New%20Southgate%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">New Southgate
+          <span class="postcode">(N11)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=North%20Finchley%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">North Finchley
+          <span class="postcode">(N12)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=North%20Kensington%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">North Kensington
+          <span class="postcode">(W10)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Norwood%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Norwood
+          <span class="postcode">(SE25)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Notting%20Hill%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Notting Hill
+          <span class="postcode">(W11)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Olympic%20Park%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Olympic Park
+          <span class="postcode">(E20)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Palmers%20Green%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Palmers Green
+          <span class="postcode">(N13)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Peckham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Peckham
+          <span class="postcode">(SE15)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Penge%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Penge
+          <span class="postcode">(SE20)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Plaistow%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Plaistow
+          <span class="postcode">(E13)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Plumstead%20%2F%20Woolwich%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Plumstead / Woolwich
+          <span class="postcode">(SE18)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Putney%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Putney
+          <span class="postcode">(SW15)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Shepherds%20Bush%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Shepherds Bush
+          <span class="postcode">(W12)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Shoreditch%20%2F%20Whitechapel%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Shoreditch / Whitechapel
+          <span class="postcode">(E1)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=South%20and%20West%20Wimbledon%20%2F%20Raynes%20Park%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">South and West Wimbledon / Raynes Park
+          <span class="postcode">(SW20)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=South%20Kensington%20%2F%20Knightsbridge%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">South Kensington / Knightsbridge
+          <span class="postcode">(SW7)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=South%20Lambeth%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">South Lambeth
+          <span class="postcode">(SW8)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=South%20Woodford%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">South Woodford
+          <span class="postcode">(E18)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Southgate%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Southgate
+          <span class="postcode">(N14)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=St%20John's%20Wood%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">St John's Wood
+          <span class="postcode">(NW8)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=St%20Paul's%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">St Paul's
+          <span class="postcode">(EC4)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Stamford%20Hill%20%2F%20South%20Tottenham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Stamford Hill / South Tottenham
+          <span class="postcode">(N15)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Stockwell%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Stockwell
+          <span class="postcode">(SW9)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Stoke%20Newington%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Stoke Newington
+          <span class="postcode">(N16)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Strand%20%2F%20Holborn%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Strand / Holborn
+          <span class="postcode">(WC2)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Stratford%20%2F%20West%20Ham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Stratford / West Ham
+          <span class="postcode">(E15)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Streatham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Streatham
+          <span class="postcode">(SW16)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Sydenham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Sydenham
+          <span class="postcode">(SE26)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Thamesmead%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Thamesmead
+          <span class="postcode">(SE28)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Tooting%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Tooting
+          <span class="postcode">(SW17)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Tottenham%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Tottenham
+          <span class="postcode">(N17)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Totteridge%20%2F%20Whetstone%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Totteridge / Whetstone
+          <span class="postcode">(N20)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Upper%20Edmonton%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Upper Edmonton
+          <span class="postcode">(N18)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Upper%20Holloway%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Upper Holloway
+          <span class="postcode">(N19)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Walthamstow%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Walthamstow
+          <span class="postcode">(E17)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Walworth%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Walworth
+          <span class="postcode">(SE17)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Wandsworth%20Town%20%2F%20Earlsfield%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Wandsworth Town / Earlsfield
+          <span class="postcode">(SW18)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=West%20Brompton%20%2F%20Chelsea%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">West Brompton / Chelsea
+          <span class="postcode">(SW10)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=West%20Ealing%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">West Ealing
+          <span class="postcode">(W13)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=West%20End%20%2F%20Soho%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">West End / Soho
+          <span class="postcode">(W1)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=West%20Kensington%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">West Kensington
+          <span class="postcode">(W14)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=West%20Norwood%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">West Norwood
+          <span class="postcode">(SE27)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Westminster%20%2F%20Belgravia%20%2F%20Pimlico%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Westminster / Belgravia / Pimlico
+          <span class="postcode">(SW1)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Willesden%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Willesden
+          <span class="postcode">(NW10)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Wimbledon%20%2F%20Merton%20%2F%20Collier's%20Wood%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Wimbledon / Merton / Collier's Wood
+          <span class="postcode">(SW19)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Winchmore%20Hill%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Winchmore Hill
+          <span class="postcode">(N21)</span>
+          </a>
+        
+        
+      </li>
+      
+      <li>
+        
+          <a href="/flatshare/search_copy_n_edit.pl?mode=list&editing=&search_id=1400724683&search=Wood%20Green%2C%20London&location_type=area&is_location_change=1&max_per_page=&" rel="nofollow" class="areas_within_link">Wood Green
+          <span class="postcode">(N22)</span>
+          </a>
+        
+        
+      </li>
+      
+    </ul>
+  </section>
+    
+  
+
+
+
+
+
+				
+      
+    
+  
+
+          
+
+
+          
+
+
+              
+          
+
+
+<section class="panel panel-header-closed need-help">
+  <header>
+    <h3>Need any help?</h3>
+  </header>
+  <div>
+
+
+    <ul class="need_help_contact">
+      <li><a href="/content/info-faq/faq/">View our FAQs</a></li>
+      <li><a href="/contact.pl" rel="nofollow">Contact us by email or phone</a></li>
+      </ul>
+
+
+
+  <!-- Start of spareroom Zendesk Widget script -->
+    <script id="ze-snippet" defer src="https://static.zdassets.com/ekr/snippet.js?key=02d88f50-babe-4177-82a1-fe426c9353a1"> </script>
+  <!-- End of spareroom Zendesk Widget script -->
+	</div>
+</section>
+        </aside>
+      </div>
+      <div id="promotedVideoInfoModal"></div>
+      <div id="promoFromCityLanding"></div>
+    </main>
+
+<footer id="site-footer" class="base-footer"><div class="footer__full-upper-rows">
+    <div class="footer__row footer__row--row-1-distraction">
+        <div class="footer__column footer__column--about-us">
+            <strong class="footer__column-header">About us</strong>
+            <ul class="footer__column-list">
+                  <li class="footer__column-list-item"><a class="footer__link-about-us footer__link" title="Find out more about us" href="/content/about-us/about-spareroom/">About <span class="footer__link-text--full">SpareRoom</span><span class="footer__link-text--short">us</span></a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-why-use footer__link" href="/content/about-us/why-use-spareroom/">Why use SpareRoom?</a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-how-works footer__link" title="How to use SpareRoom" href="/content/about-us/how-spareroom-works/">How SpareRoom Works</a>                  </li>
+            </ul>
+        </div>
+        <div class="footer__column footer__column--our-services">
+            <strong class="footer__column-header">Our services</strong>
+            <ul class="footer__column-list">
+                  <li class="footer__column-list-item"><a class="footer__link-advertise-room footer__link" title="Advertise your room to let" href="/content/placeditadvert/listing-options/">Advertise a room</a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-room-wanted footer__link" href="/flatshare/wanted_listing_step1.pl">Post a room wanted ad</a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-whole-property footer__link" title="Advertise your whole property to a group of sharers" href="/content/placeditadvert/scp-options/">Advertise a whole property</a>                  </li>
+            </ul>
+        </div>
+        <div class="footer__column footer__column--contact">
+            <strong class="footer__column-header">Contact us</strong>
+            <ul class="footer__column-list">
+                  <li class="footer__column-list-item"><a class="footer__link-contact-us footer__link" href="/contact.pl">Contact us</a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-faq footer__link" title="SpareRoom FAQ" href="/content/info-faq/faq/">FAQ</a>                  </li>
+                  <li class="footer__column-list-item">
+                        <span>Follow us:</span>
+                          <a class="footer__link-instagram footer__link-social footer__link" href="https://www.instagram.com/SpareRoomuk"><span class="footer__link-social-text">Follow SpareRoom on Instagram</span><i aria-hidden="true" class="fab fa-instagram"></i></a><a class="footer__link-youtube footer__link-social footer__link" href="https://www.youtube.com/user/spareroom/?sub_confirmation=1"><span class="footer__link-social-text">SpareRoom YouTube channel</span><i aria-hidden="true" class="fab fa-youtube"></i></a><a class="footer__link-twitter footer__link-social footer__link" href="https://www.twitter.com/SpareRoomUK"><span class="footer__link-social-text">Follow SpareRoom on Twitter</span><i aria-hidden="true" class="fab fa-twitter"></i></a><a class="footer__link-facebook footer__link-social footer__link" href="https://www.facebook.com/spareroom"><span class="footer__link-social-text">SpareRoom on Facebook</span><i aria-hidden="true" class="fab fa-facebook-f"></i></a>
+                  </li>
+            </ul>
+        </div>
+        <div class="footer__column footer__column--terms-privacy">
+            <strong class="footer__column-header">Terms & Privacy</strong>
+            <ul class="footer__column-list">
+                  <li class="footer__column-list-item"><a class="footer__link-terms footer__link" title="SpareRoom's terms" href="/content/default/terms-uk">Terms and conditions</a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-privacy footer__link" title="SpareRoom's privacy" href="/content/default/privacy-uk">Privacy policy</a>                  </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="footer__small-row"><a class="footer__link-app footer__small-link" title="Get the SpareRoom iPhone and Android app here" href="/app">Get the app</a><a class="footer__link-contact-us footer__small-link" href="/contact.pl">Contact us</a><a class="footer__link-about-us footer__small-link" title="Find out more about us" href="/content/about-us/about-spareroom/">About <span class="footer__link-text--full">SpareRoom</span><span class="footer__link-text--short">us</span></a><a class="footer__link-terms footer__small-link" title="SpareRoom's terms" href="/content/default/terms-uk">Terms and conditions</a><a class="footer__link-privacy footer__small-link" title="SpareRoom's privacy" href="/content/default/privacy-uk">Privacy policy</a><a class="footer__link-flatsharing-press footer__small-link" href="/press">Press <span class="footer__link-text--full">Office</span></a><a class="footer__link-discrimination footer__small-link" title="Discrimination in flatshare ads" href="/content/default/discrimination/">Discrimination</a><a class="footer__link-accessibility-statement footer__small-link" href="/content/default/accessibility-statement">Accessibility statement</a><a class="footer__link-jobs footer__small-link" title="Work at SpareRoom" href="/content/about/jobs">Jobs</a></div>
+<div class="footer__bottom-row">
+<div class="footer__bottom-row-apps"><a class="footer__link footer__link-text--full" title="SpareRoom app details" data-ga-event-category="Apps promo" data-ga-event-action="clicked" data-ga-event-label="footer-app-page" href="/app"><strong>SpareRoom apps</strong> (free)</a><a class="footer__link" title="SpareRoom iOS app download on Apple Store" data-ga-event-category="Apps promo" data-ga-event-action="clicked" data-ga-event-label="footer-ios-store" href="https://itunes.apple.com/app/apple-store/id400181250?pt=450238&ct=uk-desktop-universal-footer&at=1001lnJ5&mt=8&ls=1"><strong><i class="fab fa-apple footer__link-app-icon"></i> iOS app</strong></a><a class="footer__link" title="SpareRoom Android app download on Google Play" data-ga-event-category="Apps promo" data-ga-event-action="clicked" data-ga-event-label="footer-google-play" href="https://play.google.com/store/apps/details?id=com.spareroom.spareroomuk&referrer%3Dutm_source%3Ddesktop-footer%26utm_medium%3Dlink"><strong><i class="fab fa-android footer__link-app-icon"></i> Android app</strong></a></div>
+
+
+
+<div class="footer__bottom-row-cookies">
+  <div class="footer__link">
+
+    
+    <button id="ot-sdk-btn" style="display: none;" class="button button--link footer__button optanon-toggle-display">Cookie Settings</button>
+    
+
+    
+
+  </div>
+</div>
+<div class="footer__bottom-row-copyright">
+  &copy;1999&ndash;2025 Flatshare Ltd.
+</div></div></footer>
+<div class="overlay-mask" id="overlay-mask"></div>
+
+
+<div id="profileViewer"></div>
+
+
+
+<script type="module" src="/v2/build/vite/spareroom/js/global/style_stack-DlDdx7oC.js"></script>
+
+<script type="module" src="/v2/build/vite/spareroom/js/global/stack-CTFRBo7-.js"></script>
+
+
+    
+
+<script>
+  (function (_sr) {
+
+    /*
+     * Variables
+     */
+
+
+    const searchingPanel = document.querySelector('[data-widget="search"]');
+    const filters = document.querySelector('#searchFilters');
+    const searchTypesInputs = document.querySelectorAll('input[name="flatshare_type"]');
+    const locationType = document.querySelector('input[name="location_type"]');
+    const isLocationChange = document.querySelector('input[name="is_location_change"]');
+    const searchInput = document.querySelector('input[name="search"]');
+    let searchTypeInput;
+      searchTypeInput = document.querySelector('input[name="flatshare_type"]:checked');
+    const initialSearchType = searchTypeInput.value;
+    const milesFromMax = document.querySelector('#miles_from_max');
+    const searchFilterElements = document.querySelector('.search_filtered_by');
+    const searchPanelDetails = document.querySelector('input[name="search"]');
+    let filtersInitialState;
+    const filtersReset = document.querySelector('[data-reset-link]');
+    const availableSearch = (() => { try { return window.localStorage ? (localStorage.getItem('availableSearch') || '') : ''; } catch { return ''; } })();
+
+    /*
+     * Functions to replicate old jQuery functionality
+     */
+
+    const show = function (elem) {
+      if (elem) {
+        elem.style.display = 'block';
+      }
+    };
+
+    const hide = function (elem) {
+      if (elem) {
+        elem.style.display = 'none';
+      }
+    };
+
+
+    /*
+     * Search Panel
+     */
+
+    const availSearchY = document.querySelector('[name="available_search"][value="Y"]');
+    const availFrom = document.querySelector('input[name="available_from"]');
+
+    if (availSearchY && availFrom) {
+      availFrom.value = availableSearch;
+    }
+
+    searchTypesInputs.forEach((searchTypeInput) => {
+      searchTypeInput.addEventListener('change', (e) => {
+        const offeredInput = document.querySelector('input[value="offered"]');
+        if ( offeredInput && offeredInput.checked ) {
+          show(milesFromMax);
+          show(searchFilterElements);
+        } else {
+          hide(milesFromMax);
+          hide(searchFilterElements);
+        }
+
+        // Hide filters if user switches search type to something other
+        // than the initial search
+        if (initialSearchType === e.target.value) {
+          show(filters);
+        } else {
+          hide(filters);
+        }
+      });
+    });
+
+
+    // LocationType to area when on change
+    searchInput.addEventListener('input', function () {
+      if (locationType) {
+        locationType.value = 'area';
+      }
+      if (isLocationChange) {
+        isLocationChange.value = '1';
+      }
+    });
+
+    if (searchingPanel) {
+      searchingPanel.querySelector('input[type="submit"]').addEventListener('click', function(){
+        const flatshareType = document.querySelector('input[name="flatshare_type"]:checked');
+        if(flatshareType && flatshareType.value !== initialSearchType) {
+          filters.remove();
+        }
+      });
+    }
+
+    /*
+     * Filters
+     */
+
+     // Ensure a radio button is always checked
+    const selectRadios = function () {
+      const radioGroups = {}
+
+      if(filters) {
+        filters.querySelectorAll('input[type="radio"]').forEach( function () {
+          radioGroups[this.name] = true;
+        });
+      }
+
+      for (name in radioGroups) {
+        if (document.querySelectorAll('input[type="radio"][name="' + name + '"]:checked').length === 0) {
+          filters.querySelector('input[name="' + name + '"][value=""]').checked = true;
+        }
+      }
+    }
+
+    // Initialise
+    selectRadios();
+    show(filtersReset);
+
+    if (_sr.page.user_search) {
+      filters.remove();
+    }
+
+    // Reset filters
+    const defaultValues = function () {
+      filters.querySelectorAll('input[type="number"]')
+        .add('input[data-advanced-form]').val('');
+      filters.querySelectorAll('input[type="checkbox"]')
+        .add(filters.querySelectorAll('input[type="radio"]').checked = false);
+      filters.querySelectorAll("option:selected").selected = false;
+      document.querySelectorAll('#propertyType input').checked = true;
+      selectRadios();
+      document.querySelector('input[name="per"][value="pw"]').checked = true;
+    };
+
+    const applyFiltersSubmit = function() {
+      const max_val = ~~ document.querySelector('input[name="max_rent"]').value;
+      const min_val = ~~ document.querySelector('input[name="min_rent"]').value;
+
+      if(min_val > max_val && max_val > 0) {
+        document.querySelector('input[name="max_rent"]').value = min_val;
+        document.querySelector('input[name="min_rent"]').value = max_val;
+      }
+      const availSearch = document.querySelector('input[name="available_search"]');
+      if ( availSearch && !availSearch.checked ) {
+        localStorage.removeItem('availableSearch');
+      }
+    }
+
+    if (filters) {
+      filtersInitialState = filters.innerHTML;
+      if (filtersReset) {
+        filtersReset.addEventListener('click', function (e) {
+          e.preventDefault();
+          defaultValues();
+        });
+      }
+      const cancelLink = document.querySelector('[data-cancel-link]');
+      if (cancelLink) {
+        cancelLink.addEventListener('click', function(e){
+          e.preventDefault();
+          const filtersState = filters.innerHTML;
+          if (filtersInitialState !== filtersState) {
+            const searchFilters = document.querySelector("form[name='search-filter']");
+            searchFilters.reset();
+            selectRadios();
+          }
+          closeForm()
+        });
+      }
+      const applyFiltersButton = filters.querySelector('input[type="submit"]');
+      if (applyFiltersButton) {
+        applyFiltersButton.addEventListener('click', function () {
+          applyFiltersSubmit();
+        });
+      }
+    }
+
+  })(_sr);
+</script>
+
+<script type="module" src="/v2/build/vite/spareroom/js/pages/list/adlist-LPxqwY4G.js"></script>
+
+<script type="module" src="/v2/build/vite/spareroom/js/pages/list/search_filters-BFosbEwv.js"></script>
+
+</body>
+</html>
