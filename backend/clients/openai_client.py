@@ -31,9 +31,31 @@ class OpenAIClient:
         return response.choices[0].message.content
 
     def summarize_conversation(self, conversation: list[dict]) -> str:
-        system = """Summarize this room search conversation in 2-3 sentences.
+        system = """Extract the information from the conversation in a structured format.
 Focus on: what the user is looking for, their key requirements, preferences, and any deal-breakers.
-Be concise and factual. Write in third person (e.g., "The user is looking for...")."""
+Be concise and factual. Extract the data in the following format (JSON):
+
+{"flatshare_id": None, 
+"available": "string date or 'Now' or null",
+ "bills_included": "Yes" or "No" or null,
+  "couples_ok": "Yes" or "No" or null,
+   "deposit": number (£ value) or null,
+    "detail": free text description of ALL of the user's requirements and preferences for the flatshare, including any specific requirements for the room they are looking for. This should be a detailed description of the flatshare and the room they are looking for.
+    "furnishings": "Furnished" or "Unfurnished" or null,
+    "gender": "Males only" or "Females only" or null, 
+    "living_room": "shared" or "private" or null, 
+    "location": "string - preferred area/location", 
+    "minimum_term": "string e.g. '6 months', '12 months' or null", 
+    "occupation": "Professional" or "Student" or null, 
+    "num_flatmates": number (integer) or null, 
+    "parking": "Yes" or "No" or null, 
+    "pets_ok": "Yes" or "No" or null, 
+    "postcode": string postcode in the format or null, for example"SW17Area" (using the first identifier of the post code) + Area
+    "property_type": "House share" or "Flat share" or "Studio" or null,
+    "rent": number (£ value) or null, 
+    "room_type": "single" or "double" or "triple" or "quad" or "queen" or "king" or "studio" or null
+}
+"""
 
         conv_text = "\n".join([f"{m['role']}: {m['content']}" for m in conversation])
 
@@ -43,7 +65,7 @@ Be concise and factual. Write in third person (e.g., "The user is looking for...
                 {"role": "system", "content": system},
                 {"role": "user", "content": conv_text}
             ],
-            max_tokens=150
+            max_tokens=500
         )
         return response.choices[0].message.content
 
@@ -91,8 +113,8 @@ For target_location, look for workplace, office, university, or places they ment
         system = """You extract search filters from user messages about room hunting in London.
 
 RULES:
-- Only extract CLEAR preferences, not vague mentions or questions
-- Be reasonably strict: "under £700" or "max £700" → extract budget. "around £700" or "maybe £700" → don't extract
+- Only extract preferences, not vague mentions or questions
+- Be reasonably strict: "under £700" or "max £700" → extract budget.
 - "I need pets allowed" or "I have a dog" → extract pets_allowed. "do you allow pets?" → don't extract
 - If user states a preference confidently, extract it. If they're asking or unsure, don't.
 

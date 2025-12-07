@@ -13,12 +13,12 @@ load_dotenv()
 def main():
     print("Loading data...")
     # Load the CSV
-    df = pd.read_csv('listings.csv')
+    df = pd.read_csv('scraping/listings.csv')
 
     # Define the columns to include (same as in convert_to_json.ipynb)
     columns = [
-        'flatshare_id', 'age', 'ages', 'any_pets', 'available', 'bills_included', 'broadband_included','couples_ok', 'deposit', 'deposit(room_1)', 'deposit(room_2)', 'deposit(room_3)', 'deposit(room_4)', 'deposit(room_5)', 'disabled_access'
-        'detail', 'double_room' 'furnishings', 'garage' 'gender', 'living_room', 'location', 
+        'flatshare_id', 'age', 'ages', 'any_pets', 'available', 'bills_included', 'broadband_included','couples_ok', 'deposit', 'deposit(room_1)', 'deposit(room_2)', 'deposit(room_3)', 'deposit(room_4)', 'deposit(room_5)', 'disabled_access',
+        'detail', 'double_room', 'furnishings', 'garage', 'gender', 'living_room', 'location', 
         'minimum_term', 'occupation', 'num_flatmates', 'parking', 'pets_ok', 
         'postcode', 'property_type', 'rent', 'room_type'
     ]
