@@ -1,6 +1,6 @@
 import { useState, FormEvent } from 'react';
-import { Box, Button, TextField, Typography, Paper, CircularProgress } from '@mui/material';
-import { useAuth } from '../auth/AuthContext';
+import { Box, Button, TextField, Typography, Paper, Alert, CircularProgress } from '@mui/material';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -32,11 +32,12 @@ export default function Login() {
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
     }}>
       <Paper sx={{ p: 4, maxWidth: 400, width: '100%', mx: 2 }}>
-        <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 600 }}>
-          Room Finder
+        <Typography component="h1" variant="h4" sx={{ mb: 4, fontWeight: 700 }}>
+          Flat Finder
         </Typography>
-        <Typography variant="body2" color="text.secondary" align="center" sx={{ mb: 3 }}>
-          Sign in with your email to get started
+
+        <Typography component="h2" variant="h6" sx={{ mb: 4, color: 'text.secondary' }}>
+          Sign in to your account
         </Typography>
 
         <form onSubmit={handleSubmit}>

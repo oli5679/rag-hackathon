@@ -38,7 +38,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
 
       const session = data.session;
-      console.log('[Auth] Session loaded:', session?.user?.id || 'No active session');
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
@@ -54,7 +53,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        console.log('[Auth] Auth state changed:', _event, session?.user?.id);
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);

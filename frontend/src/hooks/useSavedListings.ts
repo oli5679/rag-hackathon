@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import type { SavedListing, ListType, Listing } from '../types';
 
 interface UseSavedListingsReturn {
@@ -13,7 +13,7 @@ interface UseSavedListingsReturn {
   isBlacklisted: (listingId: string) => boolean;
   shortlistedIds: () => Set<string>;
   blacklistedIds: () => Set<string>;
-  refreshLists: () => Promise<void>;
+  blacklistedIds: () => Set<string>;
 }
 
 export function useSavedListings(): UseSavedListingsReturn {
@@ -114,8 +114,6 @@ export function useSavedListings(): UseSavedListingsReturn {
     removeFromList,
     isShortlisted,
     isBlacklisted,
-    shortlistedIds,
     blacklistedIds,
-    refreshLists: loadSavedListings,
   };
 }
