@@ -266,4 +266,3 @@ vercel --prod
 For Magic Links to work in production, you must whitelist your Vercel URL:
 1. Go to **Supabase Dashboard > Authentication > URL Configuration**.
 2. Add your Vercel URL to **Redirect URLs** (e.g., `https://your-app.vercel.app/**`).
-
