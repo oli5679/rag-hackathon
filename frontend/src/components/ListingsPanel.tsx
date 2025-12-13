@@ -18,7 +18,7 @@ const LOADING_MESSAGES = [
   'Ranking the best matches...',
 ];
 
-interface ScoringProgress {
+export interface ScoringProgress {
   scored: number;
   total: number;
 }
@@ -317,7 +317,7 @@ export default function ListingsPanel({
                             px: 1.5,
                           }}
                         >
-                          View on SpareRoom
+                          Original Listing
                         </Button>
 
                         <Box sx={{ display: 'flex', gap: 1 }}>

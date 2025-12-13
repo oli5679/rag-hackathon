@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import type { Conversation, Message, MessageInsert, ChatMessage } from '../types';
 
 interface UseConversationReturn {
@@ -8,12 +8,8 @@ interface UseConversationReturn {
   messages: Message[];
   loading: boolean;
   createConversation: (title?: string | null) => Promise<{ data: Conversation | null; error: Error | null }>;
-  loadConversation: (conversationId: string) => Promise<{ conversation: Conversation | null; messages: Message[]; error: Error | null }>;
   addMessage: (role: ChatMessage['role'], content: string) => Promise<{ data: Message | null; error: Error | null }>;
   addMessages: (messagePairs: ChatMessage[]) => Promise<{ data: Message[] | null; error: Error | null }>;
-  listConversations: () => Promise<{ data: Conversation[] | null; error: Error | null }>;
-  updateTitle: (title: string) => Promise<{ data: Conversation | null; error: Error | null }>;
-  deleteConversation: (conversationId: string) => Promise<{ error: Error | null }>;
   clearConversation: () => void;
 }
 
@@ -26,58 +22,17 @@ export function useConversation(): UseConversationReturn {
   const createConversation = useCallback(async (title: string | null = null) => {
     if (!user) return { data: null, error: new Error('Not authenticated') };
 
-    console.log('[useConversation] Creating conversation for user:', user.id);
-
     const { data, error } = await supabase
       .from('conversations')
       .insert({ user_id: user.id, title })
       .select()
       .single();
 
-    if (error) {
-      console.error('[useConversation] Error creating conversation:', error.code, error.message, error);
-    } else {
-      console.log('[useConversation] Created conversation:', data?.id);
-    }
-
     if (!error && data) {
       setConversation(data);
       setMessages([]);
     }
     return { data, error };
-  }, [user]);
-
-  const loadConversation = useCallback(async (conversationId: string) => {
-    if (!user) return { conversation: null, messages: [], error: new Error('Not authenticated') };
-
-    setLoading(true);
-
-    const [convResult, msgsResult] = await Promise.all([
-      supabase
-        .from('conversations')
-        .select('*')
-        .eq('id', conversationId)
-        .maybeSingle(),
-      supabase
-        .from('messages')
-        .select('*')
-        .eq('conversation_id', conversationId)
-        .order('created_at', { ascending: true })
-    ]);
-
-    if (!convResult.error && convResult.data) {
-      setConversation(convResult.data);
-    }
-    if (!msgsResult.error && msgsResult.data) {
-      setMessages(msgsResult.data);
-    }
-
-    setLoading(false);
-    return {
-      conversation: convResult.data,
-      messages: msgsResult.data || [],
-      error: convResult.error || msgsResult.error
-    };
   }, [user]);
 
   const addMessage = useCallback(async (role: ChatMessage['role'], content: string) => {
@@ -121,55 +76,6 @@ export function useConversation(): UseConversationReturn {
     return { data, error };
   }, [conversation]);
 
-  const listConversations = useCallback(async () => {
-    if (!user) return { data: null, error: new Error('Not authenticated') };
-
-    console.log('[useConversation] Listing conversations for user:', user.id);
-
-    const { data, error } = await supabase
-      .from('conversations')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('updated_at', { ascending: false });
-
-    if (error) {
-      console.error('[useConversation] Error listing conversations:', error.code, error.message, error);
-    } else {
-      console.log('[useConversation] Found', data?.length, 'conversations');
-    }
-
-    return { data, error };
-  }, [user]);
-
-  const updateTitle = useCallback(async (title: string) => {
-    if (!conversation) return { data: null, error: new Error('No active conversation') };
-
-    const { data, error } = await supabase
-      .from('conversations')
-      .update({ title })
-      .eq('id', conversation.id)
-      .select()
-      .single();
-
-    if (!error && data) {
-      setConversation(data);
-    }
-    return { data, error };
-  }, [conversation]);
-
-  const deleteConversation = useCallback(async (conversationId: string) => {
-    const { error } = await supabase
-      .from('conversations')
-      .delete()
-      .eq('id', conversationId);
-
-    if (!error && conversation?.id === conversationId) {
-      setConversation(null);
-      setMessages([]);
-    }
-    return { error };
-  }, [conversation]);
-
   const clearConversation = useCallback(() => {
     setConversation(null);
     setMessages([]);
@@ -180,12 +86,8 @@ export function useConversation(): UseConversationReturn {
     messages,
     loading,
     createConversation,
-    loadConversation,
     addMessage,
     addMessages,
-    listConversations,
-    updateTitle,
-    deleteConversation,
     clearConversation,
   };
 }

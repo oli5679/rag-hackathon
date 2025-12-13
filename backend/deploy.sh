@@ -1,35 +1,33 @@
 #!/bin/bash
-# Cloud Run deployment script with Secret Manager
-#
-# Prerequisites:
-# 1. gcloud CLI installed and authenticated
-# 2. Secrets created in Secret Manager (run setup-secrets.sh first)
-
 set -e
 
-PROJECT_ID=$(gcloud config get-value project)
-REGION="europe-west2"
-SERVICE_NAME="spareroom-api"
+# Deployment script for Backend
+# Usage: ./deploy.sh
+# Make sure to have a .env file with production values
 
-echo "Deploying to Cloud Run..."
-echo "Project: $PROJECT_ID"
-echo "Region: $REGION"
-echo "Service: $SERVICE_NAME"
+# 1. Update Secrets (if needed) across environments
+# Note: Ensure you have the `supabase` CLI installed and authenticated if pushing config
+# supabase secrets set --env-file .env
 
-# Clear any existing plain-text env vars and use secrets instead
-gcloud run deploy $SERVICE_NAME \
-  --source . \
-  --region $REGION \
-  --allow-unauthenticated \
-  --clear-env-vars \
-  --set-secrets="OPENAI_API_KEY=openai-api-key:latest,REDIS_HOST=redis-host:latest,REDIS_PORT=redis-port:latest,REDIS_PASSWORD=redis-password:latest,SUPABASE_URL=supabase-url:latest,SUPABASE_ANON_KEY=supabase-anon-key:latest,FRONTEND_URL=frontend-url:latest" \
-  --min-instances=0 \
-  --max-instances=10 \
-  --memory=512Mi \
-  --cpu=1 \
-  --timeout=300
+# 2. Build/Prepare Backend
+# No build step for Python, but we can verify requirements
+echo "Installing/Verifying dependencies..."
+pip install -r requirements.txt
 
-echo ""
-echo "Deployment complete!"
-echo "Service URL:"
-gcloud run services describe $SERVICE_NAME --region $REGION --format="value(status.url)"
+# 3. Validation
+echo "Validating configuration..."
+# Check for key env vars
+if [ -z "$SUPABASE_URL" ]; then
+    echo "Error: SUPABASE_URL is not set"
+    exit 1
+fi
+
+if [ -z "$SUPABASE_ANON_KEY" ]; then
+    echo "Error: SUPABASE_ANON_KEY is not set"
+    exit 1
+fi
+
+# 4. Run (for local dev or similar start command, in production this might be a service)
+# Using uvicorn with the new app location
+echo "Starting application..."
+# exec uvicorn app.main:app --host 0.0.0.0 --port 8000

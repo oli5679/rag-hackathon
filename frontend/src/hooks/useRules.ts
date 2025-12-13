@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import type { Rule } from '../types';
 
 interface UseRulesReturn {
@@ -23,7 +23,6 @@ export function useRules(conversationId: string | null | undefined): UseRulesRet
     if (!user || !conversationId) return;
 
     setLoading(true);
-    console.log('[useRules] Loading rules for user:', user.id, 'conversation:', conversationId);
 
     // Use maybeSingle() instead of single() to avoid 406 errors when no rows exist
     const { data, error } = await supabase

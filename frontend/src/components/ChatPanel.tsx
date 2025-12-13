@@ -1,15 +1,17 @@
 import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from 'react';
-import { Box, Paper, TextField, IconButton, Typography, CircularProgress } from '@mui/material';
+import { Box, Paper, TextField, IconButton, Typography, CircularProgress, Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import type { ChatMessage } from '../types';
 
 interface ChatPanelProps {
   messages: ChatMessage[];
   onSend: (message: string) => void;
+  onSearch: () => void;
   loading: boolean;
+  searchSuggested: boolean;
 }
 
-export default function ChatPanel({ messages, onSend, loading }: ChatPanelProps) {
+export default function ChatPanel({ messages, onSend, onSearch, loading, searchSuggested }: ChatPanelProps) {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -60,7 +62,7 @@ export default function ChatPanel({ messages, onSend, loading }: ChatPanelProps)
             borderColor: 'divider'
           }}>
             <Typography variant="body1" color="text.primary" sx={{ fontWeight: 500 }}>
-              Tell us anything we should know about what you're looking for in your flat, and we'll search SpareRoom for the closest matches
+              Tell us anything we should know about what you're looking for in your flat, and we'll search for the closest matches
             </Typography>
           </Box>
         )}
@@ -105,9 +107,30 @@ export default function ChatPanel({ messages, onSend, loading }: ChatPanelProps)
                 borderRadius: 2,
                 border: '1px solid',
                 borderColor: 'divider',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.5,
+                minHeight: 40
               }}
             >
-              <CircularProgress size={20} />
+              {[0, 1, 2].map((i) => (
+                <Box
+                  key={i}
+                  sx={{
+                    width: 8,
+                    height: 8,
+                    bgcolor: 'primary.main',
+                    borderRadius: '50%',
+                    opacity: 0.6,
+                    animation: 'typing 1.4s infinite ease-in-out both',
+                    animationDelay: `${i * 0.16}s`,
+                    '@keyframes typing': {
+                      '0%, 80%, 100%': { transform: 'scale(0)' },
+                      '40%': { transform: 'scale(1)' }
+                    }
+                  }}
+                />
+              ))}
             </Paper>
           </Box>
         )}
@@ -115,39 +138,63 @@ export default function ChatPanel({ messages, onSend, loading }: ChatPanelProps)
         <div ref={messagesEndRef} />
       </Box>
 
-      <Box sx={{ display: 'flex', gap: 1.5 }}>
-        <TextField
-          fullWidth
-          size="small"
-          placeholder="Type your message..."
-          value={input}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          disabled={loading}
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              borderRadius: 2,
-            }
-          }}
-        />
-        <IconButton
-          color="primary"
-          onClick={handleSend}
-          disabled={loading || !input.trim()}
-          sx={{
-            bgcolor: 'primary.main',
-            color: 'white',
-            '&:hover': {
-              bgcolor: 'primary.dark',
-            },
-            '&.Mui-disabled': {
-              bgcolor: 'action.disabledBackground',
-            }
-          }}
-        >
-          <SendIcon />
-        </IconButton>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {/* Suggestion / Action Area */}
+        {true && ( // Always show action area, or condition on messages.length > 0
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
+              variant={searchSuggested ? "contained" : "outlined"}
+              color="primary"
+              onClick={onSearch}
+              disabled={loading}
+              sx={{
+                animation: searchSuggested ? 'pulse 2s infinite' : 'none',
+                '@keyframes pulse': {
+                  '0%': { boxShadow: '0 0 0 0 rgba(76, 175, 80, 0.4)' },
+                  '70%': { boxShadow: '0 0 0 10px rgba(76, 175, 80, 0)' },
+                  '100%': { boxShadow: '0 0 0 0 rgba(76, 175, 80, 0)' }
+                }
+              }}
+            >
+              {loading ? 'Searching...' : 'Find Matches'}
+            </Button>
+          </Box>
+        )}
+
+        <Box sx={{ display: 'flex', gap: 1.5 }}>
+          <TextField
+            fullWidth
+            size="small"
+            placeholder="Type your message..."
+            value={input}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={loading}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 2,
+              }
+            }}
+          />
+          <IconButton
+            color="primary"
+            onClick={handleSend}
+            disabled={loading || !input.trim()}
+            sx={{
+              bgcolor: 'primary.main',
+              color: 'white',
+              '&:hover': {
+                bgcolor: 'primary.dark',
+              },
+              '&.Mui-disabled': {
+                bgcolor: 'action.disabledBackground',
+              }
+            }}
+          >
+            <SendIcon />
+          </IconButton>
+        </Box>
       </Box>
-    </Paper>
+    </Paper >
   );
 }

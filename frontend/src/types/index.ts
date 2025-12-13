@@ -85,25 +85,5 @@ export interface IdealListing {
 
 // API Request/Response types
 
-export interface ChatRequest {
-  message: string;
-  conversation_history: ChatMessage[];
-}
-
-export interface ChatResponse {
-  assistantMessage: string;
-  hardRules: Rule[];
-}
-
-export interface FindMatchesRequest {
-  conversation: ChatMessage[];
-}
-
-export interface FindMatchesResponse {
-  idealListing: IdealListing;
-  summary: string;
-  matches: ScoredListing[];
-}
-
 // List types for saved listings
 export type ListType = 'shortlist' | 'blacklist';
