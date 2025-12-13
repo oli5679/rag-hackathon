@@ -2,15 +2,18 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Copy and install dependencies from requirements.txt (pinned versions)
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+# Install uv defined in pyproject.toml
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+
+# Copy dependency definitions
+COPY pyproject.toml uv.lock ./
+
+# Install dependencies
+RUN uv sync --frozen --no-dev
 
 # Copy application code
 COPY . .
 
-# Cloud Run uses PORT env var
-ENV PORT=8080
-
-# Run uvicorn directly
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Run uvicorn
+ENV PATH="/app/.venv/bin:$PATH"
+CMD ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
