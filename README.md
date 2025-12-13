@@ -213,3 +213,57 @@ VITE_APP_URL=http://localhost:5173
    - "Need a pet-friendly place"
 
 The assistant extracts filters, searches the vector database, and ranks listings using GPT-4 vision.
+
+## Production Deployment
+
+### 1. Backend (Google Cloud Run)
+
+The backend is deployed to Cloud Run using the `deploy.sh` script. It uses Google Secret Manager for sensitive configuration.
+
+**One-time Setup:**
+```bash
+cd backend
+./setup-secrets.sh
+# Follow prompts to enter API keys (OpenAI, Supabase, Redis, etc.)
+```
+
+**Updating Secrets:**
+If you need to update a secret (e.g., Supabase Anon Key), use the safe update script to avoid newline issues:
+```bash
+cd backend
+./update_secret.sh
+```
+
+**Deploy:**
+```bash
+cd backend
+./deploy.sh
+```
+This will deploy the container and map the secrets automatically.
+
+### 2. Frontend (Vercel)
+
+The frontend is deployed to Vercel.
+
+**Environment Variables:**
+You must set the following in **Vercel Dashboard > Settings > Environment Variables**:
+
+| Variable | Description |
+|----------|-------------|
+| `VITE_SUPABASE_URL` | Your production Supabase Project URL |
+| `VITE_SUPABASE_ANON_KEY` | Your production Supabase Anon Key |
+| `VITE_BACKEND_URL` | The Cloud Run URL (from step 1) |
+| `VITE_APP_URL` | Your Vercel production URL (e.g., `https://your-app.vercel.app`) |
+
+**Deploy:**
+```bash
+cd frontend
+vercel --prod
+```
+
+### 3. Supabase Auth Configuration
+
+For Magic Links to work in production, you must whitelist your Vercel URL:
+1. Go to **Supabase Dashboard > Authentication > URL Configuration**.
+2. Add your Vercel URL to **Redirect URLs** (e.g., `https://your-app.vercel.app/**`).
+

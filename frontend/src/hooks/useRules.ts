@@ -23,16 +23,22 @@ export function useRules(conversationId: string | null | undefined): UseRulesRet
     if (!user || !conversationId) return;
 
     setLoading(true);
+    console.log('[useRules] Loading rules for user:', user.id, 'conversation:', conversationId);
+
+    // Use maybeSingle() instead of single() to avoid 406 errors when no rows exist
     const { data, error } = await supabase
       .from('user_rules')
       .select('*')
       .eq('user_id', user.id)
       .eq('conversation_id', conversationId)
-      .single();
+      .maybeSingle();
 
-    if (!error && data) {
+    if (error) {
+      console.error('[useRules] Error loading rules:', error.code, error.message);
+      setRules([]);
+    } else if (data) {
       setRules((data.rules as Rule[]) || []);
-    } else if (error?.code === 'PGRST116') {
+    } else {
       // No rules found - that's okay
       setRules([]);
     }
@@ -64,7 +70,7 @@ export function useRules(conversationId: string | null | undefined): UseRulesRet
         onConflict: 'user_id,conversation_id'
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (!error) {
       setRules(newRules);

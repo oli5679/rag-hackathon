@@ -67,7 +67,7 @@ export function useSavedListings(): UseSavedListingsReturn {
         onConflict: 'user_id,listing_id'
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (!error) {
       await loadSavedListings();

@@ -87,6 +87,10 @@ CREATE POLICY "Users can update own profile"
   ON public.profiles FOR UPDATE
   USING (auth.uid() = id);
 
+CREATE POLICY "Users can insert own profile"
+  ON public.profiles FOR INSERT
+  WITH CHECK (auth.uid() = id);
+
 -- Conversations policies
 CREATE POLICY "Users can view own conversations"
   ON public.conversations FOR SELECT

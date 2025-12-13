@@ -31,15 +31,30 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data, error }) => {
+      if (error) {
+        console.error('[Auth] Error getting session:', error.message, error);
+        throw error;
+      }
+
+      const session = data.session;
+      console.log('[Auth] Session loaded:', session?.user?.id || 'No active session');
       setSession(session);
       setUser(session?.user ?? null);
+      setLoading(false);
+    }).catch(err => {
+      console.error('[Auth] Error getting session:', err);
+      // Try to log specific network error details if available
+      if (err instanceof TypeError) {
+        console.error('[Auth] Network error suspected. CHECK CORS AND ENV VARS.');
+      }
       setLoading(false);
     });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {
+        console.log('[Auth] Auth state changed:', _event, session?.user?.id);
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
