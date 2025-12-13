@@ -29,9 +29,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Ensure user has a profile (may not exist if trigger failed or user existed before schema)
+  const ensureProfile = async (userId: string, email: string) => {
+    console.log('[Auth] Checking/creating profile for user:', userId);
+    const { error } = await supabase
+      .from('profiles')
+      .upsert({ id: userId, email }, { onConflict: 'id' });
+    if (error) {
+      console.error('[Auth] Error ensuring profile:', error);
+    }
+  };
+
   useEffect(() => {
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session?.user) {
+        await ensureProfile(session.user.id, session.user.email || '');
+      }
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
@@ -39,7 +53,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      async (_event, session) => {
+        if (session?.user) {
+          await ensureProfile(session.user.id, session.user.email || '');
+        }
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);

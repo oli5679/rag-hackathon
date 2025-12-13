@@ -23,6 +23,8 @@ export function useRules(conversationId: string | null | undefined): UseRulesRet
     if (!user || !conversationId) return;
 
     setLoading(true);
+    console.log('[useRules] Loading rules for user:', user.id, 'conversation:', conversationId);
+
     const { data, error } = await supabase
       .from('user_rules')
       .select('*')
@@ -30,10 +32,18 @@ export function useRules(conversationId: string | null | undefined): UseRulesRet
       .eq('conversation_id', conversationId)
       .single();
 
+    if (error) {
+      console.log('[useRules] Error:', error.code, error.message, error);
+    }
+
     if (!error && data) {
       setRules((data.rules as Rule[]) || []);
     } else if (error?.code === 'PGRST116') {
       // No rules found - that's okay
+      console.log('[useRules] No rules found (PGRST116), setting empty array');
+      setRules([]);
+    } else if (error) {
+      console.error('[useRules] Unexpected error loading rules:', error);
       setRules([]);
     }
     setLoading(false);

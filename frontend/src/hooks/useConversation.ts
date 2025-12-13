@@ -26,11 +26,19 @@ export function useConversation(): UseConversationReturn {
   const createConversation = useCallback(async (title: string | null = null) => {
     if (!user) return { data: null, error: new Error('Not authenticated') };
 
+    console.log('[useConversation] Creating conversation for user:', user.id);
+
     const { data, error } = await supabase
       .from('conversations')
       .insert({ user_id: user.id, title })
       .select()
       .single();
+
+    if (error) {
+      console.error('[useConversation] Error creating conversation:', error.code, error.message, error);
+    } else {
+      console.log('[useConversation] Created conversation:', data?.id);
+    }
 
     if (!error && data) {
       setConversation(data);
@@ -116,11 +124,19 @@ export function useConversation(): UseConversationReturn {
   const listConversations = useCallback(async () => {
     if (!user) return { data: null, error: new Error('Not authenticated') };
 
+    console.log('[useConversation] Listing conversations for user:', user.id);
+
     const { data, error } = await supabase
       .from('conversations')
       .select('*')
       .eq('user_id', user.id)
       .order('updated_at', { ascending: false });
+
+    if (error) {
+      console.error('[useConversation] Error listing conversations:', error.code, error.message, error);
+    } else {
+      console.log('[useConversation] Found', data?.length, 'conversations');
+    }
 
     return { data, error };
   }, [user]);
