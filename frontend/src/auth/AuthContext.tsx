@@ -29,63 +29,66 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Timeout safety valve
-  const timeoutTimer = setTimeout(() => {
-    console.warn('[Auth] Session check timed out. Forcing loading=false. CHECK ENV VARS.');
-    setLoading(false);
-  }, 4000);
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data, error }) => {
+      if (error) {
+        console.error('[Auth] Error getting session:', error.message, error);
+        throw error;
+      }
 
-  // Get initial session
-  supabase.auth.getSession().then(({ data: { session } }) => {
-    clearTimeout(timeoutTimer);
-    console.log('[Auth] Session loaded:', session?.user?.id);
-    setSession(session);
-    setUser(session?.user ?? null);
-    setLoading(false);
-  }).catch(err => {
-    clearTimeout(timeoutTimer);
-    console.error('[Auth] Failed to get session:', err);
-    setLoading(false);
-  });
-
-  // Listen for auth changes
-  const { data: { subscription } } = supabase.auth.onAuthStateChange(
-    async (_event, session) => {
-      console.log('[Auth] Auth state changed:', _event, session?.user?.id);
+      const session = data.session;
+      console.log('[Auth] Session loaded:', session?.user?.id || 'No active session');
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
-    }
+    }).catch(err => {
+      console.error('[Auth] Error getting session:', err);
+      // Try to log specific network error details if available
+      if (err instanceof TypeError) {
+        console.error('[Auth] Network error suspected. CHECK CORS AND ENV VARS.');
+      }
+      setLoading(false);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        console.log('[Auth] Auth state changed:', _event, session?.user?.id);
+        setSession(session);
+        setUser(session?.user ?? null);
+        setLoading(false);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const signInWithMagicLink = async (email: string) => {
+    const redirectUrl = import.meta.env.VITE_APP_URL || window.location.origin;
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: redirectUrl }
+    });
+    return { error };
+  };
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    return { error };
+  };
+
+  const value: AuthContextType = {
+    user,
+    session,
+    loading,
+    signInWithMagicLink,
+    signOut,
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
   );
-
-  return () => subscription.unsubscribe();
-}, []);
-
-const signInWithMagicLink = async (email: string) => {
-  const redirectUrl = import.meta.env.VITE_APP_URL || window.location.origin;
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: redirectUrl }
-  });
-  return { error };
-};
-
-const signOut = async () => {
-  const { error } = await supabase.auth.signOut();
-  return { error };
-};
-
-const value: AuthContextType = {
-  user,
-  session,
-  loading,
-  signInWithMagicLink,
-  signOut,
-};
-
-return (
-  <AuthContext.Provider value={value}>
-    {children}
-  </AuthContext.Provider>
-);
 }
