@@ -1,0 +1,14 @@
+{
+  "name": "rag-hackathon",
+  "private": true,
+  "scripts": {
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:status": "supabase status",
+    "db:reset": "supabase db reset",
+    "db:apply-schema": "docker exec -i supabase_db_rag-hackathon psql -U postgres < supabase/schema.sql",
+    "db:diff": "supabase db diff -f",
+    "db:push": "supabase db push",
+    "db:studio": "open http://localhost:54323"
+  }
+}

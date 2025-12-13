@@ -1,5 +1,20 @@
-# Hardcoded listings data for MVP
-LISTINGS = [
+"""Hardcoded listings data for MVP."""
+
+from typing import TypedDict
+
+
+class Listing(TypedDict):
+    """Type definition for a room listing."""
+    id: str
+    title: str
+    price: int
+    location: str
+    imageUrl: str
+    url: str
+    summary: str
+
+
+LISTINGS: list[Listing] = [
     {
         "id": "1",
         "title": "Cozy Double Room in Chelsea",

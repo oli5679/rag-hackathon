@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react'
-import { Box, Paper, Typography, Card, CardMedia, CardContent, CircularProgress, IconButton, Link, Chip, Button, Pagination, LinearProgress } from '@mui/material'
-import ThumbDownIcon from '@mui/icons-material/ThumbDown'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import DeleteIcon from '@mui/icons-material/Delete'
-import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import UndoIcon from '@mui/icons-material/Undo'
+import { useState, useEffect, ChangeEvent } from 'react';
+import { Box, Paper, Typography, Card, CardMedia, CardContent, CircularProgress, IconButton, Link, Chip, Button, Pagination, LinearProgress } from '@mui/material';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import DeleteIcon from '@mui/icons-material/Delete';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import UndoIcon from '@mui/icons-material/Undo';
+import type { Listing } from '../types';
 
-const ITEMS_PER_PAGE = 5
+const ITEMS_PER_PAGE = 5;
 
 const LOADING_MESSAGES = [
   'Searching SpareRoom listings...',
@@ -15,34 +16,34 @@ const LOADING_MESSAGES = [
   'Checking locations and commute times...',
   'Scoring rooms based on your preferences...',
   'Ranking the best matches...',
-]
+];
 
 function LoadingIndicator() {
-  const [messageIndex, setMessageIndex] = useState(0)
-  const [progress, setProgress] = useState(0)
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     // Cycle through messages every 3 seconds
     const messageInterval = setInterval(() => {
-      setMessageIndex(prev => (prev + 1) % LOADING_MESSAGES.length)
-    }, 3000)
+      setMessageIndex(prev => (prev + 1) % LOADING_MESSAGES.length);
+    }, 3000);
 
     // Update progress bar smoothly
     const progressInterval = setInterval(() => {
       setProgress(prev => {
         // Slow down as we approach 90%
-        if (prev >= 90) return prev
-        if (prev >= 70) return prev + 0.5
-        if (prev >= 50) return prev + 1
-        return prev + 2
-      })
-    }, 200)
+        if (prev >= 90) return prev;
+        if (prev >= 70) return prev + 0.5;
+        if (prev >= 50) return prev + 1;
+        return prev + 2;
+      });
+    }, 200);
 
     return () => {
-      clearInterval(messageInterval)
-      clearInterval(progressInterval)
-    }
-  }, [])
+      clearInterval(messageInterval);
+      clearInterval(progressInterval);
+    };
+  }, []);
 
   return (
     <Box sx={{ textAlign: 'center', py: 4 }}>
@@ -68,32 +69,60 @@ function LoadingIndicator() {
         This may take a moment...
       </Typography>
     </Box>
-  )
+  );
 }
 
-function ListingsPanel({ listings, loading, blacklist, shortlist, onReject, onShortlist, onUndo, mode = 'matches' }) {
-  const [page, setPage] = useState(1)
+export interface ListingWithScore extends Listing {
+  score?: number;
+  reasoning?: string;
+  priceLabel?: string;
+}
 
-  const isShortlistMode = mode === 'shortlist'
+interface ListingsPanelProps {
+  listings: ListingWithScore[];
+  loading: boolean;
+  blacklist: string[];
+  shortlist: ListingWithScore[];
+  onReject: (listingId: string) => void;
+  onShortlist: (listing: ListingWithScore) => void;
+  onUndo: () => void;
+  mode?: 'matches' | 'shortlist';
+}
+
+export default function ListingsPanel({
+  listings,
+  loading,
+  blacklist,
+  shortlist,
+  onReject,
+  onShortlist,
+  onUndo,
+  mode = 'matches'
+}: ListingsPanelProps) {
+  const [page, setPage] = useState(1);
+
+  const isShortlistMode = mode === 'shortlist';
 
   // Filter out blacklisted listings (only in matches mode) and sort by score (highest first)
   const filteredListings = isShortlistMode
     ? listings
-    : listings.filter(l => !blacklist.includes(l.id)).sort((a, b) => (b.score || 0) - (a.score || 0))
+    : listings.filter(l => !blacklist.includes(l.id)).sort((a, b) => (b.score || 0) - (a.score || 0));
 
   // Pagination
-  const totalPages = Math.ceil(filteredListings.length / ITEMS_PER_PAGE)
-  const startIndex = (page - 1) * ITEMS_PER_PAGE
-  const paginatedListings = filteredListings.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+  const totalPages = Math.ceil(filteredListings.length / ITEMS_PER_PAGE);
+  const startIndex = (page - 1) * ITEMS_PER_PAGE;
+  const paginatedListings = filteredListings.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   // Reset to page 1 if current page exceeds total pages
-  if (page > totalPages && totalPages > 0) {
-    setPage(1)
-  }
+  useEffect(() => {
+    if (page > totalPages && totalPages > 0) {
+      setPage(1);
+    }
+  }, [page, totalPages]);
 
-  const handlePageChange = (event, value) => {
-    setPage(value)
-  }
+  const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   return (
     <Paper
@@ -161,7 +190,7 @@ function ListingsPanel({ listings, loading, blacklist, shortlist, onReject, onSh
         <>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {paginatedListings.map((listing, index) => {
-              const globalIndex = startIndex + index
+              const globalIndex = startIndex + index;
               return (
                 <Card
                   key={listing.id}
@@ -319,7 +348,7 @@ function ListingsPanel({ listings, loading, blacklist, shortlist, onReject, onSh
                     </CardContent>
                   </Box>
                 </Card>
-              )
+              );
             })}
           </Box>
 
@@ -344,7 +373,5 @@ function ListingsPanel({ listings, loading, blacklist, shortlist, onReject, onSh
         </Typography>
       )}
     </Paper>
-  )
+  );
 }
-
-export default ListingsPanel

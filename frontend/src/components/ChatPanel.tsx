@@ -1,21 +1,35 @@
-import { useState, useRef, useEffect } from 'react'
-import { Box, Paper, TextField, IconButton, Typography, CircularProgress } from '@mui/material'
-import SendIcon from '@mui/icons-material/Send'
+import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from 'react';
+import { Box, Paper, TextField, IconButton, Typography, CircularProgress } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import type { ChatMessage } from '../types';
 
-function ChatPanel({ messages, onSend, loading }) {
-  const [input, setInput] = useState('')
-  const messagesEndRef = useRef(null)
+interface ChatPanelProps {
+  messages: ChatMessage[];
+  onSend: (message: string) => void;
+  loading: boolean;
+}
+
+export default function ChatPanel({ messages, onSend, loading }: ChatPanelProps) {
+  const [input, setInput] = useState('');
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSend = () => {
     if (input.trim() && !loading) {
-      onSend(input.trim())
-      setInput('')
+      onSend(input.trim());
+      setInput('');
     }
-  }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
 
   return (
     <Paper
@@ -46,7 +60,7 @@ function ChatPanel({ messages, onSend, loading }) {
             borderColor: 'divider'
           }}>
             <Typography variant="body1" color="text.primary" sx={{ fontWeight: 500 }}>
-              👋 Tell us anything we should know about what you're looking for in your flat, and we'll search SpareRoom for the closest matches
+              Tell us anything we should know about what you're looking for in your flat, and we'll search SpareRoom for the closest matches
             </Typography>
           </Box>
         )}
@@ -107,8 +121,8 @@ function ChatPanel({ messages, onSend, loading }) {
           size="small"
           placeholder="Type your message..."
           value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           disabled={loading}
           sx={{
             '& .MuiOutlinedInput-root': {
@@ -135,7 +149,5 @@ function ChatPanel({ messages, onSend, loading }) {
         </IconButton>
       </Box>
     </Paper>
-  )
+  );
 }
-
-export default ChatPanel
