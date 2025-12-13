@@ -33,6 +33,6 @@ gcloud run deploy $SERVICE_NAME \
   --allow-unauthenticated \
   --set-secrets="OPENAI_API_KEY=openai-api-key:latest,REDIS_HOST=redis-host:latest,REDIS_PORT=redis-port:latest,REDIS_PASSWORD=redis-password:latest,SUPABASE_URL=supabase-url:latest,SUPABASE_ANON_KEY=supabase-anon-key:latest,FRONTEND_URL=frontend-url:latest" \
   --timeout=300 \
-  --startup-cpu-boost
+  --cpu-boost
 
 echo "Deployment triggered!"
