@@ -2,10 +2,12 @@
 
 import asyncio
 import json
+import os
 from datetime import date
 from typing import Any
 
-from fastapi import FastAPI
+import httpx
+from fastapi import FastAPI, Depends, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -16,14 +18,44 @@ from clients.redis_client import redis_client
 
 load_dotenv()
 
+# Supabase configuration for token verification
+SUPABASE_URL = os.getenv("SUPABASE_URL", "http://127.0.0.1:54321")
+
+
+async def verify_token(authorization: str = Header(None)) -> dict[str, Any]:
+    """Verify the Supabase access token and return user info."""
+    if not authorization:
+        raise HTTPException(status_code=401, detail="Missing authorization header")
+
+    if not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Invalid authorization format")
+
+    token = authorization.replace("Bearer ", "")
+
+    # Verify token with Supabase
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"{SUPABASE_URL}/auth/v1/user",
+            headers={"Authorization": f"Bearer {token}"}
+        )
+
+    if response.status_code != 200:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+
+    return response.json()
+
 app = FastAPI(title="SpareRoom Assistant API")
 
-# CORS configuration
+# CORS configuration - allow localhost and production frontend
 ALLOWED_ORIGINS: list[str] = [
     "http://localhost:5173",
     "http://localhost:3000",
     "http://127.0.0.1:5173",
 ]
+
+# Add production frontend URL if configured
+if frontend_url := os.getenv("FRONTEND_URL"):
+    ALLOWED_ORIGINS.append(frontend_url)
 
 app.add_middleware(
     CORSMiddleware,
@@ -156,10 +188,14 @@ async def generate_response(
 
 
 @app.post("/api/chat")
-async def chat(request: ChatRequest) -> dict[str, Any]:
+async def chat(
+    request: ChatRequest,
+    user: dict[str, Any] = Depends(verify_token)
+) -> dict[str, Any]:
     """Process a chat message and return assistant response with extracted rules.
 
     This endpoint is stateless - conversation history comes from the frontend.
+    Requires authentication via Bearer token.
     """
     # Convert Pydantic models to dicts
     conversation_history: list[dict[str, str]] = [
@@ -182,10 +218,14 @@ async def chat(request: ChatRequest) -> dict[str, Any]:
 
 
 @app.post("/api/find-matches")
-async def find_matches(request: ConversationRequest) -> dict[str, Any]:
+async def find_matches(
+    request: ConversationRequest,
+    user: dict[str, Any] = Depends(verify_token)
+) -> dict[str, Any]:
     """Full RAG pipeline: conversation -> ideal -> search -> filter -> rerank.
 
     This endpoint is stateless - receives full conversation from frontend.
+    Requires authentication via Bearer token.
     """
     conversation: list[dict[str, str]] = [
         {"role": m.role, "content": m.content} for m in request.conversation
@@ -237,8 +277,14 @@ async def find_matches(request: ConversationRequest) -> dict[str, Any]:
 
 
 @app.post("/api/find-matches-stream")
-async def find_matches_stream(request: ConversationRequest):
-    """Streaming RAG pipeline: returns results as they are scored."""
+async def find_matches_stream(
+    request: ConversationRequest,
+    user: dict[str, Any] = Depends(verify_token)
+):
+    """Streaming RAG pipeline: returns results as they are scored.
+
+    Requires authentication via Bearer token.
+    """
     conversation = [{"role": m.role, "content": m.content} for m in request.conversation]
 
     async def generate():

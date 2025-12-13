@@ -89,7 +89,7 @@ interface MatchResponse {
 }
 
 function AppContent() {
-  const { user, loading: authLoading, signOut } = useAuth();
+  const { user, session, loading: authLoading, signOut } = useAuth();
   const {
     conversation,
     messages,
@@ -122,8 +122,14 @@ function AppContent() {
     }
   }, [user, conversation, createConversation]);
 
-  // Headers for API calls
-  const getHeaders = (): HeadersInit => ({ 'Content-Type': 'application/json' });
+  // Headers for API calls (includes auth token)
+  const getHeaders = (): HeadersInit => {
+    const headers: HeadersInit = { 'Content-Type': 'application/json' };
+    if (session?.access_token) {
+      headers['Authorization'] = `Bearer ${session.access_token}`;
+    }
+    return headers;
+  };
 
   const sendMessage = async (text: string) => {
     if (!conversation) {
