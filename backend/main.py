@@ -2,12 +2,13 @@
 
 import asyncio
 import json
+import logging
 import os
 from datetime import date
 from typing import Any
 
 import httpx
-from fastapi import FastAPI, Depends, HTTPException, Header
+from fastapi import FastAPI, Depends, HTTPException, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -18,6 +19,13 @@ from clients.redis_client import redis_client
 
 load_dotenv()
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger(__name__)
+
 # Supabase configuration for token verification
 SUPABASE_URL = os.getenv("SUPABASE_URL", "http://127.0.0.1:54321")
 
@@ -25,30 +33,40 @@ SUPABASE_URL = os.getenv("SUPABASE_URL", "http://127.0.0.1:54321")
 async def verify_token(authorization: str = Header(None)) -> dict[str, Any]:
     """Verify the Supabase access token and return user info."""
     if not authorization:
+        logger.warning("Request missing authorization header")
         raise HTTPException(status_code=401, detail="Missing authorization header")
 
     if not authorization.startswith("Bearer "):
+        logger.warning("Invalid authorization format (not Bearer)")
         raise HTTPException(status_code=401, detail="Invalid authorization format")
 
     token = authorization.replace("Bearer ", "")
+    logger.info(f"Verifying token with Supabase at {SUPABASE_URL}")
 
     # Verify token with Supabase
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{SUPABASE_URL}/auth/v1/user",
-            headers={"Authorization": f"Bearer {token}"}
+            headers={
+                "Authorization": f"Bearer {token}",
+                "apikey": os.getenv("SUPABASE_ANON_KEY", ""),
+            }
         )
 
     if response.status_code != 200:
+        logger.warning(f"Token verification failed: {response.status_code} - {response.text}")
         raise HTTPException(status_code=401, detail="Invalid or expired token")
 
-    return response.json()
+    user_info = response.json()
+    logger.info(f"Token verified for user: {user_info.get('email', 'unknown')}")
+    return user_info
 
 app = FastAPI(title="SpareRoom Assistant API")
 
 # CORS configuration - allow localhost and production frontend
 ALLOWED_ORIGINS: list[str] = [
     "http://localhost:5173",
+    "http://localhost:5174",
     "http://localhost:3000",
     "http://127.0.0.1:5173",
 ]
@@ -56,14 +74,28 @@ ALLOWED_ORIGINS: list[str] = [
 # Add production frontend URL if configured
 if frontend_url := os.getenv("FRONTEND_URL"):
     ALLOWED_ORIGINS.append(frontend_url)
+    logger.info(f"Added production frontend URL to CORS: {frontend_url}")
+
+logger.info(f"CORS allowed origins: {ALLOWED_ORIGINS}")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def startup_event():
+    """Log configuration on startup."""
+    logger.info("=== SpareRoom API Starting ===")
+    logger.info(f"SUPABASE_URL: {SUPABASE_URL}")
+    logger.info(f"FRONTEND_URL: {os.getenv('FRONTEND_URL', 'Not set')}")
+    logger.info(f"Allowed CORS origins: {ALLOWED_ORIGINS}")
+    logger.info("=== Configuration logged ===")
 
 
 SYSTEM_PROMPT = """You are a helpful SpareRoom assistant helping users find rooms to rent in London.
@@ -350,3 +382,18 @@ async def find_matches_stream(
 async def health() -> dict[str, str]:
     """Health check endpoint."""
     return {"status": "healthy"}
+
+
+@app.get("/debug/config")
+async def debug_config() -> dict[str, Any]:
+    """Debug endpoint to show current CORS and auth configuration.
+
+    This is useful for debugging deployment issues.
+    Only shows non-sensitive configuration.
+    """
+    return {
+        "allowed_origins": ALLOWED_ORIGINS,
+        "supabase_url": SUPABASE_URL,
+        "frontend_url": os.getenv("FRONTEND_URL", "Not set"),
+        "redis_host": os.getenv("REDIS_HOST", "Not set")[:20] + "..." if os.getenv("REDIS_HOST") else "Not set",
+    }

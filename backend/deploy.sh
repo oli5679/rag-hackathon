@@ -22,7 +22,7 @@ gcloud run deploy $SERVICE_NAME \
   --region $REGION \
   --allow-unauthenticated \
   --clear-env-vars \
-  --set-secrets="OPENAI_API_KEY=openai-api-key:latest,REDIS_HOST=redis-host:latest,REDIS_PORT=redis-port:latest,REDIS_PASSWORD=redis-password:latest,SUPABASE_URL=supabase-url:latest,FRONTEND_URL=frontend-url:latest" \
+  --set-secrets="OPENAI_API_KEY=openai-api-key:latest,REDIS_HOST=redis-host:latest,REDIS_PORT=redis-port:latest,REDIS_PASSWORD=redis-password:latest,SUPABASE_URL=supabase-url:latest,SUPABASE_ANON_KEY=supabase-anon-key:latest,FRONTEND_URL=frontend-url:latest" \
   --min-instances=0 \
   --max-instances=10 \
   --memory=512Mi \

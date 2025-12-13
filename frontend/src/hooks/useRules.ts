@@ -25,25 +25,21 @@ export function useRules(conversationId: string | null | undefined): UseRulesRet
     setLoading(true);
     console.log('[useRules] Loading rules for user:', user.id, 'conversation:', conversationId);
 
+    // Use maybeSingle() instead of single() to avoid 406 errors when no rows exist
     const { data, error } = await supabase
       .from('user_rules')
       .select('*')
       .eq('user_id', user.id)
       .eq('conversation_id', conversationId)
-      .single();
+      .maybeSingle();
 
     if (error) {
-      console.log('[useRules] Error:', error.code, error.message, error);
-    }
-
-    if (!error && data) {
-      setRules((data.rules as Rule[]) || []);
-    } else if (error?.code === 'PGRST116') {
-      // No rules found - that's okay
-      console.log('[useRules] No rules found (PGRST116), setting empty array');
+      console.error('[useRules] Error loading rules:', error.code, error.message);
       setRules([]);
-    } else if (error) {
-      console.error('[useRules] Unexpected error loading rules:', error);
+    } else if (data) {
+      setRules((data.rules as Rule[]) || []);
+    } else {
+      // No rules found - that's okay
       setRules([]);
     }
     setLoading(false);
@@ -74,7 +70,7 @@ export function useRules(conversationId: string | null | undefined): UseRulesRet
         onConflict: 'user_id,conversation_id'
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (!error) {
       setRules(newRules);

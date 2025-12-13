@@ -57,7 +57,7 @@ export function useConversation(): UseConversationReturn {
         .from('conversations')
         .select('*')
         .eq('id', conversationId)
-        .single(),
+        .maybeSingle(),
       supabase
         .from('messages')
         .select('*')

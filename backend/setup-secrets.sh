@@ -53,6 +53,7 @@ create_secret "redis-host" "Redis Cloud host"
 create_secret "redis-port" "Redis Cloud port"
 create_secret "redis-password" "Redis Cloud password"
 create_secret "supabase-url" "Supabase project URL (https://xxx.supabase.co)"
+create_secret "supabase-anon-key" "Supabase anonymous key (for auth verification)"
 create_secret "frontend-url" "Frontend URL for CORS (https://xxx.vercel.app)"
 
 echo ""
