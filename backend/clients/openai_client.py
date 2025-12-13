@@ -1,5 +1,9 @@
+"""OpenAI client for embeddings, chat, and vision."""
+
 import os
 import json
+from typing import Any
+
 from openai import AsyncOpenAI
 from dotenv import load_dotenv
 
@@ -11,26 +15,32 @@ VISION_MODEL = "gpt-4o"
 
 
 class OpenAIClient:
-    def __init__(self):
+    """Async client for OpenAI API interactions."""
+
+    def __init__(self) -> None:
         self.client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     async def embed(self, text: str) -> list[float]:
+        """Generate embedding for a single text."""
         response = await self.client.embeddings.create(model=EMBEDDING_MODEL, input=text)
         return response.data[0].embedding
 
     async def embed_batch(self, texts: list[str]) -> list[list[float]]:
+        """Generate embeddings for multiple texts."""
         response = await self.client.embeddings.create(model=EMBEDDING_MODEL, input=texts)
         return [item.embedding for item in response.data]
 
-    async def chat(self, messages: list[dict], max_tokens: int = 200) -> str:
+    async def chat(self, messages: list[dict[str, str]], max_tokens: int = 200) -> str:
+        """Generate a chat completion."""
         response = await self.client.chat.completions.create(
             model=CHAT_MODEL,
-            messages=messages,
+            messages=messages,  # type: ignore[arg-type]
             max_tokens=max_tokens
         )
-        return response.choices[0].message.content
+        return response.choices[0].message.content or ""
 
-    async def summarize_conversation(self, conversation: list[dict]) -> str:
+    async def summarize_conversation(self, conversation: list[dict[str, str]]) -> str:
+        """Extract structured information from a conversation."""
         system = """Extract the information from the conversation in a structured format.
 Focus on: what the user is looking for, their key requirements, preferences, and any deal-breakers.
 Be concise and factual. Extract the data in the following format (JSON):
@@ -67,9 +77,10 @@ Be concise and factual. Extract the data in the following format (JSON):
             ],
             max_tokens=500
         )
-        return response.choices[0].message.content
+        return response.choices[0].message.content or ""
 
-    async def generate_ideal_listing(self, conversation: list[dict]) -> dict:
+    async def generate_ideal_listing(self, conversation: list[dict[str, str]]) -> dict[str, Any]:
+        """Generate an ideal listing based on conversation preferences."""
         system = """Based on the conversation, create an ideal room listing that matches what the user is looking for.
 Return JSON with this schema (use null for unspecified fields):
 {
@@ -107,9 +118,13 @@ For target_location, look for workplace, office, university, or places they ment
             ],
             response_format={"type": "json_object"}
         )
-        return json.loads(response.choices[0].message.content)
+        return json.loads(response.choices[0].message.content or "{}")
 
-    async def extract_rules(self, message: str, existing_rules: list[dict]) -> list[dict]:
+    async def extract_rules(
+        self,
+        message: str,
+        existing_rules: list[dict[str, Any]]
+    ) -> list[dict[str, Any]]:
         """Use LLM to extract hard requirements from a user message."""
         system = """You extract search filters from user messages about room hunting in London.
 
@@ -154,7 +169,7 @@ Return the COMPLETE updated list (keep existing rules unless user contradicts th
         )
 
         try:
-            result = json.loads(response.choices[0].message.content)
+            result = json.loads(response.choices[0].message.content or "{}")
             # Handle both {"rules": [...]} and direct [...] formats
             if isinstance(result, dict) and "rules" in result:
                 return result["rules"]
@@ -164,10 +179,10 @@ Return the COMPLETE updated list (keep existing rules unless user contradicts th
         except (json.JSONDecodeError, KeyError):
             return existing_rules
 
-    async def parse_minimum_terms_batch(self, listings: list[dict]) -> dict[str, int | None]:
+    async def parse_minimum_terms_batch(self, listings: list[dict[str, Any]]) -> dict[str, int | None]:
         """Use LLM to parse minimum term strings to months for multiple listings at once."""
         # Build a mapping of id -> minimum_term for non-empty terms
-        terms_to_parse = {}
+        terms_to_parse: dict[str, str] = {}
         for listing in listings:
             term = listing.get("minimum_term", "")
             if term and term.lower() not in ["unknown", "none", ""]:
@@ -195,7 +210,7 @@ Example output: {"123": 6, "456": 12, "789": null}"""},
             max_tokens=500
         )
         try:
-            result = json.loads(response.choices[0].message.content)
+            result = json.loads(response.choices[0].message.content or "{}")
             # Convert to int where possible
             return {k: int(v) if v is not None else None for k, v in result.items()}
         except (json.JSONDecodeError, ValueError, TypeError):
@@ -204,10 +219,11 @@ Example output: {"123": 6, "456": 12, "789": null}"""},
     async def score_listing(
         self,
         conversation_summary: str,
-        ideal_listing: dict,
+        ideal_listing: dict[str, Any],
         listing_summary: str,
-        image_urls: list[str] = None
-    ) -> dict:
+        image_urls: list[str] | None = None
+    ) -> dict[str, Any]:
+        """Score a listing against user preferences using vision model."""
         # Extract commute info for emphasis
         target_location = ideal_listing.get("target_location")
         max_commute = ideal_listing.get("max_commute")
@@ -255,7 +271,7 @@ Be critical and realistic. 50 is average, 70+ is good, 90+ is excellent. A beaut
 
         ideal_text = "\n".join([f"- {k}: {v}" for k, v in ideal_listing.items() if v is not None])
 
-        user_content = [{
+        user_content: list[dict[str, Any]] = [{
             "type": "text",
             "text": f"CONVERSATION SUMMARY:\n{conversation_summary}\n\nIDEAL LISTING CRITERIA:\n{ideal_text}\n\nLISTING TO EVALUATE:\n{listing_summary}"
         }]
@@ -272,12 +288,12 @@ Be critical and realistic. 50 is average, 70+ is good, 90+ is excellent. A beaut
             model=VISION_MODEL if image_urls else CHAT_MODEL,
             messages=[
                 {"role": "system", "content": system},
-                {"role": "user", "content": user_content}
+                {"role": "user", "content": user_content}  # type: ignore[arg-type]
             ],
             response_format={"type": "json_object"},
             max_tokens=500
         )
-        return json.loads(response.choices[0].message.content)
+        return json.loads(response.choices[0].message.content or "{}")
 
 
 openai_client = OpenAIClient()

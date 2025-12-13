@@ -1,0 +1,25 @@
+# Supabase local development configuration
+# Full reference: https://supabase.com/docs/guides/local-development/cli/config
+
+project_id = "rag-hackathon"
+
+[api]
+port = 54321
+
+[db]
+port = 54322
+
+[studio]
+port = 54323
+
+[inbucket]
+port = 54324
+
+[auth]
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173", "http://127.0.0.1:5173"]
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = false

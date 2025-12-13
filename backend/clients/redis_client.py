@@ -1,6 +1,10 @@
+"""Redis client for vector search."""
+
 import os
 import re
 import json
+from typing import Any
+
 from redisvl.index import SearchIndex
 from redisvl.query import VectorQuery
 from dotenv import load_dotenv
@@ -12,16 +16,19 @@ INDEX_NAME = "idx_flatshares_json"
 
 
 class RedisClient:
-    def __init__(self):
-        self._index = None
+    """Client for Redis vector search operations."""
+
+    def __init__(self) -> None:
+        self._index: SearchIndex | None = None
 
     @property
-    def index(self):
+    def index(self) -> SearchIndex:
+        """Lazy-load the Redis index."""
         if self._index is None:
             self._index = SearchIndex.from_existing(INDEX_NAME, redis_url=REDIS_URL)
         return self._index
 
-    def search(self, query_embedding: list[float], top_k: int = 50) -> list[dict]:
+    def search(self, query_embedding: list[float], top_k: int = 50) -> list[dict[str, Any]]:
         """Vector similarity search."""
         query = VectorQuery(
             vector=query_embedding,
@@ -32,9 +39,9 @@ class RedisClient:
         results = self.index.query(query)
         return [self._parse_result(doc) for doc in results]
 
-    def _parse_result(self, doc: dict) -> dict:
+    def _parse_result(self, doc: dict[str, Any]) -> dict[str, Any]:
         """Parse Redis doc into listing dict."""
-        data = json.loads(doc.get("json_data", "{}"))
+        data: dict[str, Any] = json.loads(doc.get("json_data", "{}"))
         images = self._parse_images(doc.get("images", "[]"))
 
         return {
@@ -65,7 +72,7 @@ class RedisClient:
             "vector_distance": doc.get("vector_distance", 0),
         }
 
-    def _parse_rent(self, rent_str) -> int:
+    def _parse_rent(self, rent_str: Any) -> int:
         """Parse rent string to integer."""
         if not rent_str:
             return 0
@@ -82,9 +89,9 @@ class RedisClient:
         except (json.JSONDecodeError, TypeError):
             return []
 
-    def _build_summary(self, data: dict) -> str:
+    def _build_summary(self, data: dict[str, Any]) -> str:
         """Build a summary from listing data."""
-        parts = []
+        parts: list[str] = []
         if data.get("room_type"):
             parts.append(data["room_type"])
         if data.get("location"):

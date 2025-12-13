@@ -1,6 +1,10 @@
+"""SpareRoom Assistant API - FastAPI backend for room finding with RAG."""
+
 import asyncio
 import json
 from datetime import date
+from typing import Any
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
@@ -14,17 +18,21 @@ load_dotenv()
 
 app = FastAPI(title="SpareRoom Assistant API")
 
+# CORS configuration
+ALLOWED_ORIGINS: list[str] = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# In-memory state
-current_rules: list[dict] = []
-conversation_history: list[dict] = []
 
 SYSTEM_PROMPT = """You are a helpful SpareRoom assistant helping users find rooms to rent in London.
 
@@ -53,37 +61,39 @@ CONVERSATION FLOW:
 Be friendly and natural. The goal is to help, not interrogate."""
 
 
-class ChatRequest(BaseModel):
-    message: str
-
-
-class RulesRequest(BaseModel):
-    hardRules: list[dict]
-
-
 class Message(BaseModel):
+    """A single message in a conversation."""
     role: str
     content: str
 
 
+class ChatRequest(BaseModel):
+    """Request body for the chat endpoint."""
+    message: str
+    conversation_history: list[Message] = []
+
+
 class ConversationRequest(BaseModel):
+    """Request body for the find-matches endpoint."""
     conversation: list[Message]
 
 
 # Filtering helpers
-def _matches_yes(value) -> bool:
+def _matches_yes(value: Any) -> bool:
+    """Check if a value represents a 'yes' response."""
     if not value:
         return False
     return str(value).lower().strip() in ["yes", "y", "true", "1"]
 
 
-def _matches_value(listing_val, ideal_val) -> bool:
+def _matches_value(listing_val: Any, ideal_val: str) -> bool:
+    """Check if a listing value contains the ideal value (case-insensitive)."""
     if not listing_val or not ideal_val:
         return True
     return ideal_val.lower() in str(listing_val).lower()
 
 
-def filter_by_ideal(listings: list[dict], ideal: dict) -> list[dict]:
+def filter_by_ideal(listings: list[dict[str, Any]], ideal: dict[str, Any]) -> list[dict[str, Any]]:
     """Filter listings based on ideal listing criteria."""
     filtered = listings
 
@@ -114,98 +124,72 @@ def filter_by_ideal(listings: list[dict], ideal: dict) -> list[dict]:
     return filtered
 
 
-def rules_to_ideal(rules: list) -> dict:
-    """Convert frontend rules to ideal listing format."""
-    ideal = {}
-    for rule in rules:
-        field = rule.get("field")
-        value = rule.get("value")
-
-        if field == "max_budget":
-            ideal["max_rent"] = value
-        elif field == "location":
-            ideal["location"] = value
-        elif field == "pets_allowed":
-            ideal["pets_ok"] = "Yes"
-        elif field == "bills_included":
-            ideal["bills_included"] = "Yes"
-        elif field == "min_tenancy":
-            ideal["min_tenancy"] = value  # User's minimum commitment in months
-
-    return ideal
+async def extract_rules_from_conversation(conversation: list[dict[str, str]]) -> list[dict[str, Any]]:
+    """Extract rules from the full conversation history."""
+    all_user_text = " ".join(
+        m["content"] for m in conversation if m["role"] == "user"
+    )
+    return await openai_client.extract_rules(all_user_text, [])
 
 
-async def get_listings_from_redis(rules: list) -> list[dict]:
-    """Get listings from Redis with vector search and filtering."""
-    # Build search query from rules
-    ideal = rules_to_ideal(rules)
-    query_parts = ["room to rent in London"]
-
-    if location := ideal.get("location"):
-        query_parts.append(f"in {location}")
-    if ideal.get("max_rent"):
-        query_parts.append(f"under £{ideal['max_rent']}")
-    if ideal.get("pets_ok"):
-        query_parts.append("pet friendly")
-
-    query_text = " ".join(query_parts)
-    query_embedding = await openai_client.embed(query_text)
-
-    # Vector search
-    listings = redis_client.search(query_embedding, top_k=50)
-
-    # Filter in Python
-    filtered = filter_by_ideal(listings, ideal)
-
-    return filtered[:3]
-
-
-async def extract_rules(message: str, existing_rules: list) -> list:
-    """Extract hard rules using LLM for better natural language understanding."""
-    return await openai_client.extract_rules(message, existing_rules)
-
-
-async def generate_response(message: str, rules: list) -> str:
+async def generate_response(
+    message: str,
+    conversation_history: list[dict[str, str]],
+    rules: list[dict[str, Any]]
+) -> str:
+    """Generate assistant response based on conversation history and rules."""
     rules_text = ", ".join([f"{r['field']}: {r['value']}" for r in rules]) or "None yet"
     today = date.today().strftime("%A, %d %B %Y")
     system = SYSTEM_PROMPT.format(rules=rules_text, today=today)
 
-    conversation_history.append({"role": "user", "content": message})
+    # Build messages for the API call
+    messages: list[dict[str, str]] = [{"role": "system", "content": system}]
 
-    messages = [{"role": "system", "content": system}] + conversation_history[-10:]
-    reply = await openai_client.chat(messages)
-    conversation_history.append({"role": "assistant", "content": reply})
-    return reply
+    # Add conversation history (last 10 messages for context window management)
+    for m in conversation_history[-10:]:
+        messages.append({"role": m["role"], "content": m["content"]})
+
+    # Add the current message
+    messages.append({"role": "user", "content": message})
+
+    return await openai_client.chat(messages)
 
 
 @app.post("/api/chat")
-async def chat(request: ChatRequest):
-    global current_rules
-    current_rules = await extract_rules(request.message, current_rules)
+async def chat(request: ChatRequest) -> dict[str, Any]:
+    """Process a chat message and return assistant response with extracted rules.
+
+    This endpoint is stateless - conversation history comes from the frontend.
+    """
+    # Convert Pydantic models to dicts
+    conversation_history: list[dict[str, str]] = [
+        {"role": m.role, "content": m.content} for m in request.conversation_history
+    ]
+
+    # Add new message to history for rule extraction
+    full_conversation = conversation_history + [{"role": "user", "content": request.message}]
+
+    # Extract rules from full conversation
+    rules = await extract_rules_from_conversation(full_conversation)
+
+    # Generate response
+    assistant_message = await generate_response(request.message, conversation_history, rules)
 
     return {
-        "assistantMessage": await generate_response(request.message, current_rules),
-        "hardRules": current_rules,
-        "topListings": await get_listings_from_redis(current_rules)
+        "assistantMessage": assistant_message,
+        "hardRules": rules,
     }
 
 
-@app.get("/api/rules")
-async def get_rules():
-    return {"hardRules": current_rules}
-
-
-@app.put("/api/rules")
-async def update_rules(request: RulesRequest):
-    global current_rules
-    current_rules = request.hardRules
-    return {"hardRules": current_rules, "topListings": await get_listings_from_redis(current_rules)}
-
-
 @app.post("/api/find-matches")
-async def find_matches(request: ConversationRequest):
-    """Full RAG pipeline: conversation → ideal → search → filter → rerank."""
-    conversation = [{"role": m.role, "content": m.content} for m in request.conversation]
+async def find_matches(request: ConversationRequest) -> dict[str, Any]:
+    """Full RAG pipeline: conversation -> ideal -> search -> filter -> rerank.
+
+    This endpoint is stateless - receives full conversation from frontend.
+    """
+    conversation: list[dict[str, str]] = [
+        {"role": m.role, "content": m.content} for m in request.conversation
+    ]
 
     # 1. Generate ideal listing and summary in parallel
     ideal, summary = await asyncio.gather(
@@ -221,7 +205,7 @@ async def find_matches(request: ConversationRequest):
     filtered = filter_by_ideal(candidates, ideal)[:30]
 
     # 4. Rerank top candidates with GPT-4 + images in parallel
-    async def score_one(listing):
+    async def score_one(listing: dict[str, Any]) -> dict[str, Any] | None:
         try:
             score = await openai_client.score_listing(
                 conversation_summary=summary,
@@ -276,7 +260,7 @@ async def find_matches_stream(request: ConversationRequest):
         yield f"data: {json.dumps({'type': 'init', 'total': len(to_score), 'idealListing': ideal, 'summary': summary})}\n\n"
 
         # 4. Score listings in parallel, yielding results as they complete
-        async def score_one(listing, index):
+        async def score_one(listing: dict[str, Any], index: int) -> dict[str, Any] | None:
             try:
                 score = await openai_client.score_listing(
                     conversation_summary=summary,
@@ -316,15 +300,7 @@ async def find_matches_stream(request: ConversationRequest):
     )
 
 
-@app.post("/api/reset")
-async def reset_state():
-    """Reset all in-memory state (for page refresh)."""
-    global current_rules, conversation_history
-    current_rules = []
-    conversation_history = []
-    return {"status": "reset"}
-
-
 @app.get("/health")
-async def health():
+async def health() -> dict[str, str]:
+    """Health check endpoint."""
     return {"status": "healthy"}

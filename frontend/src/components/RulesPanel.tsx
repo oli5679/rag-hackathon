@@ -1,18 +1,25 @@
-import { Paper, Typography, Chip, Box, CircularProgress } from '@mui/material'
+import { Paper, Typography, Chip, Box, CircularProgress } from '@mui/material';
+import type { Rule } from '../types';
 
-function formatRule(rule) {
-  const { field, value, unit } = rule
+interface RulesPanelProps {
+  rules: Rule[];
+  onDelete: (field: string) => void;
+  loading: boolean;
+}
+
+function formatRule(rule: Rule): string {
+  const { field, value, unit } = rule;
   switch (field) {
-    case 'max_budget': return `Max ${unit === 'GBP' ? '£' : ''}${value}`
-    case 'min_budget': return `Min ${unit === 'GBP' ? '£' : ''}${value}`
-    case 'location': return `Location: ${value}`
-    case 'pets_allowed': return 'Pets allowed'
-    case 'bills_included': return 'Bills included'
-    default: return `${field}: ${value}`
+    case 'max_budget': return `Max ${unit === 'GBP' ? '£' : ''}${value}`;
+    case 'min_budget': return `Min ${unit === 'GBP' ? '£' : ''}${value}`;
+    case 'location': return `Location: ${value}`;
+    case 'pets_allowed': return 'Pets allowed';
+    case 'bills_included': return 'Bills included';
+    default: return `${field}: ${value}`;
   }
 }
 
-function RulesPanel({ rules, onDelete, loading }) {
+export default function RulesPanel({ rules, onDelete, loading }: RulesPanelProps) {
   return (
     <Paper
       elevation={0}
@@ -59,7 +66,5 @@ function RulesPanel({ rules, onDelete, loading }) {
         </Box>
       )}
     </Paper>
-  )
+  );
 }
-
-export default RulesPanel
