@@ -9,6 +9,7 @@
     "db:apply-schema": "docker exec -i supabase_db_rag-hackathon psql -U postgres < supabase/schema.sql",
     "db:diff": "supabase db diff -f",
     "db:push": "supabase db push",
-    "db:studio": "open http://localhost:54323"
+    "db:studio": "open http://localhost:54323",
+    "db:types": "supabase gen types typescript --local > frontend/src/types/supabase.ts"
   }
 }

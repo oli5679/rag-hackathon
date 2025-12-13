@@ -92,6 +92,20 @@ The schema is defined in `supabase/schema.sql`. Tables:
 
 All tables have Row Level Security (RLS) - users can only access their own data.
 
+## Database Commands
+
+All database commands are run from the root directory:
+
+| Command | Description |
+|---------|-------------|
+| `npm run db:start` | Start local Supabase |
+| `npm run db:stop` | Stop local Supabase |
+| `npm run db:status` | Show Supabase status and credentials |
+| `npm run db:reset` | Reset database and apply migrations |
+| `npm run db:diff -- <name>` | Generate migration from schema changes |
+| `npm run db:types` | Regenerate TypeScript types from database |
+| `npm run db:studio` | Open Supabase Studio in browser |
+
 ## Database Migrations
 
 Schema changes follow this workflow:
@@ -108,7 +122,20 @@ npm run db:diff -- my_migration_name
 
 # 4. Review the generated migration
 cat supabase/migrations/*_my_migration_name.sql
+
+# 5. Regenerate TypeScript types
+npm run db:types
 ```
+
+## Updating TypeScript Types
+
+When you change the database schema, regenerate the TypeScript types:
+
+```bash
+npm run db:types
+```
+
+This updates `frontend/src/types/supabase.ts` with types matching your database tables. The app types in `frontend/src/types/index.ts` extend these generated types.
 
 ## API Endpoints
 
@@ -123,7 +150,6 @@ cat supabase/migrations/*_my_migration_name.sql
 ```
 ├── backend/
 │   ├── main.py                 # FastAPI app (typed)
-│   ├── data.py                 # Sample listings
 │   └── clients/
 │       ├── openai_client.py    # OpenAI embeddings, chat, vision
 │       └── redis_client.py     # Vector search
