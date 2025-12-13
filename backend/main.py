@@ -9,6 +9,7 @@ from typing import Any
 
 import httpx
 from fastapi import FastAPI, Depends, HTTPException, Header, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -28,6 +29,7 @@ logger = logging.getLogger(__name__)
 
 # Supabase configuration for token verification
 SUPABASE_URL = os.getenv("SUPABASE_URL", "http://127.0.0.1:54321")
+SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
 
 
 async def verify_token(authorization: str = Header(None)) -> dict[str, Any]:
@@ -49,7 +51,7 @@ async def verify_token(authorization: str = Header(None)) -> dict[str, Any]:
             f"{SUPABASE_URL}/auth/v1/user",
             headers={
                 "Authorization": f"Bearer {token}",
-                "apikey": os.getenv("SUPABASE_ANON_KEY", ""),
+                "apikey": SUPABASE_ANON_KEY,
             }
         )
 
@@ -86,6 +88,22 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """Global exception handler to ensure CORS headers are present on errors."""
+    logger.error(f"Global exception: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content={"detail": f"Internal Server Error: {str(exc)}"},
+        headers={
+            "Access-Control-Allow-Origin": request.headers.get("origin", "*"),
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Methods": "*",
+            "Access-Control-Allow-Headers": "*",
+        },
+    )
 
 
 @app.on_event("startup")
