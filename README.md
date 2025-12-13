@@ -216,74 +216,53 @@ The assistant extracts filters, searches the vector database, and ranks listings
 
 ## Production Deployment
 
-### Frontend (Vercel)
+### 1. Backend (Google Cloud Run)
 
-1. **Initial Setup**
-   ```bash
-   cd frontend
-   vercel
-   ```
-   Follow the prompts to link/create a project.
+The backend is deployed to Cloud Run using the `deploy.sh` script. It uses Google Secret Manager for sensitive configuration.
 
-2. **Add Environment Variables** in Vercel Dashboard → Settings → Environment Variables:
-   | Variable | Value |
-   |----------|-------|
-   | `VITE_SUPABASE_URL` | `https://[project-ref].supabase.co` |
-   | `VITE_SUPABASE_ANON_KEY` | Your Supabase anon key |
-   | `VITE_APP_URL` | Your Vercel deployment URL |
-   | `VITE_BACKEND_URL` | Your Cloud Run URL (after backend deploy) |
+**One-time Setup:**
+```bash
+cd backend
+./setup-secrets.sh
+# Follow prompts to enter API keys (OpenAI, Supabase, Redis, etc.)
+```
 
-3. **Deploy**
-   ```bash
-   vercel --prod
-   ```
+**Updating Secrets:**
+If you need to update a secret (e.g., Supabase Anon Key), use the safe update script to avoid newline issues:
+```bash
+cd backend
+./update_secret.sh
+```
 
-### Backend (Cloud Run)
+**Deploy:**
+```bash
+cd backend
+./deploy.sh
+```
+This will deploy the container and map the secrets automatically.
 
-1. **Deploy**
-   ```bash
-   cd backend
-   gcloud run deploy spareroom-api \
-     --source . \
-     --region europe-west2 \
-     --allow-unauthenticated \
-     --set-env-vars "OPENAI_API_KEY=sk-..." \
-     --set-env-vars "REDIS_HOST=..." \
-     --set-env-vars "REDIS_PORT=..." \
-     --set-env-vars "REDIS_PASSWORD=..." \
-     --set-env-vars "SUPABASE_URL=https://[project-ref].supabase.co" \
-     --set-env-vars "FRONTEND_URL=https://[your-app].vercel.app"
-   ```
+### 2. Frontend (Vercel)
 
-2. **Update Vercel** with the Cloud Run URL:
-   - Add `VITE_BACKEND_URL` in Vercel Dashboard
-   - Redeploy: `vercel --prod`
+The frontend is deployed to Vercel.
 
-### Supabase (Production)
+**Environment Variables:**
+You must set the following in **Vercel Dashboard > Settings > Environment Variables**:
 
-1. **Create Project** at https://supabase.com/dashboard
+| Variable | Description |
+|----------|-------------|
+| `VITE_SUPABASE_URL` | Your production Supabase Project URL |
+| `VITE_SUPABASE_ANON_KEY` | Your production Supabase Anon Key |
+| `VITE_BACKEND_URL` | The Cloud Run URL (from step 1) |
+| `VITE_APP_URL` | Your Vercel production URL (e.g., `https://your-app.vercel.app`) |
 
-2. **Link and Push Schema**
-   ```bash
-   supabase link --project-ref [YOUR_PROJECT_REF]
-   supabase db push
-   ```
+**Deploy:**
+```bash
+cd frontend
+vercel --prod
+```
 
-3. **Configure Auth Redirects** at Dashboard → Authentication → URL Configuration:
-   - **Site URL**: `https://[your-app].vercel.app`
-   - **Redirect URLs**: Add your Vercel URL
+### 3. Supabase Auth Configuration
 
-### Environment Variables Summary
-
-| Service | Variable | Description |
-|---------|----------|-------------|
-| Vercel | `VITE_SUPABASE_URL` | Production Supabase URL |
-| Vercel | `VITE_SUPABASE_ANON_KEY` | Production Supabase anon key |
-| Vercel | `VITE_APP_URL` | Vercel deployment URL |
-| Vercel | `VITE_BACKEND_URL` | Cloud Run URL |
-| Cloud Run | `OPENAI_API_KEY` | OpenAI API key |
-| Cloud Run | `REDIS_HOST` | Redis Cloud host |
-| Cloud Run | `REDIS_PORT` | Redis Cloud port |
-| Cloud Run | `REDIS_PASSWORD` | Redis Cloud password |
-| Cloud Run | `SUPABASE_URL` | Production Supabase URL |
-| Cloud Run | `FRONTEND_URL` | Vercel URL (for CORS)
+For Magic Links to work in production, you must whitelist your Vercel URL:
+1. Go to **Supabase Dashboard > Authentication > URL Configuration**.
+2. Add your Vercel URL to **Redirect URLs** (e.g., `https://your-app.vercel.app/**`).
