@@ -213,3 +213,77 @@ VITE_APP_URL=http://localhost:5173
    - "Need a pet-friendly place"
 
 The assistant extracts filters, searches the vector database, and ranks listings using GPT-4 vision.
+
+## Production Deployment
+
+### Frontend (Vercel)
+
+1. **Initial Setup**
+   ```bash
+   cd frontend
+   vercel
+   ```
+   Follow the prompts to link/create a project.
+
+2. **Add Environment Variables** in Vercel Dashboard → Settings → Environment Variables:
+   | Variable | Value |
+   |----------|-------|
+   | `VITE_SUPABASE_URL` | `https://[project-ref].supabase.co` |
+   | `VITE_SUPABASE_ANON_KEY` | Your Supabase anon key |
+   | `VITE_APP_URL` | Your Vercel deployment URL |
+   | `VITE_BACKEND_URL` | Your Cloud Run URL (after backend deploy) |
+
+3. **Deploy**
+   ```bash
+   vercel --prod
+   ```
+
+### Backend (Cloud Run)
+
+1. **Deploy**
+   ```bash
+   cd backend
+   gcloud run deploy spareroom-api \
+     --source . \
+     --region europe-west2 \
+     --allow-unauthenticated \
+     --set-env-vars "OPENAI_API_KEY=sk-..." \
+     --set-env-vars "REDIS_HOST=..." \
+     --set-env-vars "REDIS_PORT=..." \
+     --set-env-vars "REDIS_PASSWORD=..." \
+     --set-env-vars "SUPABASE_URL=https://[project-ref].supabase.co" \
+     --set-env-vars "FRONTEND_URL=https://[your-app].vercel.app"
+   ```
+
+2. **Update Vercel** with the Cloud Run URL:
+   - Add `VITE_BACKEND_URL` in Vercel Dashboard
+   - Redeploy: `vercel --prod`
+
+### Supabase (Production)
+
+1. **Create Project** at https://supabase.com/dashboard
+
+2. **Link and Push Schema**
+   ```bash
+   supabase link --project-ref [YOUR_PROJECT_REF]
+   supabase db push
+   ```
+
+3. **Configure Auth Redirects** at Dashboard → Authentication → URL Configuration:
+   - **Site URL**: `https://[your-app].vercel.app`
+   - **Redirect URLs**: Add your Vercel URL
+
+### Environment Variables Summary
+
+| Service | Variable | Description |
+|---------|----------|-------------|
+| Vercel | `VITE_SUPABASE_URL` | Production Supabase URL |
+| Vercel | `VITE_SUPABASE_ANON_KEY` | Production Supabase anon key |
+| Vercel | `VITE_APP_URL` | Vercel deployment URL |
+| Vercel | `VITE_BACKEND_URL` | Cloud Run URL |
+| Cloud Run | `OPENAI_API_KEY` | OpenAI API key |
+| Cloud Run | `REDIS_HOST` | Redis Cloud host |
+| Cloud Run | `REDIS_PORT` | Redis Cloud port |
+| Cloud Run | `REDIS_PASSWORD` | Redis Cloud password |
+| Cloud Run | `SUPABASE_URL` | Production Supabase URL |
+| Cloud Run | `FRONTEND_URL` | Vercel URL (for CORS)
