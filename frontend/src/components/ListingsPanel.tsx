@@ -18,9 +18,17 @@ const LOADING_MESSAGES = [
   'Ranking the best matches...',
 ];
 
-function LoadingIndicator() {
+interface ScoringProgress {
+  scored: number;
+  total: number;
+}
+
+function LoadingIndicator({ scoringProgress }: { scoringProgress: ScoringProgress }) {
   const [messageIndex, setMessageIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
+
+  const { scored, total } = scoringProgress;
+  const isScoring = total > 0;
+  const progress = isScoring ? (scored / total) * 100 : 0;
 
   useEffect(() => {
     // Cycle through messages every 3 seconds
@@ -28,20 +36,8 @@ function LoadingIndicator() {
       setMessageIndex(prev => (prev + 1) % LOADING_MESSAGES.length);
     }, 3000);
 
-    // Update progress bar smoothly
-    const progressInterval = setInterval(() => {
-      setProgress(prev => {
-        // Slow down as we approach 90%
-        if (prev >= 90) return prev;
-        if (prev >= 70) return prev + 0.5;
-        if (prev >= 50) return prev + 1;
-        return prev + 2;
-      });
-    }, 200);
-
     return () => {
       clearInterval(messageInterval);
-      clearInterval(progressInterval);
     };
   }, []);
 
@@ -49,11 +45,11 @@ function LoadingIndicator() {
     <Box sx={{ textAlign: 'center', py: 4 }}>
       <CircularProgress size={32} sx={{ mb: 2 }} />
       <Typography color="text.primary" variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
-        {LOADING_MESSAGES[messageIndex]}
+        {isScoring ? `Scoring listings... (${scored}/${total})` : LOADING_MESSAGES[messageIndex]}
       </Typography>
       <Box sx={{ width: '80%', mx: 'auto', mt: 2 }}>
         <LinearProgress
-          variant="determinate"
+          variant={isScoring ? "determinate" : "indeterminate"}
           value={progress}
           sx={{
             height: 6,
@@ -66,7 +62,7 @@ function LoadingIndicator() {
         />
       </Box>
       <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-        This may take a moment...
+        {isScoring ? 'Results appear as they are scored' : 'This may take a moment...'}
       </Typography>
     </Box>
   );
@@ -87,6 +83,7 @@ interface ListingsPanelProps {
   onShortlist: (listing: ListingWithScore) => void;
   onUndo: () => void;
   mode?: 'matches' | 'shortlist';
+  scoringProgress?: ScoringProgress;
 }
 
 export default function ListingsPanel({
@@ -97,7 +94,8 @@ export default function ListingsPanel({
   onReject,
   onShortlist,
   onUndo,
-  mode = 'matches'
+  mode = 'matches',
+  scoringProgress = { scored: 0, total: 0 }
 }: ListingsPanelProps) {
   const [page, setPage] = useState(1);
 
@@ -165,8 +163,9 @@ export default function ListingsPanel({
         </>
       )}
 
-      {loading ? (
-        <LoadingIndicator />
+      {/* Show loading indicator if loading and no results yet */}
+      {loading && filteredListings.length === 0 ? (
+        <LoadingIndicator scoringProgress={scoringProgress} />
       ) : filteredListings.length === 0 ? (
         <Box sx={{ textAlign: 'center', py: 4 }}>
           <Typography color="text.secondary" variant="body2" sx={{ mb: 1 }}>
@@ -188,6 +187,28 @@ export default function ListingsPanel({
         </Box>
       ) : (
         <>
+          {/* Show progress bar when still loading but have some results */}
+          {loading && scoringProgress.total > 0 && (
+            <Box sx={{ mb: 2 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                <Typography variant="caption" color="text.secondary">
+                  Scoring listings... ({scoringProgress.scored}/{scoringProgress.total})
+                </Typography>
+                <CircularProgress size={16} />
+              </Box>
+              <LinearProgress
+                variant="determinate"
+                value={(scoringProgress.scored / scoringProgress.total) * 100}
+                sx={{
+                  height: 4,
+                  borderRadius: 2,
+                  bgcolor: 'grey.200',
+                  '& .MuiLinearProgress-bar': { borderRadius: 2 }
+                }}
+              />
+            </Box>
+          )}
+
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {paginatedListings.map((listing, index) => {
               const globalIndex = startIndex + index;

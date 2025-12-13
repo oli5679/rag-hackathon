@@ -4,7 +4,7 @@ import os
 import json
 from typing import Any
 
-from openai import OpenAI
+from openai import AsyncOpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -15,31 +15,31 @@ VISION_MODEL = "gpt-4o"
 
 
 class OpenAIClient:
-    """Client for OpenAI API interactions."""
+    """Async client for OpenAI API interactions."""
 
     def __init__(self) -> None:
-        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    def embed(self, text: str) -> list[float]:
+    async def embed(self, text: str) -> list[float]:
         """Generate embedding for a single text."""
-        response = self.client.embeddings.create(model=EMBEDDING_MODEL, input=text)
+        response = await self.client.embeddings.create(model=EMBEDDING_MODEL, input=text)
         return response.data[0].embedding
 
-    def embed_batch(self, texts: list[str]) -> list[list[float]]:
+    async def embed_batch(self, texts: list[str]) -> list[list[float]]:
         """Generate embeddings for multiple texts."""
-        response = self.client.embeddings.create(model=EMBEDDING_MODEL, input=texts)
+        response = await self.client.embeddings.create(model=EMBEDDING_MODEL, input=texts)
         return [item.embedding for item in response.data]
 
-    def chat(self, messages: list[dict[str, str]], max_tokens: int = 200) -> str:
+    async def chat(self, messages: list[dict[str, str]], max_tokens: int = 200) -> str:
         """Generate a chat completion."""
-        response = self.client.chat.completions.create(
+        response = await self.client.chat.completions.create(
             model=CHAT_MODEL,
             messages=messages,  # type: ignore[arg-type]
             max_tokens=max_tokens
         )
         return response.choices[0].message.content or ""
 
-    def summarize_conversation(self, conversation: list[dict[str, str]]) -> str:
+    async def summarize_conversation(self, conversation: list[dict[str, str]]) -> str:
         """Extract structured information from a conversation."""
         system = """Extract the information from the conversation in a structured format.
 Focus on: what the user is looking for, their key requirements, preferences, and any deal-breakers.
@@ -69,7 +69,7 @@ Be concise and factual. Extract the data in the following format (JSON):
 
         conv_text = "\n".join([f"{m['role']}: {m['content']}" for m in conversation])
 
-        response = self.client.chat.completions.create(
+        response = await self.client.chat.completions.create(
             model=CHAT_MODEL,
             messages=[
                 {"role": "system", "content": system},
@@ -79,7 +79,7 @@ Be concise and factual. Extract the data in the following format (JSON):
         )
         return response.choices[0].message.content or ""
 
-    def generate_ideal_listing(self, conversation: list[dict[str, str]]) -> dict[str, Any]:
+    async def generate_ideal_listing(self, conversation: list[dict[str, str]]) -> dict[str, Any]:
         """Generate an ideal listing based on conversation preferences."""
         system = """Based on the conversation, create an ideal room listing that matches what the user is looking for.
 Return JSON with this schema (use null for unspecified fields):
@@ -102,14 +102,15 @@ Return JSON with this schema (use null for unspecified fields):
     "max_rent": number - maximum monthly rent or null,
     "min_rent": number - minimum monthly rent or null,
     "target_location": "string - place user needs to commute to (e.g. 'Bank Station', 'Canary Wharf') or null",
-    "max_commute": "string - acceptable commute time (e.g. '30 minutes', '45 min by tube') or null"
+    "max_commute": "string - acceptable commute time (e.g. '30 minutes', '45 min by tube') or null",
+    "min_tenancy_months": number - minimum months user can commit to (e.g. 3, 6, 12) or null
 }
 Extract preferences from the conversation. Only set fields that are mentioned or clearly implied.
 For target_location, look for workplace, office, university, or places they mentioned needing to get to."""
 
         conv_text = "\n".join([f"{m['role']}: {m['content']}" for m in conversation])
 
-        response = self.client.chat.completions.create(
+        response = await self.client.chat.completions.create(
             model=CHAT_MODEL,
             messages=[
                 {"role": "system", "content": system},
@@ -119,7 +120,7 @@ For target_location, look for workplace, office, university, or places they ment
         )
         return json.loads(response.choices[0].message.content or "{}")
 
-    def extract_rules(
+    async def extract_rules(
         self,
         message: str,
         existing_rules: list[dict[str, Any]]
@@ -144,17 +145,20 @@ Supported fields:
 - max_budget (integer, unit: "GBP")
 - target_location (string - place user commutes TO, e.g. "Liverpool Street Station", "Canary Wharf")
 - max_commute (string - acceptable travel time, e.g. "30 minutes", "45 min by tube")
+- min_tenancy (integer - minimum months user can commit to, e.g. 3, 6, 12)
 - pets_allowed (boolean)
 - bills_included (boolean)
 - couples_ok (boolean)
 - parking (boolean)
 - furnished (boolean)
 
+For min_tenancy: extract how long the user wants to stay. "at least 6 months" → 6, "a year" → 12, "flexible/short term" → 1
+
 Return the COMPLETE updated list (keep existing rules unless user contradicts them)."""
 
         rules_json = json.dumps(existing_rules) if existing_rules else "[]"
 
-        response = self.client.chat.completions.create(
+        response = await self.client.chat.completions.create(
             model=CHAT_MODEL,
             messages=[
                 {"role": "system", "content": system},
@@ -175,7 +179,44 @@ Return the COMPLETE updated list (keep existing rules unless user contradicts th
         except (json.JSONDecodeError, KeyError):
             return existing_rules
 
-    def score_listing(
+    async def parse_minimum_terms_batch(self, listings: list[dict[str, Any]]) -> dict[str, int | None]:
+        """Use LLM to parse minimum term strings to months for multiple listings at once."""
+        # Build a mapping of id -> minimum_term for non-empty terms
+        terms_to_parse: dict[str, str] = {}
+        for listing in listings:
+            term = listing.get("minimum_term", "")
+            if term and term.lower() not in ["unknown", "none", ""]:
+                terms_to_parse[listing["id"]] = term
+
+        if not terms_to_parse:
+            return {}
+
+        # Format for LLM
+        terms_text = "\n".join([f"- {lid}: {term}" for lid, term in terms_to_parse.items()])
+
+        response = await self.client.chat.completions.create(
+            model=CHAT_MODEL,
+            messages=[
+                {"role": "system", "content": """Parse minimum tenancy terms to months. Return JSON object with listing IDs as keys and month values (integers or null).
+Example input:
+- 123: 6 months
+- 456: 1 year
+- 789: flexible
+
+Example output: {"123": 6, "456": 12, "789": null}"""},
+                {"role": "user", "content": terms_text}
+            ],
+            response_format={"type": "json_object"},
+            max_tokens=500
+        )
+        try:
+            result = json.loads(response.choices[0].message.content or "{}")
+            # Convert to int where possible
+            return {k: int(v) if v is not None else None for k, v in result.items()}
+        except (json.JSONDecodeError, ValueError, TypeError):
+            return {}
+
+    async def score_listing(
         self,
         conversation_summary: str,
         ideal_listing: dict[str, Any],
@@ -219,6 +260,7 @@ Return JSON with this schema:
 {{
     "location_match": {{"reasoning": "string - MUST mention estimated commute time to target location if specified", "score": number (1-100)}},
     "price_match": {{"reasoning": "string - consider value for money, not just if it's under budget", "score": number (1-100)}},
+    "tenancy_match": {{"reasoning": "string - compare listing's minimum term to user's availability. If user can only stay 3 months but listing requires 12, score LOW. If flexible or matches, score HIGH", "score": number (1-100)}},
     "amenities_match": {{"reasoning": "string", "score": number (1-100)}},
     "visual_quality": {{"reasoning": "string - MUST describe what you see in the images: room size, light, cleanliness, furniture quality, overall vibe", "score": number (1-100)}},
     "overall_reasoning": "string - 2-3 sentence summary emphasizing visual appeal",
@@ -242,7 +284,7 @@ Be critical and realistic. 50 is average, 70+ is good, 90+ is excellent. A beaut
                     "image_url": {"url": url, "detail": "low"}
                 })
 
-        response = self.client.chat.completions.create(
+        response = await self.client.chat.completions.create(
             model=VISION_MODEL if image_urls else CHAT_MODEL,
             messages=[
                 {"role": "system", "content": system},
